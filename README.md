@@ -7,6 +7,7 @@ Your task: Implement table sorting in ASC order, by clicking on table headers.
 As always, all the necessary styles have already been written for you, you do not need to change the layout or styles in this task.
 
 Start table:
+
 ![Preview](./src/images/preview.png)
 
 ##### Implement table sorting by clicking on the title
