@@ -1,3 +1,5 @@
+Follow [this instruction](https://github.com/mate-academy/layout_task-guideline/blob/master/README.md) to solve task
+
 ### Task: Sort of employees table
 
 Hi! In previous tasks, you already implemented table sort by salary. Today task is the same but with using browser events.
