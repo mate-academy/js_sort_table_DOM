@@ -21,40 +21,32 @@ table.addEventListener('click', (event) => {
       .localeCompare(value2.children[index].innerText);
   }
 
-  if (target === NAME) {
-    const sortName = [...tableBody.children].sort((a, b) => {
-      return sortString(a, b, 0);
-    });
-
-    tableBody.append(...sortName);
+  function sortNumber(value1, value2, index) {
+    return value1.children[index].innerText - value2.children[index].innerText;
   }
 
-  if (target === POSITION) {
-    const sortPosition = [...tableBody.children].sort((a, b) => {
-      return sortString(a, b, 1);
-    });
-
-    tableBody.append(...sortPosition);
+  function clearSalary(salary, index) {
+    return salary.children[index].innerText
+      .split('$').join('').split(',').join('.');
   }
 
-  if (target === AGE) {
-    const sortAge = [...tableBody.children].sort((a, b) => {
-      return a.children[2].innerText - b.children[2].innerText;
-    });
-
-    tableBody.append(...sortAge);
+  function sortRowsBy(arr, callback, index) {
+    return [...arr].sort((a, b) => callback(a, b, index));
   }
 
-  function clearSalary(salary) {
-    return salary.split('$').join('').split(',').join('.');
-  }
-
-  if (target === SALARY) {
-    const sortSalary = [...tableBody.children].sort((a, b) => {
-      return clearSalary(a.children[3].innerText)
-      - clearSalary(b.children[3].innerText);
-    });
-
-    tableBody.append(...sortSalary);
+  switch (target) {
+    case NAME :
+      tableBody.append(...sortRowsBy(tableBody.children, sortString, 0));
+      break;
+    case POSITION :
+      tableBody.append(...sortRowsBy(tableBody.children, sortString, 1));
+      break;
+    case AGE :
+      tableBody.append(...sortRowsBy(tableBody.children, sortNumber, 2));
+      break;
+    case SALARY :
+      tableBody.append(...[...tableBody.children].sort((a, b) => {
+        return clearSalary(a, 3) - clearSalary(b, 3);
+      }));
   }
 });
