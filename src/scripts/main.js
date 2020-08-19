@@ -1,19 +1,20 @@
 'use strict';
 
-const rows = [...document.querySelectorAll('tbody tr')];
+const employees = [...document.querySelectorAll('tbody tr')];
+const categories = [...document.querySelectorAll(`thead th`)];
 
-for (let i = 0; i < 4; i++) {
-  document.querySelector(`thead tr`).children[i].onclick = () => {
-    rows.sort(sorterConstructor(i));
-    document.querySelector('tbody').append(...rows);
+for (const category of categories) {
+  category.onclick = () => {
+    employees.sort(sorterConstructor(categories.indexOf(category)));
+    document.querySelector('tbody').append(...employees);
   };
 };
 
-function sorterConstructor(sortby) {
+function sorterConstructor(sortByIndex) {
   return function(a, b) {
-    let itemA = a.children[sortby].innerHTML
+    let itemA = a.children[sortByIndex].innerHTML
       .split('$').join('').split(',').join('');
-    let itemB = b.children[sortby].innerHTML
+    let itemB = b.children[sortByIndex].innerHTML
       .split('$').join('').split(',').join('');
 
     if (!isNaN(itemA)) {
