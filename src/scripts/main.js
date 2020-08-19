@@ -11,12 +11,14 @@ for (let i = 0; i < 4; i++) {
 
 function sorterConstructor(sortby) {
   return function(a, b) {
-    let itemA = a.children[sortby].innerHTML;
-    let itemB = b.children[sortby].innerHTML;
+    let itemA = a.children[sortby].innerHTML
+      .split('$').join('').split(',').join('');
+    let itemB = b.children[sortby].innerHTML
+      .split('$').join('').split(',').join('');
 
-    if (!isNaN(itemA.split('$').join('').split(',').join(''))) {
-      itemA = +itemA.split('$').join('').split(',').join('');
-      itemB = +itemB.split('$').join('').split(',').join('');
+    if (!isNaN(itemA)) {
+      itemA = +itemA;
+      itemB = +itemB;
     };
 
     return itemA > itemB ? 1 : -1;
