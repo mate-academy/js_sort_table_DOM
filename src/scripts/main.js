@@ -6,37 +6,27 @@ const thead = document.querySelector('thead');
 thead.addEventListener('click', (event) => {
   const th = event.target;
   const cellIndex = th.cellIndex;
+  const cellName = th.innerText;
 
-  sortTableByColumn(cellIndex, th.dataset.type);
+  sortTableByColumn(cellIndex, cellName);
 });
 
-function sortTableByColumn(columnIndex, type) {
+function sortTableByColumn(columnIndex, columnName) {
   const rows = [...tbody.rows];
 
-  let compareFunction;
+  rows.sort((a, b) => {
+    let rowA = a.cells[columnIndex].textContent;
+    let rowB = b.cells[columnIndex].textContent;
 
-  switch (type) {
-    case 'string':
-      compareFunction = (a, b) =>
-        a.cells[columnIndex].textContent.localeCompare(
-          b.cells[columnIndex].textContent
-        );
-      break;
-    case 'number':
-      compareFunction = (a, b) =>
-        Number(a.cells[columnIndex].textContent)
-          - Number(b.cells[columnIndex].textContent);
-      break;
-    case 'currency':
-      compareFunction = (a, b) =>
-        toNumber(a.cells[columnIndex].textContent)
-        - toNumber(b.cells[columnIndex].textContent);
-  }
+    if (columnName === 'Salary') {
+      rowA = +rowA.replace(/[$,]/g, '');
+      rowB = +rowB.replace(/[$,]/g, '');
+    }
 
-  rows.sort(compareFunction);
+    return columnName === 'Age' || columnName === 'Salary'
+      ? Number(rowA) - Number(rowB)
+      : rowA.localeCompare(rowB);
+  });
+
   tbody.append(...rows);
-}
-
-function toNumber(str) {
-  return +str.replace('$', '').replace(',', '');
 }
