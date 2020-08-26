@@ -5,10 +5,8 @@ const thead = document.querySelector('thead');
 
 thead.addEventListener('click', (event) => {
   const th = event.target;
-  const cellIndex = th.cellIndex;
-  const cellName = th.innerText;
 
-  sortTableByColumn(cellIndex, cellName);
+  sortTableByColumn(th.cellIndex, th.innerText);
 });
 
 function sortTableByColumn(columnIndex, columnName) {
