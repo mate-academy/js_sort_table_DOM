@@ -9,12 +9,12 @@
       const sortList = [...table.querySelectorAll('tr')].sort((a, b) => {
         const elem1 = a
           .children[index]
-          .innerHTML
+          .textContent
           .replace(/[$,]/g, '');
 
         const elem2 = b
           .children[index]
-          .innerHTML
+          .textContent
           .replace(/[$,]/g, '');
 
         if (isFinite(elem1)) {
