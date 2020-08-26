@@ -6,19 +6,17 @@ thead.addEventListener('click', event => {
   const index = [...thead.children].indexOf(event.target);
   const tbody = document.querySelectorAll('table tbody tr');
 
-  const cells = [...tbody]
+  const sortedEmployees = [...tbody]
     .sort((a, b) => {
-      const innerTextA = a.children[index].innerText
+      const emloyeeA = a.children[index].innerText
         .replace(/[^0-9a-z]/gi, '');
-      const innerTextB = b.children[index].innerText
+      const emloyeeB = b.children[index].innerText
         .replace(/[^0-9a-z]/gi, '');
 
-      return !isNaN(+innerTextA)
-        ? (+innerTextA) - (+innerTextB)
-        : innerTextA.localeCompare(innerTextB);
+      return !isNaN(+emloyeeA)
+        ? (+emloyeeA) - (+emloyeeB)
+        : emloyeeA.localeCompare(emloyeeB);
     });
 
-  for (const cell of cells) {
-    document.querySelector('table tbody').append(cell);
-  }
+  document.querySelector('table tbody').append(...sortedEmployees);
 });
