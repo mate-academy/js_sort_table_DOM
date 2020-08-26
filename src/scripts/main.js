@@ -1,11 +1,5 @@
 'use strict';
 
-// define columns positions
-const namePosition = 0;
-const positionPosition = 1;
-const agePosition = 2;
-const salaryPosition = 3;
-
 // define functions
 function sortListWithTextValues(list, container) {
   list.sort((a, b) => a.innerText.localeCompare(b.innerHTML));
@@ -44,6 +38,12 @@ function sortSalaries() {
   toDocumentAppender(salaries, tbody);
 }
 
+// define columns positions
+const namePosition = 0;
+const positionPosition = 1;
+const agePosition = 2;
+const salaryPosition = 3;
+
 // get container and list
 const tbody = document.querySelector('tbody');
 const names = [...tbody.querySelectorAll('tr')]
@@ -56,14 +56,15 @@ const salaries = [...tbody.querySelectorAll('tr')]
   .map(tr => tr.children[salaryPosition]);
 
 // set events
-document.querySelectorAll('th')[namePosition]
-  .addEventListener('click', sortNames);
-
-document.querySelectorAll('th')[positionPosition]
-  .addEventListener('click', sortPositions);
-
-document.querySelectorAll('th')[agePosition]
-  .addEventListener('click', sortAges);
-
-document.querySelectorAll('th')[salaryPosition]
-  .addEventListener('click', sortSalaries);
+document.querySelectorAll('th').forEach((th, index) => {
+  switch (index) {
+    case namePosition:
+      th.addEventListener('click', sortNames); break;
+    case positionPosition:
+      th.addEventListener('click', sortPositions); break;
+    case agePosition:
+      th.addEventListener('click', sortAges); break;
+    case salaryPosition:
+      th.addEventListener('click', sortSalaries); break;
+  }
+});
