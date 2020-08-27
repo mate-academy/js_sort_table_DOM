@@ -3,15 +3,15 @@
 const table = document.querySelector('table');
 
 table.tHead.addEventListener('click', (event) => {
-  sortList(event.target.cellIndex);
+  sortList(event.target.cellIndex, event.target.textContent);
 });
 
-function sortList(index) {
+function sortList(index, text) {
   const sortedRows = [...table.tBodies[0].rows].sort((a, b) => {
     let first = a.cells[index].textContent;
     let second = b.cells[index].textContent;
 
-    if (index === 3) {
+    if (text === 'Salary') {
       first = first.replace(/[$,]/g, '');
       second = second.replace(/[$,]/g, '');
     }
