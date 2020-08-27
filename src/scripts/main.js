@@ -4,7 +4,9 @@ const tbody = document.querySelector('tbody');
 const thead = document.querySelector('thead');
 
 thead.addEventListener('click', (event) => {
-  sortTableByColumn(event.target.cellIndex);
+  const th = event.target;
+
+  sortTableByColumn(th.cellIndex, th.innerText);
 });
 
 function sortTableByColumn(columnIndex, columnName) {
