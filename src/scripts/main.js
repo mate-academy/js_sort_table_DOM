@@ -5,13 +5,9 @@ const thead = document.querySelector('thead');
 
 const employees = tbody.children;
 const headings = thead.firstElementChild.children;
-const convertNeeded = [];
+const convertNeeded = ['Salary'];
 
 [...headings].map((heading, index) => {
-  if (heading.textContent.toLowerCase() === 'salary') {
-    convertNeeded.push(heading.textContent);
-  }
-
   heading.addEventListener('click', () => {
     const sorted = [...employees].sort((a, b) => {
       const first = a.children[index].innerHTML;
