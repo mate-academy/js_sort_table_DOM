@@ -42,12 +42,10 @@ function sortTable(tblBody, columnIndex) {
   tblBody.append(...sortedRows);
 }
 
-document.addEventListener('click', e => {
-  const element = e.target;
-
-  if (element.parentNode.parentNode.tagName === 'THEAD') {
-    const headerIndex = tableHeaders.indexOf(element);
+tableHeaders.map(header => {
+  header.addEventListener('click', e => {
+    const headerIndex = tableHeaders.indexOf(e.target);
 
     sortTable(tBody, headerIndex);
-  }
+  });
 });
