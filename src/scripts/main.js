@@ -9,8 +9,8 @@ listHeader.map((item, index) => {
     const rows = [ ...list.querySelectorAll('tr') ];
 
     rows.sort((a, b) => {
-      const itemA = a.children[index].innerHTML.replace(/[^A-Z0-9]/gi, '');
-      const itemB = b.children[index].innerHTML.replace(/[^A-Z0-9]/gi, '');
+      const itemA = a.children[index].innerText.replace(/[^A-Z0-9]/gi, '');
+      const itemB = b.children[index].innerText.replace(/[^A-Z0-9]/gi, '');
 
       if (!isNaN(itemA)) {
         return (+itemA) - (+itemB);
