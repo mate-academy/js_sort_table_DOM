@@ -6,11 +6,10 @@ const tbody = document.querySelector('tbody');
 
 thead.addEventListener('click', (event) => {
   const indexHead = [...thead.children].indexOf(event.target);
-  let findSorting = tr[indexHead].children[indexHead];
+  const findSorting = tr[indexHead].children[indexHead];
 
   if (findSorting.textContent[0] === '$'
     || !isNaN(parseFloat(findSorting.textContent))) {
-
     const sorted = [...tr].sort((a, b) => {
       return replacementSigns(a.children[indexHead].textContent)
         - replacementSigns(b.children[indexHead].textContent);
