@@ -4,23 +4,23 @@ const tbody = document.querySelector('tbody');
 const thead = document.querySelector('thead');
 
 thead.addEventListener('click', (event) => {
-  sortTableByColumn(event.target.cellIndex,);
+  sortTableByColumn(event.target.cellIndex);
 });
 
-function sortTableByColumn(columnIndex) {
+function sortTableByColumn(columnIndex, columnName) {
   const rows = [...tbody.rows];
 
   rows.sort((a, b) => {
     let rowA = a.cells[columnIndex].textContent;
     let rowB = b.cells[columnIndex].textContent;
 
-    if (columnIndex === 3) {
+    if (columnName === 'Salary') {
       rowA = +rowA.replace(/[$,]/g, '');
       rowB = +rowB.replace(/[$,]/g, '');
     }
 
-    return columnIndex === 2 || columnIndex === 3
-      ? (+rowA) - (+rowB)
+    return columnName === 'Age' || columnName === 'Salary'
+      ? Number(rowA) - Number(rowB)
       : rowA.localeCompare(rowB);
   });
 
