@@ -14,6 +14,7 @@ function sortTableByColumn(columnIndex, columnName) {
 
   rows.sort((a, b) => {
     let rowA = a.cells[columnIndex].textContent;
+
     let rowB = b.cells[columnIndex].textContent;
 
     if (columnName === 'Salary') {
