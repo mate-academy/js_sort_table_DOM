@@ -3,21 +3,21 @@
 const tbody = document.querySelector('tbody');
 const row = tbody.querySelectorAll('tr');
 
-[...row].forEach(trtb => {
-  trtb.children[0].className = 'name';
-  trtb.children[1].className = 'position';
-  trtb.children[2].className = 'age';
-  trtb.children[3].className = 'salary';
+[...row].forEach(tableCell => {
+  tableCell.children[0].className = 'name';
+  tableCell.children[1].className = 'position';
+  tableCell.children[2].className = 'age';
+  tableCell.children[3].className = 'salary';
 });
 
 const thead = document.querySelector('thead');
 const tr = thead.querySelectorAll('tr');
 
-[...tr].forEach(trth => {
-  trth.children[0].id = 'name';
-  trth.children[1].id = 'position';
-  trth.children[2].id = 'age';
-  trth.children[3].id = 'salary';
+[...tr].forEach(headCell => {
+  headCell.children[0].id = 'name';
+  headCell.children[1].id = 'position';
+  headCell.children[2].id = 'age';
+  headCell.children[3].id = 'salary';
 });
 
 thead.addEventListener('click', (event) => {
