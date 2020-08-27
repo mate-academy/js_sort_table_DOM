@@ -1,29 +1,26 @@
 'use strict';
 
 const tbody = document.querySelector('tbody');
-
 const thead = document.querySelector('thead');
 
 thead.addEventListener('click', (event) => {
-  const th = event.target;
-
-  sortTableByColumn(th.cellIndex, th.innerText);
+  sortTableByColumn(event.target.cellIndex);
 });
 
-function sortTableByColumn(columnIndex, columnName) {
+function sortTableByColumn(columnIndex) {
   const rows = [...tbody.rows];
 
   rows.sort((a, b) => {
     let rowA = a.cells[columnIndex].textContent;
     let rowB = b.cells[columnIndex].textContent;
 
-    if (columnName === 'Salary') {
+    if (columnIndex === 3) {
       rowA = +rowA.replace(/[$,]/g, '');
       rowB = +rowB.replace(/[$,]/g, '');
     }
 
-    return columnName === 'Age' || columnName === 'Salary'
-      ? Number(rowA) - Number(rowB)
+    return columnIndex === 2 || columnIndex === 3
+      ? (+rowA) - (+rowB)
       : rowA.localeCompare(rowB);
   });
 
