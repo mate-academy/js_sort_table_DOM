@@ -11,9 +11,9 @@ for (let i = 0; i < filters.length; i++) {
         const one = a.children[i].innerHTML;
         const two = b.children[i].innerHTML;
 
-        if (i === 2) {
+        if (filters[i].innerText === 'Age') {
           return one - two;
-        } else if (i === 3) {
+        } else if (filters[i].innerText === 'Salary') {
           return parseInt(one.slice(1))
           - parseInt(two.slice(1));
         } else {
