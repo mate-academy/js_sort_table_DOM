@@ -10,16 +10,16 @@ thead.addEventListener('click', (event) => {
 
   if (findSorting.textContent[0] === '$'
     || !isNaN(parseFloat(findSorting.textContent))) {
-    const sorted = [...tr].sort((a, b) => {
-      return replacementSigns(a.children[indexHead].textContent)
-        - replacementSigns(b.children[indexHead].textContent);
+    const sorted = [...tr].sort((curr, next) => {
+      return replacementSigns(curr.children[indexHead].textContent)
+        - replacementSigns(next.children[indexHead].textContent);
     });
 
     tbody.append(...sorted);
   } else {
-    const sorted = [...tr].sort((a, b) => {
-      return a.children[indexHead].textContent
-        .localeCompare(b.children[indexHead].textContent);
+    const sorted = [...tr].sort((curr, next) => {
+      return curr.children[indexHead].textContent
+        .localeCompare(next.children[indexHead].textContent);
     });
 
     tbody.append(...sorted);
