@@ -1,70 +1,59 @@
 'use strict';
 
-// define functions
-function sortListWithTextValues(list, container) {
-  list.sort((a, b) => a.innerText.localeCompare(b.innerHTML));
-
-  toDocumentAppender(list, container);
-}
-
-function toDocumentAppender(list, container) {
-  list.forEach(elem => {
-    container.append(elem.parentElement);
-  });
-}
-
-function sortNames() {
-  sortListWithTextValues(names, tbody);
-}
-
-function sortPositions() {
-  sortListWithTextValues(positions, tbody);
-}
-
-function sortAges() {
-  ages.sort((a, b) => a.innerText - b.innerHTML);
-
-  toDocumentAppender(ages, tbody);
-}
-
-function sortSalaries() {
-  function getNumberFromSalaryString(str) {
-    return +str.slice(1).split(',').join('');
-  }
-
-  salaries.sort((a, b) => getNumberFromSalaryString(a.innerText)
-    - getNumberFromSalaryString(b.innerHTML));
-
-  toDocumentAppender(salaries, tbody);
-}
-
-// define columns positions
-const namePosition = 0;
-const positionPosition = 1;
-const agePosition = 2;
-const salaryPosition = 3;
-
-// get container and list
 const tbody = document.querySelector('tbody');
-const names = [...tbody.querySelectorAll('tr')]
-  .map(tr => tr.children[namePosition]);
-const positions = [...tbody.querySelectorAll('tr')]
-  .map(tr => tr.children[positionPosition]);
-const ages = [...tbody.querySelectorAll('tr')]
-  .map(tr => tr.children[agePosition]);
-const salaries = [...tbody.querySelectorAll('tr')]
-  .map(tr => tr.children[salaryPosition]);
+const list = [...tbody.children];
 
-// set events
-document.querySelectorAll('th').forEach((th, index) => {
-  switch (index) {
-    case namePosition:
-      th.addEventListener('click', sortNames); break;
-    case positionPosition:
-      th.addEventListener('click', sortPositions); break;
-    case agePosition:
-      th.addEventListener('click', sortAges); break;
-    case salaryPosition:
-      th.addEventListener('click', sortSalaries); break;
+// init functions
+function sortString(orderOfColumn) {
+  list.sort((a, b) => {
+    const firstElem = a.children[orderOfColumn].innerText;
+    const secondElem = b.children[orderOfColumn].innerText;
+
+    return firstElem.localeCompare(secondElem);
+  });
+
+  list.forEach(tr => tbody.append(tr));
+}
+
+function sortNumbers(orderOfColumn) {
+  list.sort((a, b) => {
+    const firstElem = a.children[orderOfColumn].innerText;
+    const secondElem = b.children[orderOfColumn].innerText;
+
+    return firstElem - secondElem;
+  });
+
+  list.forEach(tr => tbody.append(tr));
+}
+
+function sortSalary(orderOfColumn) {
+  function getNumber(str) {
+    return str.slice(1).split(',').join('');
   }
-});
+
+  list.sort((a, b) => {
+    const firstElem = getNumber(a.children[orderOfColumn].innerText);
+    const secondElem = getNumber(b.children[orderOfColumn].innerText);
+
+    return firstElem - secondElem;
+  });
+
+  list.forEach(tr => tbody.append(tr));
+}
+
+// set ivents
+document.querySelectorAll('th')[0].onclick = () => {
+  sortString(0);
+};
+
+document.querySelectorAll('th')[1].onclick = () => {
+  sortString(1);
+};
+
+document.querySelectorAll('th')[2].onclick = () => {
+  sortNumbers(2);
+};
+
+document.querySelectorAll('th')[3].onclick = () => {
+  sortSalary(3);
+};
