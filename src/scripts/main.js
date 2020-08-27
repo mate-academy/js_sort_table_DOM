@@ -42,10 +42,12 @@ function sortTable(tblBody, columnIndex) {
   tblBody.append(...sortedRows);
 }
 
-tableHeaders.map(header => {
-  header.addEventListener('click', e => {
-    const headerIndex = tableHeaders.indexOf(e.target);
+tableHead.addEventListener('click', ev => {
+  if (ev.target.tagName !== 'TH') {
+    return;
+  }
 
-    sortTable(tBody, headerIndex);
-  });
+  const headerIndex = tableHeaders.indexOf(ev.target);
+
+  sortTable(tBody, headerIndex);
 });
