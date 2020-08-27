@@ -1,6 +1,7 @@
 'use strict';
 
 const tbody = document.querySelector('tbody');
+
 const thead = document.querySelector('thead');
 
 thead.addEventListener('click', (event) => {
