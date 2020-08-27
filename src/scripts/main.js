@@ -5,22 +5,29 @@ const thead = document.querySelector('thead');
 
 const employees = tbody.children;
 const headings = thead.firstElementChild.children;
+const convertNeeded = [];
 
-[...headings].map((heading, index) =>
+[...headings].map((heading, index) => {
+  if (heading.textContent.toLowerCase() === 'salary') {
+    convertNeeded.push(heading.textContent);
+  }
+
   heading.addEventListener('click', () => {
     const sorted = [...employees].sort((a, b) => {
       const first = a.children[index].innerHTML;
       const second = b.children[index].innerHTML;
 
-      return (index === 3)
-        ? convertCurrencyToNumber(first) - convertCurrencyToNumber(second)
-        : first.localeCompare(second);
+      if (convertNeeded.includes(heading.textContent)) {
+        return (convertCurrencyToNum(first) - convertCurrencyToNum(second));
+      }
+
+      return first.localeCompare(second);
     });
 
     tbody.append(...sorted);
-  })
-);
+  });
+});
 
-function convertCurrencyToNumber(number) {
+function convertCurrencyToNum(number) {
   return +number.replace(/[$,]+/g, '');
 }
