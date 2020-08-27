@@ -43,10 +43,6 @@ function sortTable(tblBody, columnIndex) {
 }
 
 tableHead.addEventListener('click', ev => {
-  if (ev.target.tagName !== 'TH') {
-    return;
-  }
-
   const headerIndex = tableHeaders.indexOf(ev.target);
 
   sortTable(tBody, headerIndex);
