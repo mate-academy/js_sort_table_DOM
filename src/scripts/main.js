@@ -13,8 +13,11 @@ categories.addEventListener('click', (event) => {
     if (column === 2) {
       return first - second;
     } else if (column === 3) {
-      return +first.replace('$', '').replace(',', '.')
-      - +second.replace('$', '').replace(',', '.');
+      return ((
+        +first.replace('$', '').replace(',', '.')
+      ) - (
+        +second.replace('$', '').replace(',', '.')
+      ));
     } else {
       return first.localeCompare(second);
     }
