@@ -8,11 +8,11 @@ headerRow.addEventListener('click', handler);
 
 function handler(event) {
   const header = event.target;
-  const headerValues = ['Name', 'Position', 'Age', 'Salary'];
+  // const headerValues = ['Name', 'Position', 'Age', 'Salary'];
 
-  const sortIndex = headerValues.indexOf(header.innerText);
+  // const sortIndex = headerValues.indexOf(header.innerText);
 
-  tableSort(people, sortIndex);
+  tableSort(people, header.cellIndex);
 }
 
 function tableSort(rows, sortIndex) {
