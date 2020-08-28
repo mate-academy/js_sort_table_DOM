@@ -4,23 +4,15 @@ const tableHead = document.querySelector('thead');
 const tableBody = document.querySelector('tbody');
 
 [...document.querySelectorAll('th')]
-  .map(th => {
+  .forEach(th => {
     th.dataset.name = th.innerText;
   });
 
-function sortByName(a, b) {
+function sortByString(a, b) {
   return a > b ? 1 : -1;
 }
 
-function sortByPosition(a, b) {
-  return a > b ? 1 : -1;
-}
-
-function sortByAge(a, b) {
-  return a - b;
-}
-
-function sortBySalary(a, b) {
+function sortByNumber(a, b) {
   const first = a.replace(/[$,]/gi, '');
   const second = b.replace(/[$,]/gi, '');
 
@@ -38,16 +30,16 @@ tableHead.addEventListener('click', event => {
 
     switch (heading) {
       case 'Name':
-        return sortByName(valueA, valueB);
+        return sortByString(valueA, valueB);
 
       case 'Position':
-        return sortByPosition(valueA, valueB);
+        return sortByString(valueA, valueB);
 
       case 'Age':
-        return sortByAge(valueA, valueB);
+        return sortByNumber(valueA, valueB);
 
       case 'Salary':
-        return sortBySalary(valueA, valueB);
+        return sortByNumber(valueA, valueB);
 
       default:
         return 0;
