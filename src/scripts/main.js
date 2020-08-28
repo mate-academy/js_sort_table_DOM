@@ -8,46 +8,39 @@ const people = [...peopleContainer.children];
 const tableHeader = document.querySelector('thead');
 
 tableHeader.addEventListener('click', (event) => {
-  const nameColumn = tableHeader.firstElementChild.children[0];
-  const positionColumn = tableHeader.firstElementChild.children[1];
-  const ageColumn = tableHeader.firstElementChild.children[2];
-  const salaryColumn = tableHeader.firstElementChild.children[3];
+  function sorter(index, tableRows, rowsContainer) {
+    switch (index) {
+      case 2:
+        tableRows.sort((row1, row2) => {
+          return +(row1.children[index].innerText)
+          - +(row2.children[index].innerText);
+        }).forEach(elem => rowsContainer.append(elem));
+        break;
 
-  switch (event.target) {
-    case nameColumn:
-      people.sort((person1, person2) => {
-        return (person1.children[0].innerText).localeCompare(
-          person2.children[0].innerText
-        );
-      }).forEach(elem => peopleContainer.append(elem));
-      break;
+      case 3:
+        tableRows.sort((row1, row2) => {
+          return +(row1.children[index].innerText
+            .slice(1)
+            .split(',')
+            .join(''))
+          - +(row2.children[index].innerText
+            .slice(1)
+            .split(',')
+            .join(''));
+        }).forEach(elem => rowsContainer.append(elem));
+        break;
 
-    case positionColumn:
-      people.sort((person1, person2) => {
-        return (person1.children[1].innerText).localeCompare(
-          person2.children[1].innerText
-        );
-      }).forEach(elem => peopleContainer.append(elem));
-      break;
+      case 0:
+      case 1:
+      default:
+        tableRows.sort((row1, row2) => {
+          return (row1.children[index].innerText).localeCompare(
+            row2.children[index].innerText
+          );
+        }).forEach(elem => rowsContainer.append(elem));
+        break;
+    };
+  };
 
-    case ageColumn:
-      people.sort((person1, person2) => {
-        return (person1.children[2].innerText)
-          - person2.children[2].innerText;
-      }).forEach(elem => peopleContainer.append(elem));
-      break;
-
-    case salaryColumn:
-      people.sort((person1, person2) => {
-        return +(person1.children[3].innerText
-          .slice(1)
-          .split(',')
-          .join(''))
-        - +(person2.children[3].innerText
-          .slice(1)
-          .split(',')
-          .join(''));
-      }).forEach(elem => peopleContainer.append(elem));
-      break;
-  }
+  sorter(event.target.cellIndex, people, peopleContainer);
 });
