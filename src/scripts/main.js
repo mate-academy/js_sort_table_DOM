@@ -9,10 +9,7 @@ const data = [...document.querySelector('tbody').children].map(element => {
     salaryNum: formatSalary(element.children[3].textContent),
   };
 });
-const nameHeader = document.querySelector('table thead tr').children[0];
-const positionHeader = document.querySelector('table thead tr').children[1];
-const ageHeader = document.querySelector('table thead tr').children[2];
-const salaryHeader = document.querySelector('table thead tr').children[3];
+const headers = [...document.querySelector('table thead tr').children];
 const tableContent = document.querySelector('tbody');
 
 function formatSalary(string) {
@@ -48,22 +45,30 @@ function buildTable(array) {
   tableContent.innerHTML = insertedCode;
 }
 
-nameHeader.addEventListener('click', event => {
-  sortData(data, 'name');
-  buildTable(data);
-});
+function attachListeners() {
+  headers.forEach(header => {
+    header.addEventListener('click', event => {
+      let field = '';
 
-positionHeader.addEventListener('click', event => {
-  sortData(data, 'position');
-  buildTable(data);
-});
+      switch (headers.indexOf(header)) {
+        case 0:
+          field = 'name';
+          break;
+        case 1:
+          field = 'position';
+          break;
+        case 2:
+          field = 'age';
+          break;
+        case 3:
+          field = 'salaryNum';
+          break;
+      }
 
-ageHeader.addEventListener('click', event => {
-  sortData(data, 'age');
-  buildTable(data);
-});
+      sortData(data, field);
+      buildTable(data);
+    });
+  });
+}
 
-salaryHeader.addEventListener('click', event => {
-  sortData(data, 'salaryNum');
-  buildTable(data);
-});
+attachListeners();
