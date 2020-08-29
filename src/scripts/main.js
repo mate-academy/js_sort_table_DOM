@@ -1,31 +1,33 @@
 'use strict';
 
-const tr = [...document.querySelectorAll('tbody tr')];
+const trs = [...document.querySelectorAll('tbody tr')];
 const thead = document.querySelector('thead tr');
 const tbody = document.querySelector('tbody');
 
 thead.addEventListener('click', (event) => {
   const indexHead = [...thead.children].indexOf(event.target);
-  const findSorting = tr[indexHead].children[indexHead];
+  const findSorting = trs[indexHead].children[indexHead];
 
-  if (findSorting.textContent[0] === '$'
-    || !isNaN(parseFloat(findSorting.textContent))) {
-    const sorted = [...tr].sort((curr, next) => {
+  if (
+    findSorting.textContent[0] === '$'
+    || !isNaN(parseFloat(findSorting.textContent))
+  ) {
+    const sortedNumber = [...trs].sort((curr, next) => {
       return replacementSigns(curr.children[indexHead].textContent)
         - replacementSigns(next.children[indexHead].textContent);
     });
 
-    tbody.append(...sorted);
+    tbody.append(...sortedNumber);
   } else {
-    const sorted = [...tr].sort((curr, next) => {
+    const sortedNumber = [...trs].sort((curr, next) => {
       return curr.children[indexHead].textContent
         .localeCompare(next.children[indexHead].textContent);
     });
 
-    tbody.append(...sorted);
+    tbody.append(...sortedNumber);
   }
 
-  function replacementSigns(string) {
-    return string.replace('$', '').replace(',', '');
+  function replacementSigns(normalizeString) {
+    return normalizeString.replace('$', '').replace(',', '');
   }
 });
