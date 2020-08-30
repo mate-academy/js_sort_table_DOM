@@ -5,23 +5,23 @@ const thead = document.querySelector('thead');
 const tbody = document.querySelector('tbody');
 
 thead.addEventListener('click', (event) => {
-  const th = event.target.closest('th');
+  const item = event.target.closest('th');
 
-  if (!th) {
+  if (!item) {
     return;
   }
 
-  const column = th.cellIndex;
+  const column = item.cellIndex;
   const rows = [...tbody.children];
 
   rows.sort((a, b) => {
-    const A = a.cells[column].innerText;
-    const B = b.cells[column].innerText;
+    const valueA = a.cells[column].innerText;
+    const valueB = b.cells[column].innerText;
 
     if (column === 3) {
-      return +(A.replace(/[$,]/g, '')) - +(B.replace(/[$,]/g, ''));
+      return +(valueA.replace(/[$,]/g, '')) - +(valueB.replace(/[$,]/g, ''));
     } else {
-      return A.localeCompare(B);
+      return valueA.localeCompare(valueB);
     }
   });
 
