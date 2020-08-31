@@ -1,7 +1,7 @@
 'use strict';
 
 const table = document.querySelector('table');
-const headerRow = table.tHead.children[0];
+const [headerRow] = table.tHead.children;
 const people = [...table.tBodies[0].querySelectorAll('tr')];
 
 headerRow.addEventListener('click', handler);
@@ -14,8 +14,8 @@ function handler(event) {
 
 function tableSort(rows, sortIndex) {
   rows.sort((employee1, employee2) => {
-    const value1 = [...employee1.children][sortIndex].textContent;
-    const value2 = [...employee2.children][sortIndex].textContent;
+    const value1 = employee1.children[sortIndex].textContent;
+    const value2 = employee2.children[sortIndex].textContent;
 
     return (value1[0] === '$')
       ? salaryConverter(value1) - salaryConverter(value2)
