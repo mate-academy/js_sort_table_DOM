@@ -31,18 +31,14 @@ document.body.addEventListener('click', (event) => {
   }
 
   arrSort.sort((a, b) => {
-    const first = a.children[index].textContent;
-    const second = b.children[index].textContent;
+    const first = a.children[index].textContent.replace(/[$,]/g, '');
+    const second = b.children[index].textContent.replace(/[$,]/g, '');
 
-    if (first > second) {
-      return 1;
+    if (index === 3) {
+      return first - second;
     }
 
-    if (first < second) {
-      return -1;
-    }
-
-    return 0;
+    return first.localeCompare(second);
   });
 
   for (const child of arrSort) {
