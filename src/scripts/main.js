@@ -11,7 +11,6 @@ const headerIndex = {
   Salary: 3,
 };
 const person = [...table.tBodies[0].children];
-const array = [];
 
 table.addEventListener('click', (event) => {
   const item = event.target;
@@ -57,18 +56,7 @@ function formatNumber(column) {
 
 function formatSalary(column) {
   for (let i = 0; i < person.length; i++) {
-    array[i] = person[i].children[column].textContent.split('');
-  }
-
-  for (let x = 0; x < array.length; x++) {
-    for (let y = array[x].length % 3; y < array[x].length;
-      y = y + 3) {
-      array[x][y - 1] = array[x][y - 1] + ',';
-    }
-  }
-
-  for (let z = 0; z < array.length; z++) {
-    person[z].children[column].textContent
-      = '$' + array[z].join('');
+    person[i].children[column].textContent = `$${new Intl.NumberFormat('en-us')
+      .format(person[i].children[column].textContent)}`;
   }
 }
