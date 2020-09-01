@@ -1,62 +1,32 @@
 'use strict';
 
-const tableHeadRow = document.querySelector('thead');
-const tableHeadContent = [];
-
+const tableHead = document.querySelector('thead');
 const tableBody = document.querySelector('tbody');
-const tableRows = tableBody.querySelectorAll('tr');
+const tableRows = [...tableBody.querySelectorAll('tr')];
 
-const employees = [];
+tableHead.addEventListener('click', (event) => {
+  const headCell = event.target.closest('th');
+  const tableColumn = headCell.cellIndex;
 
-for (const element of tableHeadRow.querySelectorAll('th')) {
-  tableHeadContent.push(element.innerText);
-}
+  tableRows.sort((a, b) => {
+    const firstRow = a.cells[tableColumn].innerText;
+    const secondRow = b.cells[tableColumn].innerText;
 
-for (const element of tableRows) {
-  const row = element.querySelectorAll('td');
-  const rowContent = [];
-  const employee = {};
+    if (event.target.innerText === 'Salary') {
+      return (
+        (+firstRow.replace(',', '').slice(1))
+        - (+secondRow.replace(',', '').slice(1))
+      );
+    }
 
-  for (const item of row) {
-    rowContent.push(item.innerText);
-  }
+    if (event.target.innerText === 'Age') {
+      return (+firstRow) - (+secondRow);
+    }
 
-  for (let i = 0; i < rowContent.length; i++) {
-    employee[tableHeadContent[i]] = rowContent[i];
-  }
+    return firstRow.localeCompare(secondRow);
+  });
 
-  employees.push(employee);
-}
-
-tableHeadRow.addEventListener('click', (event) => {
-  switch (event.target.innerText) {
-    case tableHeadContent[0]:
-      employees.sort((a, b) => a.Name.localeCompare(b.Name));
-      break;
-    case tableHeadContent[1]:
-      employees.sort((a, b) => a.Position.localeCompare(b.Position));
-      break;
-    case tableHeadContent[2]:
-      employees.sort((a, b) => (+a.Age) - (+b.Age));
-      break;
-    case tableHeadContent[3]:
-      employees.sort((a, b) => (+a.Salary.replace(',', '').slice(1))
-        - (+b.Salary.replace(',', '').slice(1)));
-      break;
-  }
-
-  tableBody.innerHTML = '';
-
-  for (const employee of employees) {
-    const newRow = document.createElement('tr');
-
-    newRow.insertAdjacentHTML('afterbegin', `
-      <td>${employee.Name}</td>
-      <td>${employee.Position}</td>
-      <td>${employee.Age}</td>
-      <td>${employee.Salary}</td>
-    `);
-
-    tableBody.append(newRow);
+  for (const row of tableRows) {
+    tableBody.appendChild(row);
   }
 });
