@@ -10,7 +10,6 @@ head.addEventListener('click', (event) => {
     return;
   };
 
-  // eslint-disable-next-line max-len
   const index = headers.indexOf(event.target);
 
   // eslint-disable-next-line max-len
