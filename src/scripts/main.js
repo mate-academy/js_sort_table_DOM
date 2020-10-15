@@ -11,14 +11,22 @@ head.addEventListener('click', (event) => {
   };
 
   const index = headers.indexOf(event.target);
+  const rowContent = [...rows[0].children][index].textContent;
 
-  // eslint-disable-next-line max-len
-  if (parseFloat([...rows[0].children][index].textContent.match(/\w/g).join(''))) {
-    // eslint-disable-next-line max-len
-    rows.sort((a, b) => +([...a.children][index].textContent.match(/\w/g).join('')) - +([...b.children][index].textContent.match(/\w/g).join('')));
+  if (parseFloat(rowContent.match(/\w/g).join(''))) {
+    rows.sort((prevRow, curRow) => {
+      const prevValue = [...prevRow.children][index].textContent.match(/\w/g);
+      const curValue = [...curRow.children][index].textContent.match(/\w/g);
+
+      return Number(prevValue.join('')) - Number(curValue.join(''));
+    });
   } else {
-    // eslint-disable-next-line max-len
-    rows.sort((a, b) => [...a.children][index].textContent.localeCompare([...b.children][index].textContent));
+    rows.sort((prev, cur) => {
+      const prevValue = [...prev.children][index].textContent;
+      const curValue = [...cur.children][index].textContent;
+
+      return prevValue.localeCompare(curValue);
+    });
   }
 
   table.children[1].append(...rows);
