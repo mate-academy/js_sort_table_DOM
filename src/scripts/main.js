@@ -14,18 +14,18 @@ head.addEventListener('click', (event) => {
   const rowContent = [...rows[0].children][index].textContent;
 
   if (parseFloat(rowContent.match(/\w/g).join(''))) {
-    rows.sort((prevRow, curRow) => {
-      const prevValue = [...prevRow.children][index].textContent.match(/\w/g);
-      const curValue = [...curRow.children][index].textContent.match(/\w/g);
+    rows.sort((a, b) => {
+      const aValue = [...a.children][index].textContent.match(/\w/g);
+      const bValue = [...b.children][index].textContent.match(/\w/g);
 
-      return Number(prevValue.join('')) - Number(curValue.join(''));
+      return Number(bValue.join('')) - Number(aValue.join(''));
     });
   } else {
-    rows.sort((prev, cur) => {
-      const prevValue = [...prev.children][index].textContent;
-      const curValue = [...cur.children][index].textContent;
+    rows.sort((a, b) => {
+      const aValue = [...a.children][index].textContent;
+      const bValue = [...b.children][index].textContent;
 
-      return prevValue.localeCompare(curValue);
+      return bValue.localeCompare(aValue);
     });
   }
 
