@@ -9,17 +9,17 @@ headTable.addEventListener('click', ({ target }) => {
   const columnIndex = [...titles]
     .findIndex(title => title === target);
 
-  const title = titles[columnIndex].textContent;
+  const contentType = titles[columnIndex].textContent;
 
   rows.sort((prevRow, nextRow) => {
     const prevContent = prevRow.children[columnIndex].textContent;
     const nextContent = nextRow.children[columnIndex].textContent;
 
-    if (title === 'Name' || title === 'Position') {
+    if (contentType === 'Name' || contentType === 'Position') {
       return prevContent.localeCompare(nextContent);
     }
 
-    if (title === 'Age') {
+    if (contentType === 'Age') {
       return +prevContent - +nextContent;
     }
 
