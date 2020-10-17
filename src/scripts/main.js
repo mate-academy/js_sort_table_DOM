@@ -21,11 +21,7 @@ tableHeader.addEventListener('click', (event) => {
       return prevText.localeCompare(currText);
     }
 
-    if (+prevText > +currText) {
-      return 1;
-    }
-
-    return -1;
+    return +prevText - +currText;
   });
 
   rows.forEach(row => {
