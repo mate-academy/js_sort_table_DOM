@@ -13,14 +13,14 @@ headTable.addEventListener('click', ({ target }) => {
     const nextContent = nextRow.children[columnIndex].textContent;
 
     if (prevContent.startsWith('$')) {
-      return parseNumber(nextContent) - parseNumber(prevContent);
+      return parseNumber(prevContent) - parseNumber(nextContent);
     }
 
     if (isNaN(+prevContent)) {
-      return nextContent.localeCompare(prevContent);
+      return prevContent.localeCompare(nextContent);
     }
 
-    return +nextContent - +prevContent;
+    return +prevContent - +nextContent;
   });
 
   bodyTable.append(...rows);
