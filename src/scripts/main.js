@@ -1,10 +1,10 @@
 'use strict';
 
 const people = [...document.querySelectorAll('tbody tr')];
-const head = document.querySelector('thead tr');
+const header = document.querySelector('thead tr');
 
-head.addEventListener('click', (event) => {
-  const index = [...head.children].indexOf(event.target);
+header.addEventListener('click', (event) => {
+  const index = [...header.children].indexOf(event.target);
 
   const sorted = people.sort((a, b) => {
     const first = a.children[index].innerText.replace(/[$,]/g, '');
