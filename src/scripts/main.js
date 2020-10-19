@@ -10,11 +10,8 @@ table.tHead.addEventListener('click', (event) => {
     const firstRowText = firstRow.cells[sortedCellIndex].textContent;
     const secondRowText = secondRow.cells[sortedCellIndex].textContent;
 
-    if (+firstRowText.replace(/\D*/g, '')) {
-      const firstNumber = +firstRowText.replace(/\D*/g, '');
-      const secondNumber = +secondRowText.replace(/\D*/g, '');
-
-      return firstNumber - secondNumber;
+    if (getNumber(firstRowText)) {
+      return getNumber(firstRowText) - getNumber(secondRowText);
     }
 
     return firstRowText.localeCompare(secondRowText);
@@ -22,3 +19,7 @@ table.tHead.addEventListener('click', (event) => {
 
   tableBody.append(...sortedRows);
 });
+
+function getNumber(string) {
+  return +string.replace(/\D*/g, '');
+};
