@@ -1,14 +1,19 @@
 'use strict';
 
+const tableBody = document.querySelector('tbody');
 const people = [...document.querySelectorAll('tbody tr')];
 const header = document.querySelector('thead tr');
 
 header.addEventListener('click', (event) => {
-  const index = [...header.children].indexOf(event.target);
+  const cellIndex = [...header.children].indexOf(event.target);
 
   const sorted = people.sort((a, b) => {
-    const first = a.children[index].innerText.replace(/[$,]/g, '');
-    const second = b.children[index].innerText.replace(/[$,]/g, '');
+    function formateText(item) {
+      return item.children[cellIndex].innerText.replace(/[$,]/g, '');
+    };
+
+    const first = formateText(a);
+    const second = formateText(b);
 
     if (isNaN(+first)) {
       return first.localeCompare(second);
@@ -17,5 +22,5 @@ header.addEventListener('click', (event) => {
     return first - second;
   });
 
-  document.querySelector('tbody').append(...sorted);
+  tableBody.append(...sorted);
 });
