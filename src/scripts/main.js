@@ -2,7 +2,7 @@
 
 const table = document.querySelector('table');
 const tableBody = document.querySelector('tbody');
-const rows = [...tableBody.querySelectorAll('tr')];
+const rows = [...tableBody.rows];
 
 table.addEventListener('click', event => {
   const title = event.target.closest('th');
@@ -21,11 +21,7 @@ table.addEventListener('click', event => {
         - parseFloat(nextItem.replace('$', ''));
     }
 
-    if (+prevItem.typeOf !== 'number') {
-      return prevItem.localeCompare(nextItem);
-    }
-
-    return +prevItem - +nextItem;
+    return prevItem.localeCompare(nextItem);
   });
 
   tableBody.append(...rows);
