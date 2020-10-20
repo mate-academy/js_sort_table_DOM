@@ -7,40 +7,39 @@ const tableBody = table.tBodies[0];
 tableHead.addEventListener('click', event => {
   const target = event.target;
 
-  if (target.tagName !== 'TH') {
-    return;
-  }
-
   const indexOfCellToSort = target.cellIndex;
   const tableRows = [ ...tableBody.rows ];
+  const sortBy = target.textContent;
 
-  sortTable(tableRows, indexOfCellToSort);
+  sortTable(tableRows, indexOfCellToSort, sortBy);
 });
 
-function sortTable(list, indexOfCellToSort) {
+function sortTable(list, indexOfCellToSort, sortBy) {
   list.sort((previous, current) => {
-    let previousContent = previous.cells[indexOfCellToSort].textContent;
-    let currentContent = current.cells[indexOfCellToSort].textContent;
+    let previousRow = previous.cells[indexOfCellToSort].textContent;
+    let currentRow = current.cells[indexOfCellToSort].textContent;
 
-    switch (indexOfCellToSort) {
-      case 2:
-        previousContent = parseInt(previousContent);
-        currentContent = parseInt(currentContent);
+    switch (sortBy) {
+      case 'Age':
+        previousRow = parseInt(previousRow);
+        currentRow = parseInt(currentRow);
 
-        return previousContent - currentContent;
-      case 3:
-        previousContent = parseInt(
-          previousContent.slice(1).split(',').join('')
+        return previousRow - currentRow;
+
+      case 'Salary':
+        previousRow = parseInt(
+          previousRow.slice(1).split(',').join('')
         );
 
-        currentContent = parseInt(
-          currentContent.slice(1).split(',').join('')
+        currentRow = parseInt(
+          currentRow.slice(1).split(',').join('')
         );
 
-        return previousContent - currentContent;
+        return previousRow - currentRow;
+
+      default:
+        return previousRow.localeCompare(currentRow);
     }
-
-    return previousContent.localeCompare(currentContent);
   });
 
   tableBody.append(...list);
