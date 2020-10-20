@@ -1,6 +1,8 @@
 'use strict';
 
 const table = document.querySelector('table');
+const head = document.querySelector('thead');
+const row = [...table.tHead.rows[0].children];
 
 function toNumber(string) {
   const searchNumber = string.match(/[0-9]/g);
@@ -12,11 +14,11 @@ function toNumber(string) {
   return string;
 }
 
-table.addEventListener('click', event => {
+head.addEventListener('click', event => {
   const target = event.target;
 
-  if ([...table.rows[0].cells].includes(target)) {
-    const findIndex = [...table.rows[0].cells].indexOf(target);
+  if (row.includes(target)) {
+    const findIndex = target.cellIndex;
 
     const people = table.tBodies[0].rows;
 
