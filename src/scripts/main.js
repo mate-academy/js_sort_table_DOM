@@ -1,33 +1,30 @@
 'use strict';
 
-const tbody = document.querySelector('tbody').children;
+const tableRows = document.querySelector('tbody').rows;
 const thead = document.querySelector('thead');
-
-const personList = [...tbody].map(person => {
-  const salary = person.children[3].innerText.replace(/[$,]/g, '');
-
-  return {
-    name: person.children[0].innerText,
-    position: person.children[1].innerText,
-    age: Number(person.children[2].innerText),
-    originSalary: person.children[3].innerText,
-    salary: Number(salary),
-  };
-});
+const tbody = document.querySelector('tbody');
 
 thead.addEventListener('click', event => {
-  const sortColumn = event.target.innerText.toLowerCase();
+  const columnIndex = event.target.cellIndex;
 
-  if (sortColumn === 'name' || sortColumn === 'position') {
-    personList.sort((a, b) => a[sortColumn].localeCompare(b[sortColumn]));
-  } else {
-    personList.sort((a, b) => a[sortColumn] - b[sortColumn]);
-  }
+  const sortedList = [...tableRows].sort((previous, next) => {
+    const prevCell = formatedTdata(previous, columnIndex);
+    const nextCell = formatedTdata(next, columnIndex);
 
-  for (let i = 0; i < tbody.length; i++) {
-    tbody[i].children[0].innerText = personList[i].name;
-    tbody[i].children[1].innerText = personList[i].position;
-    tbody[i].children[2].innerText = personList[i].age;
-    tbody[i].children[3].innerText = personList[i].originSalary;
-  }
+    return calcDigitForSort(prevCell, nextCell);
+  });
+
+  tbody.append(...sortedList);
 });
+
+function formatedTdata(tdata, i) {
+  return tdata.cells[i].textContent.replace(/[$,]/g, '');
+};
+
+function calcDigitForSort(prev, next) {
+  if (isNaN(prev)) {
+    return prev.localeCompare(next);
+  }
+
+  return prev - next;
+}
