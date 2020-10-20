@@ -7,15 +7,19 @@ thead.addEventListener('click', function(event) {
   const index = event.target.cellIndex;
 
   const sortedInfo = [...tbody.children].sort((current, next) => {
-    const convertCurrent = current.cells[index].innerText.replace(/[$,]/g, '');
-    const convertNext = next.cells[index].innerText.replace(/[$,]/g, '');
+    const first = convertText(current);
+    const second = convertText(next);
 
-    if (isNaN(convertCurrent)) {
-      return convertCurrent.localeCompare(convertNext);
+    if (isNaN(first)) {
+      return first.localeCompare(second);
     }
 
-    return convertCurrent - convertNext;
+    return first - second;
   });
+
+  function convertText(tr) {
+    return tr.cells[index].innerText.replace(/[$,]/g, '');
+  }
 
   tbody.append(...sortedInfo);
 });
