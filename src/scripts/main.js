@@ -5,7 +5,7 @@ const tHead = table.querySelector('thead');
 const tBodyRows = [ ...table.tBodies[0].rows ];
 
 function takeDigit(string) {
-  return Number.isInteger(string) ? string : string.match(/[0-9]/g).join('');
+  return string.replace(/,|\$/g, '');
 }
 
 tHead.addEventListener('click', event => {
