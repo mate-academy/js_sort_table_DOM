@@ -11,6 +11,10 @@ thead.addEventListener('click', ({ target }) => {
     const firstElement = a.cells[targetIndex].textContent.replace(/[,$]/g, '');
     const secondElement = b.cells[targetIndex].textContent.replace(/[,$]/g, '');
 
+    if (!isNaN(+firstElement)) {
+      return firstElement - secondElement;
+    }
+
     return firstElement.localeCompare(secondElement);
   });
 
