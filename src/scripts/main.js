@@ -9,12 +9,14 @@ function takeDigit(string) {
 }
 
 tHead.addEventListener('click', event => {
-  const inASC = event.target.orderASC;
+  const IsInAscendingOrder = !!event.target.orderASC;
 
   tBodyRows.sort((a, b) => {
-    const rowA = inASC ? b : a;
-    const rowB = inASC ? a : b;
+    const rowA = IsInAscendingOrder ? b : a;
+    const rowB = IsInAscendingOrder ? a : b;
+
     const columnIndex = event.target.cellIndex;
+
     const dataA = rowA.cells[columnIndex].textContent;
     const dataB = rowB.cells[columnIndex].textContent;
 
@@ -24,5 +26,5 @@ tHead.addEventListener('click', event => {
   });
 
   tBodyRows.forEach(row => table.tBodies[0].append(row));
-  event.target.orderASC = !inASC;
+  event.target.orderASC = !IsInAscendingOrder;
 });
