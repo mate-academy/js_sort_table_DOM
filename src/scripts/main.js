@@ -22,5 +22,5 @@ thead.addEventListener('click', ({ target }) => {
 });
 
 function convertToNumber(str) {
-  return str.replace(/[$,]/g, '');
+  return Number(str.replace(/[$,]/g, ''));
 }
