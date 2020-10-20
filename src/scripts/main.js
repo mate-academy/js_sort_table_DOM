@@ -1,16 +1,15 @@
 'use strict';
 
 const table = document.querySelector('table');
-const titles = [...table.rows[0].cells];
-const tableMain = document.querySelector('tbody');
-const rows = [...tableMain.rows];
+const tableBody = document.querySelector('tbody');
+const rows = [...tableBody.rows];
 
 function convertToNumber(string) {
   return Number(string.replace(/[^\d]/g, ''));
 }
 
 table.addEventListener('click', event => {
-  const index = [...titles].indexOf(event.target);
+  const index = event.target.cellIndex;
 
   rows.sort((a, b) => {
     const prevRow = a.cells[index].textContent;
