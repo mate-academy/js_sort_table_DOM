@@ -3,6 +3,10 @@
 const tableHeader = document.querySelector('thead');
 const tableBody = document.querySelector('tbody');
 
+function conversion(string) {
+  return string.slice(1).split(',').join('');
+}
+
 tableHeader.addEventListener('click', (event) => {
   const rows = [...tableBody.rows];
   const heading = event.target;
@@ -13,8 +17,8 @@ tableHeader.addEventListener('click', (event) => {
     let currText = curr.cells[columnIndex].textContent;
 
     if (prevText.startsWith('$')) {
-      prevText = prevText.slice(1).split(',').join('');
-      currText = currText.slice(1).split(',').join('');
+      prevText = conversion(prevText);
+      currText = conversion(currText);
     }
 
     if (isNaN(+prevText)) {
