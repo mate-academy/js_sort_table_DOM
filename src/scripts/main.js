@@ -6,7 +6,7 @@ const rows = [...tbody.rows];
 
 function getReplace(data, i) {
   return data.cells[i].innerText.replace(/[$,]/g, '');
-}
+};
 
 thead.addEventListener('click', event => {
   const index = event.target.cellIndex;
