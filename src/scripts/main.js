@@ -6,15 +6,15 @@ const rows = [...table.tBodies[0].rows];
 
 headers.addEventListener('click', event => {
   const sortBy = event.target.textContent;
-  const index = event.target.cellIndex;
+  const columnIndex = event.target.cellIndex;
 
-  sortTable(index, sortBy);
+  sortTable(columnIndex, sortBy);
 });
 
-function sortTable(index, sortBy) {
+function sortTable(columnIndex, sortBy) {
   const sortedRows = rows.sort((a, b) => {
-    let firstRow = a.cells[index].textContent;
-    let secondRow = b.cells[index].textContent;
+    let firstRow = a.cells[columnIndex].textContent;
+    let secondRow = b.cells[columnIndex].textContent;
 
     if (sortBy === 'Salary') {
       firstRow = firstRow.replace(/[$,]/g, '');
@@ -26,7 +26,5 @@ function sortTable(index, sortBy) {
     return firstRow.localeCompare(secondRow, { numeric: true });
   });
 
-  for (const row of sortedRows) {
-    table.tBodies[0].append(row);
-  }
+  table.tBodies[0].append(...sortedRows);
 }
