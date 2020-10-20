@@ -8,8 +8,8 @@ thead.addEventListener('click', ({ target }) => {
   const targetIndex = target.cellIndex;
 
   const peopleSorted = people.sort((a, b) => {
-    const firstElement = a.cells[targetIndex].textContent.replace(/[,$]/g, '');
-    const secondElement = b.cells[targetIndex].textContent.replace(/[,$]/g, '');
+    const firstElement = textContent(a);
+    const secondElement = textContent(b);
 
     if (!isNaN(+firstElement)) {
       return firstElement - secondElement;
@@ -17,6 +17,10 @@ thead.addEventListener('click', ({ target }) => {
 
     return firstElement.localeCompare(secondElement);
   });
+
+  function textContent(item) {
+    return item.cells[targetIndex].textContent.replace(/[,$]/g, '');
+  }
 
   tbody.append(...peopleSorted);
 });
