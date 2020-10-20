@@ -2,7 +2,7 @@
 
 const thead = document.querySelector('thead');
 const tbody = document.querySelector('tbody');
-const people = [...tbody.children];
+const people = [...tbody.rows];
 
 thead.addEventListener('click', ({ target }) => {
   const targetIndex = target.cellIndex;
