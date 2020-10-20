@@ -1,12 +1,11 @@
 'use strict';
 
-const headTable = document.querySelector('thead');
-const bodyTable = document.querySelector('tbody');
-const titles = headTable.firstElementChild.children;
-const rows = [...bodyTable.children];
+const thead = document.querySelector('thead');
+const tbody = document.querySelector('tbody');
+const rows = [...tbody.children];
 
-headTable.addEventListener('click', ({ target }) => {
-  const columnIndex = [...titles].indexOf(target);
+thead.addEventListener('click', ({ target }) => {
+  const columnIndex = target.cellIndex;
 
   rows.sort((prevRow, nextRow) => {
     const prevContent = prevRow.children[columnIndex].textContent;
@@ -23,7 +22,7 @@ headTable.addEventListener('click', ({ target }) => {
     return +prevContent - +nextContent;
   });
 
-  bodyTable.append(...rows);
+  tbody.append(...rows);
 });
 
 function parseNumber(str) {
