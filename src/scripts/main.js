@@ -5,22 +5,24 @@ const tHead = table.querySelector('thead');
 const tBodyRows = [ ...table.tBodies[0].rows ];
 
 function takeDigit(string) {
-  return string.length ? string.match(/[0-9]/g).join('') : string;
+  return Number.isInteger(string) ? string : string.match(/[0-9]/g).join('');
 }
 
 tHead.addEventListener('click', event => {
+  const inASC = event.target.orderASC;
+
   tBodyRows.sort((a, b) => {
-    const rowA = event.target.orderASC ? b : a;
-    const rowB = event.target.orderASC ? a : b;
+    const rowA = inASC ? b : a;
+    const rowB = inASC ? a : b;
     const columnIndex = event.target.cellIndex;
     const dataA = rowA.cells[columnIndex].textContent;
     const dataB = rowB.cells[columnIndex].textContent;
 
-    return Number.isInteger(a)
-      ? dataA.localeCompare(dataB)
-      : takeDigit(dataA) - takeDigit(dataB);
+    return dataA.search(/[0-9]/) >= 0
+      ? takeDigit(dataA) - takeDigit(dataB)
+      : dataA.localeCompare(dataB);
   });
 
   tBodyRows.forEach(row => table.tBodies[0].append(row));
-  event.target.orderASC = !event.target.orderASC;
+  event.target.orderASC = !inASC;
 });
