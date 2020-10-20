@@ -1,64 +1,48 @@
 'use strict';
 
+const body = document.querySelector('tbody');
+
 const nameHeader = document.querySelector('thead th:first-child');
 const positionHeader = document.querySelector('thead th:nth-child(2)');
 const ageHeader = document.querySelector('thead th:nth-child(3)');
 const salaryHeader = document.querySelector('thead th:nth-child(4)');
 
-const body = document.querySelector('tbody');
-
-const comparatorForName = (a, b) => {
-  const first = a.children[0].textContent;
-  const second = b.children[0].textContent;
-
-  return first.localeCompare(second);
-};
-
-const comparatorForPosition = (a, b) => {
-  const first = a.children[1].textContent;
-  const second = b.children[1].textContent;
-
-  return first.localeCompare(second);
-};
-
-const comparatorForAge = (a, b) => {
-  const first = a.children[2].textContent;
-  const second = b.children[2].textContent;
-
-  return second - first;
-};
-
-const comparatorForSalary = (a, b) => {
-  const first = a.children[3].textContent.replace(/\$|,/g, '');
-  const second = b.children[3].textContent.replace(/\$|,/g, '');
-
-  return second - first;
-};
-
-nameHeader.addEventListener('click', () => {
-  const sortedByName = [...body.children].sort(comparatorForName);
+function sortTable(comparator) {
+  const sorted = [...body.children].sort(comparator);
 
   body.innerHTML = '';
-  sortedByName.forEach(element => body.appendChild(element));
-});
+  sorted.forEach(element => body.appendChild(element));
+};
 
-positionHeader.addEventListener('click', () => {
-  const sortedByPosition = [...body.children].sort(comparatorForPosition);
+nameHeader.addEventListener(
+  'click',
+  () => sortTable(
+    (a, b) => a.children[0].textContent.localeCompare(b.children[0].textContent)
+  )
+);
 
-  body.innerHTML = '';
-  sortedByPosition.forEach(element => body.appendChild(element));
-});
+positionHeader.addEventListener(
+  'click',
+  () => sortTable(
+    (a, b) => a.children[1].textContent.localeCompare(b.children[1].textContent)
+  )
+);
 
-ageHeader.addEventListener('click', () => {
-  const sortedByAge = [...body.children].sort(comparatorForAge);
+ageHeader.addEventListener(
+  'click',
+  () => sortTable(
+    (a, b) => b.children[2].textContent - a.children[2].textContent
+  )
+);
 
-  body.innerHTML = '';
-  sortedByAge.forEach(element => body.appendChild(element));
-});
+salaryHeader.addEventListener(
+  'click',
+  () => sortTable(
+    (a, b) => {
+      const first = a.children[3].textContent.replace(/\$|,/g, '');
+      const second = b.children[3].textContent.replace(/\$|,/g, '');
 
-salaryHeader.addEventListener('click', () => {
-  const sortedBySalary = [...body.children].sort(comparatorForSalary);
-
-  body.innerHTML = '';
-  sortedBySalary.forEach(element => body.appendChild(element));
-});
+      return second - first;
+    }
+  )
+);
