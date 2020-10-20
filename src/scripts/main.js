@@ -4,13 +4,13 @@ const tableHeader = document.querySelector('thead');
 const tableBody = document.querySelector('tbody');
 
 tableHeader.addEventListener('click', (event) => {
-  const rows = [...tableBody.querySelectorAll('tr')];
+  const rows = [...tableBody.rows];
   const heading = event.target;
-  const indexOfSortingCell = heading.cellIndex;
+  const columnIndex = heading.cellIndex;
 
   rows.sort((prev, curr) => {
-    let prevText = prev.cells[indexOfSortingCell].textContent;
-    let currText = curr.cells[indexOfSortingCell].textContent;
+    let prevText = prev.cells[columnIndex].textContent;
+    let currText = curr.cells[columnIndex].textContent;
 
     if (prevText.startsWith('$')) {
       prevText = prevText.slice(1).split(',').join('');
@@ -24,7 +24,5 @@ tableHeader.addEventListener('click', (event) => {
     return +prevText - +currText;
   });
 
-  rows.forEach(row => {
-    tableBody.appendChild(row);
-  });
+  tableBody.append(...rows);
 });
