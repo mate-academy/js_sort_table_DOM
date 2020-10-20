@@ -1,9 +1,10 @@
 'use strict';
 
 const table = document.querySelector('table');
+const headers = table.tHead;
 const rows = [...table.tBodies[0].rows];
 
-table.addEventListener('click', event => {
+headers.addEventListener('click', event => {
   const sortBy = event.target.textContent;
   const index = event.target.cellIndex;
 
