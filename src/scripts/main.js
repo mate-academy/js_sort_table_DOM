@@ -3,29 +3,28 @@
 const tableHeader = document.querySelector('thead');
 const tableBody = document.querySelector('tbody');
 
-function conversion(string) {
+function formatString(string) {
   return string.slice(1).split(',').join('');
 }
 
-tableHeader.addEventListener('click', (event) => {
+tableHeader.addEventListener('click', ({ target }) => {
   const rows = [...tableBody.rows];
-  const heading = event.target;
-  const columnIndex = heading.cellIndex;
+  const columnIndex = target.cellIndex;
 
-  rows.sort((prev, curr) => {
-    let prevText = prev.cells[columnIndex].textContent;
-    let currText = curr.cells[columnIndex].textContent;
+  rows.sort((previous, current) => {
+    let previousText = previous.cells[columnIndex].textContent;
+    let currentText = current.cells[columnIndex].textContent;
 
-    if (prevText.startsWith('$')) {
-      prevText = conversion(prevText);
-      currText = conversion(currText);
+    if (previousText.startsWith('$')) {
+      previousText = formatString(previousText);
+      currentText = formatString(currentText);
     }
 
-    if (isNaN(+prevText)) {
-      return prevText.localeCompare(currText);
+    if (isNaN(+previousText)) {
+      return previousText.localeCompare(currentText);
     }
 
-    return +prevText - +currText;
+    return +previousText - +currentText;
   });
 
   tableBody.append(...rows);
