@@ -8,9 +8,9 @@ const tableItems = document.querySelector('tbody').querySelectorAll('tr');
 
 thead.addEventListener('click', ({ target }) => {
   const index = target.cellIndex;
-  const sorted = sortData(tableItems, index);
+  const sortedTable = sortData(tableItems, index);
 
-  tbody.append(...sorted);
+  tbody.append(...sortedTable);
 });
 
 function normalizeNum(input, i) {
@@ -18,14 +18,14 @@ function normalizeNum(input, i) {
 };
 
 function sortData(collection, i) {
-  return [...collection].sort((a, b) => {
-    const aItem = normalizeNum(a, i);
-    const bItem = normalizeNum(b, i);
+  return [...collection].sort((first, next) => {
+    const firstValue = normalizeNum(first, i);
+    const nextValue = normalizeNum(next, i);
 
-    if (!isNaN(+aItem)) {
-      return aItem - bItem;
+    if (!isNaN(+firstValue)) {
+      return firstValue - nextValue;
     }
 
-    return aItem.localeCompare(bItem);
+    return firstValue.localeCompare(nextValue);
   });
 };
