@@ -8,8 +8,8 @@ thead.addEventListener('click', ({ target }) => {
   const targetIndex = target.cellIndex;
 
   const peopleSorted = people.sort((a, b) => {
-    const firstElement = textContent(a);
-    const secondElement = textContent(b);
+    const firstElement = removeDollar(a.cells[targetIndex].textContent);
+    const secondElement = removeDollar(b.cells[targetIndex].textContent);
 
     if (!isNaN(+firstElement)) {
       return firstElement - secondElement;
@@ -18,9 +18,9 @@ thead.addEventListener('click', ({ target }) => {
     return firstElement.localeCompare(secondElement);
   });
 
-  function textContent(item) {
-    return item.cells[targetIndex].textContent.replace(/[,$]/g, '');
-  }
-
   tbody.append(...peopleSorted);
 });
+
+function removeDollar(item) {
+  return item.replace(/[,$]/g, '');
+}
