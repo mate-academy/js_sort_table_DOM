@@ -2,7 +2,7 @@
 
 const people = [...document.querySelectorAll('tbody tr')];
 const titleList = [...document.querySelectorAll(`thead th`)];
-const table = document.querySelector('tbody');
+const tbody = document.querySelector('tbody');
 
 function sortType(index) {
   return function(current, next) {
@@ -26,6 +26,6 @@ function sortType(index) {
 for (const title of titleList) {
   title.addEventListener('click', () => {
     people.sort(sortType(title.cellIndex));
-    table.append(...people);
+    tbody.append(...people);
   });
 };
