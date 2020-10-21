@@ -11,7 +11,7 @@ thead.addEventListener('click', event => {
     const currentItem = a.cells[index].innerText;
     const nextItem = b.cells[index].innerText;
 
-    if (currentItem.includes('$') || currentItem.includes(',')) {
+    if (!isNaN(toNumber(currentItem))) {
       return toNumber(currentItem) - toNumber(nextItem);
     }
 
