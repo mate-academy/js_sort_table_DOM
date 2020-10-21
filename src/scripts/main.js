@@ -2,29 +2,30 @@
 
 const people = [...document.querySelectorAll('tbody tr')];
 const titleList = [...document.querySelectorAll(`thead th`)];
+const table = document.querySelector('tbody');
 
 function sortType(index) {
-  return function(a, b) {
-    let itemA = a.children[index]
-      .innerHTML
+  return function(current, next) {
+    let currentPerson = current.children[index]
+      .textContent
       .replace(/[$,]/g, '');
 
-    let itemB = b.children[index]
-      .innerHTML
+    let nextPerson = next.children[index]
+      .textContent
       .replace(/[$,]/g, '');
 
-    if (!isNaN(itemA)) {
-      itemA = +itemA;
-      itemB = +itemB;
+    if (!isNaN(currentPerson)) {
+      currentPerson = +currentPerson;
+      nextPerson = +nextPerson;
     };
 
-    return itemA > itemB ? 1 : -1;
+    return currentPerson > nextPerson ? 1 : -1;
   };
 };
 
 for (const title of titleList) {
-  title.onclick = () => {
-    people.sort(sortType(titleList.indexOf(title)));
-    document.querySelector('tbody').append(...people);
-  };
+  title.addEventListener('click', () => {
+    people.sort(sortType(title.cellIndex));
+    table.append(...people);
+  });
 };
