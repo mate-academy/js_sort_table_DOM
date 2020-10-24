@@ -13,6 +13,10 @@ tHeader.addEventListener('click', (event) => {
     const prevText = prev.cells[columnIndex].textContent;
     const currText = curr.cells[columnIndex].textContent;
 
+    if (isNaN(prevText)) {
+      return prevText.localeCompare(currText);
+    }
+
     return +prevText - +currText;
   });
 
