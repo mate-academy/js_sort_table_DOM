@@ -22,15 +22,15 @@ table.addEventListener('click', e => {
   if (e.target === table.rows[0].cells[2]) {
     sortedRows
       .sort((rowA, rowB) =>
-        rowA.cells[2].innerHTML - rowB.cells[2].innerHTML
+        rowA.cells[2].innerHTML.localeCompare(rowB.cells[2].innerHTML)
       );
   };
 
   if (e.target === table.rows[0].cells[3]) {
     sortedRows
       .sort((rowA, rowB) =>
-        (rowA.cells[3].innerHTML.split(',').join('').split('$').join(''))
-        - (rowB.cells[3].innerHTML.split(',').join('').split('$').join(''))
+        +(rowA.cells[3].innerHTML.split(',').join('').split('$').join(''))
+        - +(rowB.cells[3].innerHTML.split(',').join('').split('$').join(''))
       );
   };
 
