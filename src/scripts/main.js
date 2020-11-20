@@ -4,8 +4,8 @@ const ths = document.querySelector('thead');
 const tbody = document.querySelector('tbody');
 let sort = 1;
 
-ths.addEventListener('click', (event) => {
-  const indexColumn = event.target.cellIndex;
+ths.addEventListener('click', (e) => {
+  const indexColumn = e.target.cellIndex;
 
   const sortedRows = [...tbody.rows].sort((a, b) => {
     if (a.cells[indexColumn].innerText.startsWith('$')) {
