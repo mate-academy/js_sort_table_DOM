@@ -1,39 +1,41 @@
 'use strict';
 
+Cypress.Commands.add('isSorted', (col, number) => {
+  cy.contains(col).click();
+
+  cy.get(`tbody tr:nth-child(n) td:nth-child(${number})`).then(($fcolumn) => {
+    const columns = [...$fcolumn].map((column) => column.innerText);
+    const sortedColumns = [...columns].sort((a, b) => a - b);
+    let counter = 0;
+
+    for (let i = 0; i < columns.length; i++) {
+      if (columns[i] === sortedColumns[i]) {
+        counter += 1;
+      }
+    }
+
+    expect(counter).to.equal(columns.length);
+  });
+});
+
 describe('Sorting table app', () => {
-  beforeEach(() => {
+  before(() => {
     cy.visit('/');
   });
 
-  it('should sort in ASC order, by clicking on `Name` header', () => {
-    cy.contains('Name').click();
-    cy.get('tbody tr:nth-child(1) td:nth-child(1)').contains('Airi Satou');
-    cy.get('tbody tr:nth-child(2) td:nth-child(1)').contains('Colleen Hurst');
-    cy.get('tbody tr:nth-child(12) td:nth-child(1)').contains('Zorita Serrano');
+  it('should sort in ASC order when user clicks on `Name` header', () => {
+    cy.isSorted('Name', 1);
   });
 
-  it('should sort in ASC order, by clicking on `Position` header', () => {
-    cy.contains('Position').click();
-    cy.get('tbody tr:nth-child(1) td:nth-child(2)').contains('Accountant');
-
-    cy.get('tbody tr:nth-child(2) td:nth-child(2)')
-      .contains('Data Coordinator');
-
-    cy.get('tbody tr:nth-child(12) td:nth-child(2)')
-      .contains('Technical Author');
+  it('should sort in ASC order when user clicks on `Position` header', () => {
+    cy.isSorted('Position', 2);
   });
 
-  it('should sort in ASC order, by clicking on `Age` header', () => {
-    cy.contains('Age').click();
-    cy.get('tbody tr:nth-child(1) td:nth-child(3)').contains('20');
-    cy.get('tbody tr:nth-child(2) td:nth-child(3)').contains('27');
-    cy.get('tbody tr:nth-child(12) td:nth-child(3)').contains('66');
+  it('should sort in ASC order when user clicks on `Age` header', () => {
+    cy.isSorted('Age', 3);
   });
 
-  it('should sort in ASC order, by clicking on `Salary` header', () => {
-    cy.contains('Salary').click();
-    cy.get('tbody tr:nth-child(1) td:nth-child(4)').contains('$98,540');
-    cy.get('tbody tr:nth-child(2) td:nth-child(4)').contains('$115,000');
-    cy.get('tbody tr:nth-child(12) td:nth-child(4)').contains('$452,500');
+  it('should sort in ASC order when user clicks on `Salary` header', () => {
+    cy.isSorted('Salary', 4);
   });
 });
