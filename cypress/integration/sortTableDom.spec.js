@@ -1,15 +1,24 @@
 'use strict';
 
-Cypress.Commands.add('isSorted', (col, number) => {
-  cy.contains(col).click();
+Cypress.Commands.add('isSorted', (columnName, clolumnNumber) => {
+  cy.contains(columnName).click();
 
-  cy.get(`tbody tr:nth-child(n) td:nth-child(${number})`).then(($fcolumn) => {
+  cy.get(`tr:nth-child(n) td:nth-child(${clolumnNumber})`).then(($fcolumn) => {
     const columns = [...$fcolumn].map((column) => column.innerText);
-    const sortedColumns = [...columns].sort((a, b) => a - b);
+    const sortedColumns = [...columns].sort((a, b) => a.localeCompare(b));
     let counter = 0;
+    const copyOfColumns = [];
+    const copyOfsortedColumns = [];
 
     for (let i = 0; i < columns.length; i++) {
-      if (columns[i] === sortedColumns[i]) {
+      copyOfColumns.push(sortedColumns[i].replace('$', '').replace(',', ''));
+      copyOfsortedColumns.push(columns[i].replace('$', '').replace(',', ''));
+    }
+
+    copyOfColumns.sort((a, b) => a - b);
+
+    for (let i = 0; i < copyOfColumns.length; i++) {
+      if (copyOfColumns[i] === copyOfsortedColumns[i]) {
         counter += 1;
       }
     }
@@ -19,7 +28,7 @@ Cypress.Commands.add('isSorted', (col, number) => {
 });
 
 describe('Sorting table app', () => {
-  before(() => {
+  beforeEach(() => {
     cy.visit('/');
   });
 
