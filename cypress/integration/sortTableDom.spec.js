@@ -4,26 +4,23 @@ Cypress.Commands.add('isSorted', (columnName, clolumnNumber) => {
   cy.contains(columnName).click();
 
   cy.get(`tr:nth-child(n) td:nth-child(${clolumnNumber})`).then(($fcolumn) => {
-    const columns = [...$fcolumn].map((column) => column.innerText);
-    const sortedColumns = [...columns].sort((a, b) => a.localeCompare(b));
+    const columns = [...$fcolumn].map((column) =>
+      column.innerText.replace('$', '').replace(',', ''));
     let counter = 0;
-    const copyOfColumns = [];
-    const copyOfsortedColumns = [];
 
     for (let i = 0; i < columns.length; i++) {
-      copyOfColumns.push(sortedColumns[i].replace('$', '').replace(',', ''));
-      copyOfsortedColumns.push(columns[i].replace('$', '').replace(',', ''));
-    }
+      if (isNaN(Number(columns[i]))) {
+        if (columns[i + 1] >= columns[i]) {
+          counter += 1;
+        }
+      }
 
-    copyOfColumns.sort((a, b) => a - b);
-
-    for (let i = 0; i < copyOfColumns.length; i++) {
-      if (copyOfColumns[i] === copyOfsortedColumns[i]) {
+      if (Number(columns[i + 1]) >= Number(columns[i])) {
         counter += 1;
       }
     }
 
-    expect(counter).to.equal(columns.length);
+    expect(counter).to.equal(columns.length - 1);
   });
 });
 
