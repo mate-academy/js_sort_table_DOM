@@ -1,16 +1,16 @@
 'use strict';
 
-Cypress.Commands.add('isSorted', (columnName, clolumnNumber) => {
+Cypress.Commands.add('isSorted', (columnName, columnNumber) => {
   cy.contains(columnName).click();
 
-  cy.get(`tr:nth-child(n) td:nth-child(${clolumnNumber})`).then(($fcolumn) => {
-    const columns = [...$fcolumn].map((column) =>
+  cy.get(`tr:nth-child(n) td:nth-child(${columnNumber})`).then(($column) => {
+    const columns = [...$column].map((column) =>
       column.innerText.replace('$', '').replace(',', ''));
     let counter = 0;
 
     for (let i = 0; i < columns.length; i++) {
       if (isNaN(Number(columns[i]))) {
-        if (columns[i + 1] >= columns[i]) {
+        if (columns[i].localeCompare(columns[i + 1]) === -1) {
           counter += 1;
         }
       }
