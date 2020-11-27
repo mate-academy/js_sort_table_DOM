@@ -1,27 +1,43 @@
 'use strict';
 
 const table = document.querySelector('table');
+const headings = [{
+  name: 'Name',
+  type: 'string',
+}, {
+  name: 'Position',
+  type: 'string',
+},
+{
+  name: 'Office',
+  type: 'string',
+},
+{
+  name: 'Age',
+  type: 'number',
+},
+{
+  name: 'Salary',
+  type: 'number',
+}];
 
-const compareString = (a, b) => {
-  let element = (a.innerText).replace(/\$/g, '');
-  const operand1 = parseFloat(element.replace(/,/g, ''));
+function parseSalary(a) {
+  const element = (a.innerText).replace(/\$/g, '');
+  const operand = parseFloat(element.replace(/,/g, ''));
 
-  element = (b.innerText).replace(/\$/g, '');
-
-  const operand2 = parseFloat(element.replace(/,/g, ''));
-
-  if (!isNaN(operand1) && !isNaN(operand2)) {
-    if (operand1 > operand2) {
-      return 1;
-    } else {
-      return -1;
-    }
-  } else {
-    return (a.innerText.localeCompare(b.innerText));
+  if (!Number.isNaN(operand)) {
+    return (operand);
   }
 };
 
-const sort = function(cellInx, callback, rowsCollection) {
+function callback(heading) {
+  switch (heading.type) {
+    case 'string': return (x, y) => x.innerText.localeCompare(y.innerText);
+    case 'number': return (x, y) => parseSalary(x) - parseSalary(y);
+  }
+}
+
+const sort = function(cellInx, rowsCollection, heading) {
   let count;
 
   do {
@@ -31,7 +47,7 @@ const sort = function(cellInx, callback, rowsCollection) {
       const a = rowsCollection[indx - 1].cells[cellInx];
       const b = rowsCollection[indx].cells[cellInx];
 
-      if (callback(a, b) > 0) {
+      if (callback(heading)(a, b) > 0) {
         rowsCollection[indx].after(rowsCollection[indx - 1]);
         count++;
       }
@@ -48,8 +64,9 @@ const handler = function(e) {
 
   const rows = table.rows;
   const cellIndex = element.cellIndex;
+  const heading = headings.find(elem => elem.name === element.innerText);
 
-  sort(cellIndex, compareString, rows);
+  sort(cellIndex, rows, heading);
 };
 
 table.addEventListener('click', handler);
