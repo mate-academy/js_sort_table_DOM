@@ -13,11 +13,11 @@ thead.addEventListener('click', e => {
     let secondElem = b.cells[index].textContent;
 
     if (firstElem[0] === '$') {
-      firstElem = firstElem.slice(1).split(',').join('');
-      secondElem = secondElem.slice(1).split(',').join('');
+      firstElem = +firstElem.slice(1).split(',').join('');
+      secondElem = +secondElem.slice(1).split(',').join('');
     }
 
-    if (Number.isNaN(Number(firstElem))) {
+    if (Number.isNaN(+firstElem)) {
       return firstElem.localeCompare(secondElem);
     }
 
