@@ -16,7 +16,6 @@ function createData() {
     person.name = parseData();
     person.position = parseData();
     person.age = +parseData();
-    // person.salary = parseData();
     person.salary = +parseData().match(/\d/g).join('');
     dataArray.push(person);
   }
