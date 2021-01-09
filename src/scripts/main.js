@@ -1,66 +1,35 @@
 'use strict';
 
-const clickArea = document.querySelector('thead');
-const dataTD = [...document.querySelectorAll('td')];
-const dataArray = [];
-const allTagsTD = dataTD.slice();
+const mainTable = document.querySelector('table');
+const theadClickArea = mainTable.querySelector('thead');
+const bodyTable = mainTable.querySelector('tbody');
 
-function createData() {
-  const parseData = () => {
-    return allTagsTD.splice(0, 1)[0].innerText;
-  };
+function userSort(table) {
+  theadClickArea.addEventListener('click', (e) => {
+    const mainTH = e.target.closest('th');
+    const indexCol = mainTH.cellIndex;
+    const allRows = [...bodyTable.children];
 
-  while (allTagsTD.length > 0) {
-    const person = {};
+    if (!mainTH) {
+      return;
+    }
 
-    person.name = parseData();
-    person.position = parseData();
-    person.age = +parseData();
-    person.salary = +parseData().match(/\d/g).join('');
-    dataArray.push(person);
-  }
-}
+    allRows.sort((firstRow, secondRow) => {
+      let argFirst = firstRow.cells[indexCol].innerText;
+      let argSecond = secondRow.cells[indexCol].innerText;
 
-function rebuild() {
-  const result = [];
+      if (mainTH.innerText === 'Salary') {
+        argFirst = +argFirst.match(/\d/g).join('');
+        argSecond = +argSecond.match(/\d/g).join('');
 
-  for (let i = 0; i < dataArray.length; i++) {
-    for (const key in dataArray[i]) {
-      if (key === 'salary') {
-        result.push(`$${dataArray[i][key].toString()
-          .replace(/\B(?=(\d{3})+(?!\d))/g, ',')}`);
+        return argFirst - argSecond;
       } else {
-        result.push(dataArray[i][key]);
+        return argFirst > argSecond ? 1 : -1;
       }
-    }
-  }
+    });
 
-  for (let i = 0; i < dataTD.length; i++) {
-    dataTD[i].innerText = result[i];
-  }
-}
-
-function userSort(param = 'name') {
-  createData();
-
-  dataArray.sort((a, b) => {
-    if (a[param] > b[param]) {
-      return 1;
-    } else if (a[param] < b[param]) {
-      return -1;
-    } else {
-      return 0;
-    }
+    allRows.map(row => bodyTable.append(row));
   });
-
-  rebuild();
 }
 
-clickArea.addEventListener('click', (e) => {
-  const typeSort = e.target.innerText.toLowerCase();
-
-  if (!typeSort) {
-    return;
-  }
-  userSort(typeSort);
-});
+userSort(mainTable);
