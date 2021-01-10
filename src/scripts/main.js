@@ -26,10 +26,7 @@ function sortAlgorythm(e) {
   }
 
   if (
-    e.target.textContent === 'Name'
-    || e.target.textContent === 'Position'
-    || e.target.textContent === 'Age'
-    || e.target.textContent === 'Salary'
+    e.target.parentElement.parentElement.tagName === 'THEAD'
   ) {
     if (e.target.textContent === 'Salary') {
       rows.sort(
