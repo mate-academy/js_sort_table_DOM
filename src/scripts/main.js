@@ -1,3 +1,28 @@
 'use strict';
 
-// write code here
+const thead = document.querySelector('thead');
+const tbody = document.querySelector('tbody');
+
+thead.addEventListener('click', (ev) => {
+  const rows = [...tbody.rows];
+  const caption = ev.target;
+  const columnIndex = caption.cellIndex;
+
+  rows.sort((prev, curr) => {
+    let prevText = prev.cells[columnIndex].textContent;
+    let currText = curr.cells[columnIndex].textContent;
+
+    if (prevText.startsWith('$')) {
+      prevText = prevText.slice(1).split(',').join('');
+      currText = currText.slice(1).split(',').join('');
+    }
+
+    if (isNaN(prevText)) {
+      return prevText.localeCompare(currText);
+    }
+
+    return +prevText - +currText;
+  });
+
+  tbody.append(...rows);
+});
