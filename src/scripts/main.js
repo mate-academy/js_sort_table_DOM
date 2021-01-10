@@ -3,10 +3,10 @@
 const thead = document.querySelector('thead');
 const tbody = document.querySelector('tbody');
 
-thead.addevListener('click', (ev) => {
+thead.addEventListener('click', (ev) => {
   const rows = [...tbody.rows];
-  const targ = ev.target;
-  const columnIndex = targ.cellIndex;
+  const caption = ev.target;
+  const columnIndex = caption.cellIndex;
 
   rows.sort((prev, curr) => {
     let prevText = prev.cells[columnIndex].textContent;
