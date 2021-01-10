@@ -1,26 +1,28 @@
 'use strict';
 
-const tableBody = document.querySelector('tbody');
-const people = [...document.querySelectorAll('tbody tr')];
-const header = document.querySelector('thead tr');
+const thead = document.querySelector('thead');
+const tbody = document.querySelector('tbody');
 
-header.addevListener('click', (ev) => {
-  const cellIndex = [...header.children].indexOf(ev.target);
+thead.addevListener('click', (ev) => {
+  const rows = [...tbody.rows];
+  const targ = ev.target;
+  const columnIndex = targ.cellIndex;
 
-  const sorted = people.sort((a, b) => {
-    function formateText(item) {
-      return item.children[cellIndex].innerText.replace(/[$,]/g, '');
-    };
+  rows.sort((prev, curr) => {
+    let prevText = prev.cells[columnIndex].textContent;
+    let currText = curr.cells[columnIndex].textContent;
 
-    const first = formateText(a);
-    const second = formateText(b);
+    if (prevText.startsWith('$')) {
+      prevText = prevText.slice(1).split(',').join('');
+      currText = currText.slice(1).split(',').join('');
+    }
 
-    if (isNaN(+first)) {
-      return first.localeCompare(second);
-    };
+    if (isNaN(prevText)) {
+      return prevText.localeCompare(currText);
+    }
 
-    return first - second;
+    return +prevText - +currText;
   });
 
-  tableBody.append(...sorted);
+  tbody.append(...rows);
 });
