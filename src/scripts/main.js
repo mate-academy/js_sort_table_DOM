@@ -32,4 +32,4 @@ function userSort(table) {
   });
 }
 
-userSort(mainTable);
+userSort();
