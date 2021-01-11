@@ -44,5 +44,7 @@
   "mateAcademy": {
     "projectType": "layoutDOM"
   },
-  "dependencies": {}
+  "dependencies": {
+    "tablesort": "^5.2.1"
+  }
 }
