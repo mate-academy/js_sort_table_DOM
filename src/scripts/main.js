@@ -1,30 +1,25 @@
 'use strict';
 
-// const rows = document.querySelectorAll('tr');
-const rows = document.querySelector('table').children[1].children;
+const rows = document.querySelector('tbody').rows;
 const rowsForSort = [...rows];
-
-const [...tabelHeadIndexes] = document
-  .querySelector('thead').children[0].children;
 
 const tabelHead = document.querySelector('thead').children[0];
 
 tabelHead.addEventListener('click', e => {
-  const clickedIndex = tabelHeadIndexes.indexOf(e.target);
+  const clickedIndex = e.target.cellIndex;
 
   const sorted = rowsForSort.sort((row1, row2) => {
-    if (Number.isInteger(+row1.children[clickedIndex].innerText)) {
-      return row1.children[clickedIndex].innerText
-        - row2.children[clickedIndex].innerText;
-    }
+    const cell1 = row1.children[clickedIndex].innerText;
+    const cell2 = row2.children[clickedIndex].innerText;
 
-    if (row1.children[clickedIndex].innerText[0] === '$') {
-      return parseFloat(row1.children[clickedIndex].innerText.slice(1))
-       - parseFloat(row2.children[clickedIndex].innerText.slice(1));
+    switch (e.target.innerText) {
+      case 'Age':
+        return cell1 - cell2;
+      case 'Salary':
+        return parseFloat(cell1.slice(1)) - parseFloat(cell2.slice(1));
+      default:
+        return cell1.localeCompare(cell2);
     }
-
-    return row1.children[clickedIndex].innerText
-      .localeCompare(row2.children[clickedIndex].innerText);
   }
   );
 
