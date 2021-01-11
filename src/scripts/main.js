@@ -6,39 +6,27 @@ const rows = tableBody.querySelectorAll('tr');
 
 const tableHead = document.querySelector('thead');
 
-const th = tableHead.querySelectorAll('th');
-
 const rowsArray = [...rows];
 
-const thArray = [...th];
-
 tableHead.addEventListener('click', e => {
-  const index = thArray.findIndex(el => el.innerText === e.target.innerText);
+  const index = e.target.cellIndex;
 
-  if (index === 3) {
-    for (let i = 0; i < rowsArray.length; i++) {
-      rowsArray[i].children[3].innerText = +rowsArray[i].children[3].innerText
-        .slice(1).split(',').join('');
+  rowsArray.sort((a, b) => {
+    const a1 = a.children[index].innerText;
+    const b1 = b.children[index].innerText;
+
+    if (e.target.innerText === 'Salary') {
+      return delete$(a1) - delete$(b1);
+    } else {
+      return a1.localeCompare(b1);
     }
+  }
+  );
 
-    rowsArray.sort((a, b) =>
-      a.children[3].innerText - b.children[3].innerText);
-
-    for (let i = 0; i < rowsArray.length; i++) {
-      rowsArray[i].children[3].innerText = '$' + rowsArray[i].children[3]
-        .innerText.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ',');
-    }
-
-    for (let i = 0; i < rowsArray.length; i++) {
-      tableBody.append(rowsArray[i]);
-    }
-  } else {
-    rowsArray.sort((a, b) =>
-      a.children[index].innerText.localeCompare(b.children[index].innerText));
-
-    for (let i = 0; i < rowsArray.length; i++) {
-      tableBody.append(rowsArray[i]);
-    }
+  for (const row of rowsArray) {
+    tableBody.append(row);
   }
 }
 );
+
+const delete$ = (string) => +string.slice(1).split(',').join('');
