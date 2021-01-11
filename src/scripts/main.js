@@ -8,49 +8,26 @@ const people = [...tBody.children];
 tHead.addEventListener('click', e => {
   switch (e.target.textContent) {
     case 'Name':
-      sortBy('name');
-      break;
-
-    case 'Position':
-      sortBy('position');
-      break;
-
-    case 'Age':
-      sortBy('age');
-      break;
-
-    case 'Salary':
-      sortBy('salary');
-      break;
-
-    default:
-      break;
-  }
-});
-
-const sortBy = (type) => {
-  switch (type) {
-    case 'name':
       people.sort((a, b) => {
         return a.children[0].textContent.localeCompare(b.children[0]
           .textContent);
       });
       break;
 
-    case 'position':
+    case 'Position':
       people.sort((a, b) => {
         return a.children[1].textContent.localeCompare(b.children[1]
           .textContent);
       });
       break;
 
-    case 'age':
+    case 'Age':
       people.sort((a, b) => {
         return +a.children[2].textContent - +b.children[2].textContent;
       });
       break;
 
-    case 'salary':
+    case 'Salary':
       people.sort((a, b) => {
         const itemA = a.children[3].textContent.slice(1).split(',').join('');
         const itemB = b.children[3].textContent.slice(1).split(',').join('');
@@ -64,4 +41,4 @@ const sortBy = (type) => {
   }
 
   tBody.append(...people);
-};
+});
