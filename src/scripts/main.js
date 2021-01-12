@@ -8,7 +8,7 @@ function convert(inputSalary) {
   return +(inputSalary.slice(1, -1).split(',').join(''));
 }
 
-function sort(index) {
+function sortTable(index) {
   const checkItem = people[0].children[index].innerText;
 
   return people.sort((a, b) => {
@@ -28,7 +28,7 @@ function sort(index) {
 }
 
 table.addEventListener('click', (e) => {
-  const result = sort(e.target.cellIndex);
+  const result = sortTable(e.target.cellIndex);
 
   list.append(...result);
 });
