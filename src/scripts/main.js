@@ -1,11 +1,9 @@
 'use strict';
 
 const list = document.querySelectorAll('tbody > tr');
-const headers = document.querySelectorAll('thead > tr > th');
+const thead = document.querySelector('thead');
 
-headers.forEach(item => {
-  item.addEventListener('click', eventListener);
-});
+thead.addEventListener('click', eventListener);
 
 function eventListener(ev) {
   let sorter = null;
