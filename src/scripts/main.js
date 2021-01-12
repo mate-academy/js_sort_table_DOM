@@ -3,27 +3,23 @@
 const list = document.querySelector('tbody');
 const table = document.querySelector('table');
 const people = [...list.querySelectorAll('tr')];
-const menu = {
-  Name: 0,
-  Position: 1,
-  Age: 2,
-  Salary: 3,
-};
 
 function convert(inputSalary) {
   return +(inputSalary.slice(1, -1).split(',').join(''));
 }
 
-function sort(position) {
-  return people.sort((a, b) => {
-    const itemA = a.children[position].innerText;
-    const itemB = b.children[position].innerText;
+function sort(index) {
+  const checkItem = people[0].children[index].innerText;
 
-    if (position === 3) {
+  return people.sort((a, b) => {
+    const itemA = a.children[index].innerText;
+    const itemB = b.children[index].innerText;
+
+    if (parseFloat(checkItem.slice(1, -1))) {
       return convert(itemA) - convert(itemB);
     }
 
-    if (position === 2) {
+    if (Number(checkItem)) {
       return +itemA - +itemB;
     }
 
@@ -32,7 +28,7 @@ function sort(position) {
 }
 
 table.addEventListener('click', (e) => {
-  const result = sort(menu[e.target.textContent]);
+  const result = sort(e.target.cellIndex);
 
   list.append(...result);
 });
