@@ -7,12 +7,13 @@ const rows = [...tbody.rows];
 
 head.addEventListener('click', e => {
   let arr = [];
+  const cellIndex = e.target.cellIndex;
 
   switch (e.target.textContent) {
     case ('Name'):
       arr = rows.sort((a, b) => {
-        const wordA = a.cells[0].textContent;
-        const wordB = b.cells[0].textContent;
+        const wordA = a.cells[cellIndex].textContent;
+        const wordB = b.cells[cellIndex].textContent;
 
         return wordA.localeCompare(wordB);
       });
@@ -21,8 +22,8 @@ head.addEventListener('click', e => {
 
     case ('Position'):
       arr = rows.sort((a, b) => {
-        const wordA = a.cells[1].textContent;
-        const wordB = b.cells[1].textContent;
+        const wordA = a.cells[cellIndex].textContent;
+        const wordB = b.cells[cellIndex].textContent;
 
         return wordA.localeCompare(wordB);
       });
@@ -30,18 +31,18 @@ head.addEventListener('click', e => {
 
     case ('Age'):
       arr = rows.sort((a, b) => {
-        return a.cells[2].textContent - b.cells[2].textContent;
+        return a.cells[cellIndex].textContent - b.cells[cellIndex].textContent;
       });
       break;
 
     case ('Salary'):
       arr = rows.sort((a, b) => {
-        const salary1 = a.cells[3].textContent
+        const salary1 = a.cells[cellIndex].textContent
           .split(',')
           .join('')
           .replace('$', '');
 
-        const salary2 = b.cells[3].textContent
+        const salary2 = b.cells[cellIndex].textContent
           .split(',')
           .join('')
           .replace('$', '');
