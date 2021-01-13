@@ -1,7 +1,7 @@
 'use strict';
 
 const tbody = document.querySelector('tbody');
-const thItems = document.querySelector('thead').children[0];
+const thItems = document.querySelector('thead');
 const trItems = tbody.querySelectorAll('tr');
 
 function toNum(str) {
