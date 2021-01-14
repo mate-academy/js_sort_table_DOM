@@ -11,67 +11,92 @@ document.addEventListener('click', (e) => {
 
   let sorted = [];
 
-  if (e.target.textContent === 'Salary') {
-    if (!document.moneyIncrease) {
+  switch (e.target.cellIndex) {
+    case 3:
       sorted = rows.sort((a, b) => {
-        return toNum(a, e.target.cellIndex) - toNum(b, e.target.cellIndex);
+        return numCompare(
+          toNum(a, e.target.cellIndex),
+          toNum(b, e.target.cellIndex),
+          document.moneyIncrease
+        );
       });
-      document.moneyIncrease = true;
-    } else {
-      sorted = rows.sort((a, b) => {
-        return toNum(b, e.target.cellIndex) - toNum(a, e.target.cellIndex);
-      });
-      document.moneyIncrease = false;
-    }
-  }
 
-  if (e.target.textContent === 'Age') {
-    if (!document.ageIncrease) {
-      sorted = rows.sort((a, b) => {
-        return +a.children[2].textContent - +b.children[2].textContent;
-      });
-      document.ageIncrease = true;
-    } else {
-      sorted = rows.sort((a, b) => {
-        return +b.children[2].textContent - +a.children[2].textContent;
-      });
-      document.ageIncrease = false;
-    }
-  }
+      if (!document.moneyIncrease) {
+        document.moneyIncrease = true;
+      } else {
+        document.moneyIncrease = false;
+      }
 
-  if (e.target.textContent === 'Position') {
-    if (!document.positionIncrease) {
-      sorted = rows.sort((a, b) => {
-        return textCompare(a, b, e.target.cellIndex, document.positionIncrease);
-      });
-      document.positionIncrease = true;
-    } else {
-      sorted = rows.sort((a, b) => {
-        return textCompare(a, b, e.target.cellIndex, document.positionIncrease);
-      });
-      document.positionIncrease = false;
-    }
-  }
+      break;
 
-  if (e.target.textContent === 'Name') {
-    if (!document.nameIncrease) {
+    case 2:
       sorted = rows.sort((a, b) => {
-        return textCompare(a, b, e.target.cellIndex, document.nameIncrease);
+        return numCompare(
+          toNum(a, e.target.cellIndex),
+          toNum(b, e.target.cellIndex),
+          document.ageIncrease
+        );
       });
-      document.nameIncrease = true;
-    } else {
+
+      if (!document.ageIncrease) {
+        document.ageIncrease = true;
+      } else {
+        document.ageIncrease = false;
+      }
+
+      break;
+
+    case 1:
       sorted = rows.sort((a, b) => {
-        return textCompare(a, b, e.target.cellIndex, document.nameIncrease);
+        return textCompare(
+          a,
+          b,
+          e.target.cellIndex,
+          document.positionIncrease
+        );
       });
-      document.nameIncrease = false;
-    }
+
+      if (!document.positionIncrease) {
+        document.positionIncrease = true;
+      } else {
+        document.positionIncrease = false;
+      }
+
+      break;
+
+    case 0:
+      sorted = rows.sort((a, b) => {
+        return textCompare(
+          a,
+          b,
+          e.target.cellIndex,
+          document.nameIncrease
+        );
+      });
+
+      if (!document.nameIncrease) {
+        document.nameIncrease = true;
+      } else {
+        document.nameIncrease = false;
+      }
+
+      break;
+
+    default:
+      break;
   }
 
   tableBody.append(...sorted);
 });
 
 function toNum(cell, n) {
-  return parseInt(cell.children[n].textContent.slice(1));
+  const num = cell.children[n].textContent;
+
+  if (num.includes('$')) {
+    return parseInt(cell.children[n].textContent.slice(1));
+  }
+
+  return parseInt(cell.children[n].textContent);
 }
 
 function textCompare(a, b, n, decrease) {
@@ -80,4 +105,12 @@ function textCompare(a, b, n, decrease) {
   }
 
   return a.children[n].textContent.localeCompare(b.children[n].textContent);
+}
+
+function numCompare(a, b, decrease) {
+  if (decrease) {
+    return b - a;
+  }
+
+  return a - b;
 }
