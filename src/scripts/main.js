@@ -6,37 +6,36 @@ const tbody = table.querySelector('tbody');
 
 const arrWithTd = [];
 
+const thOfHead = thead.firstElementChild.children;
+
 for (let i = 0; i < tbody.children.length; i++) {
   arrWithTd.push(Array.from(tbody.children[i].cells));
 }
 
 thead.addEventListener('click', e => {
-  const target = e.target.closest('th');
+  const target = e.target;
 
-  if (!target) {
-    return;
-  }
+  const click = target.textContent;
 
-  const head = target.textContent;
-
-  switch (head) {
-    case 'Name':
-      arrWithTd.sort((a, b) =>
-        a[0].textContent.localeCompare(b[0].textContent));
-      break;
-    case 'Position':
-      arrWithTd.sort((a, b) =>
-        a[1].textContent.localeCompare(b[1].textContent));
-      break;
-    case 'Age':
-      arrWithTd.sort((a, b) =>
-        a[2].textContent - b[2].textContent);
-      break;
-    case 'Salary':
-      arrWithTd.sort((a, b) =>
-        parseFloat(a[3].textContent.slice(1))
-        - parseFloat(b[3].textContent.slice(1)));
-      break;
+  for (let i = 0; i < thOfHead.length; i++) {
+    if (thOfHead[i].textContent === click) {
+      switch (click) {
+        case 'Name':
+        case 'Position':
+          arrWithTd.sort((a, b) =>
+            a[i].textContent.localeCompare(b[i].textContent));
+          break;
+        case 'Age':
+          arrWithTd.sort((a, b) =>
+            a[i].textContent - b[i].textContent);
+          break;
+        case 'Salary':
+          arrWithTd.sort((a, b) =>
+            parseFloat(a[i].textContent.slice(1))
+            - parseFloat(b[i].textContent.slice(1)));
+          break;
+      }
+    }
   }
 
   for (let i = 0; i < arrWithTd.length; i++) {
