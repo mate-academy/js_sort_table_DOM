@@ -76,11 +76,11 @@ tr[0].children[1].addEventListener('click', () => {
       const nameA = a.children[1].innerText.toLowerCase();
       const nameB = b.children[1].innerText.toLowerCase();
 
-      if (nameA < nameB) {
+      if (nameA > nameB) {
         return -1;
       }
 
-      if (nameA > nameB) {
+      if (nameA < nameB) {
         return 1;
       }
 
