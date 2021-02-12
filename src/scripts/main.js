@@ -1,6 +1,7 @@
 'use strict';
 
 const tr = document.querySelectorAll('tr');
+const thead = document.querySelector('thead');
 const tbody = document.querySelector('tbody');
 
 for (let i = 1; i < tr.length - 1; i++) {
@@ -10,126 +11,94 @@ for (let i = 1; i < tr.length - 1; i++) {
 const dataTr = document.querySelectorAll('.data');
 const list = [...dataTr];
 
-let alreadySorted0 = false;
+let active;
 
-tr[0].children[0].addEventListener('click', () => {
-  if (!alreadySorted0) {
-    list.sort((a, b) => {
-      const nameA = a.children[0].innerText.toLowerCase();
-      const nameB = b.children[0].innerText.toLowerCase();
+thead.addEventListener('click', (e) => {
+  const target = e.target;
 
-      if (nameA > nameB) {
-        return 1;
+  switch (target.innerText) {
+    case 'Name':
+      if (active !== e.target) {
+        list.sort((a, b) => {
+          const nameA = a.children[0].innerText.toLowerCase();
+          const nameB = b.children[0].innerText.toLowerCase();
+
+          if (nameA > nameB) {
+            return 1;
+          }
+
+          if (nameA < nameB) {
+            return -1;
+          }
+
+          return 0;
+        });
+        active = e.target;
+      } else {
+        list.reverse();
       }
 
-      if (nameA < nameB) {
-        return -1;
+      tbody.innerHTML = '';
+      tbody.append(...list);
+
+      break;
+    case 'Position':
+      if (active !== e.target) {
+        list.sort((a, b) => {
+          const positionA = a.children[1].innerText.toLowerCase();
+          const positionB = b.children[1].innerText.toLowerCase();
+
+          if (positionA > positionB) {
+            return 1;
+          }
+
+          if (positionA < positionB) {
+            return -1;
+          }
+
+          return 0;
+        });
+        active = e.target;
+      } else {
+        list.reverse();
       }
 
-      return 0;
-    });
-    alreadySorted0 = true;
-  } else {
-    list.sort((a, b) => {
-      const nameA = a.children[0].innerText.toLowerCase();
-      const nameB = b.children[0].innerText.toLowerCase();
+      tbody.innerHTML = '';
+      tbody.append(...list);
 
-      if (nameA > nameB) {
-        return -1;
+      break;
+
+    case 'Age':
+      if (active !== e.target) {
+        list.sort(
+          (a, b) => +a.children[2].innerText - +b.children[2].innerText
+        );
+        active = e.target;
+      } else {
+        list.reverse();
       }
 
-      if (nameA < nameB) {
-        return 1;
+      tbody.innerHTML = '';
+      tbody.append(...list);
+
+      break;
+
+    case 'Salary':
+      if (active !== e.target) {
+        list.sort((a, b) => {
+          return (
+            +a.children[3].innerText.split('$')[1].split(',').join('')
+            - +b.children[3].innerText.split('$')[1].split(',').join('')
+          );
+        });
+        active = e.target;
+      } else {
+        list.reverse();
       }
 
-      return 0;
-    });
+      tbody.innerHTML = '';
+      tbody.append(...list);
 
-    alreadySorted0 = false;
+      break;
   }
-
-  tbody.innerHTML = '';
-  tbody.append(...list);
-});
-
-let alreadySorted1 = false;
-
-tr[0].children[1].addEventListener('click', () => {
-  if (!alreadySorted1) {
-    list.sort((a, b) => {
-      const nameA = a.children[1].innerText.toLowerCase();
-      const nameB = b.children[1].innerText.toLowerCase();
-
-      if (nameA > nameB) {
-        return 1;
-      }
-
-      if (nameA < nameB) {
-        return -1;
-      }
-
-      return 0;
-    });
-    alreadySorted1 = true;
-  } else {
-    list.sort((a, b) => {
-      const nameA = a.children[1].innerText.toLowerCase();
-      const nameB = b.children[1].innerText.toLowerCase();
-
-      if (nameA > nameB) {
-        return -1;
-      }
-
-      if (nameA < nameB) {
-        return 1;
-      }
-
-      return 0;
-    });
-
-    alreadySorted1 = false;
-  }
-
-  tbody.innerHTML = '';
-  tbody.append(...list);
-});
-
-let alreadySorted2 = false;
-
-tr[0].children[2].addEventListener('click', () => {
-  if (!alreadySorted2) {
-    list.sort((a, b) => +a.children[2].innerText - +b.children[2].innerText);
-    alreadySorted2 = true;
-  } else {
-    list.sort((a, b) => +b.children[2].innerText - +a.children[2].innerText);
-    alreadySorted2 = false;
-  }
-
-  tbody.innerHTML = '';
-  tbody.append(...list);
-});
-
-let alreadySorted3 = false;
-
-tr[0].children[3].addEventListener('click', () => {
-  if (!alreadySorted3) {
-    list.sort((a, b) => {
-      return (
-        +a.children[3].innerText.split('$')[1].split(',').join('')
-        - +b.children[3].innerText.split('$')[1].split(',').join('')
-      );
-    });
-    alreadySorted3 = true;
-  } else {
-    list.sort((a, b) => {
-      return (
-        +b.children[3].innerText.split('$')[1].split(',').join('')
-        - +a.children[3].innerText.split('$')[1].split(',').join('')
-      );
-    });
-    alreadySorted3 = false;
-  }
-
-  tbody.innerHTML = '';
-  tbody.append(...list);
 });
