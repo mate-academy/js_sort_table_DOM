@@ -17,9 +17,8 @@ table.addEventListener('click', function(e) {
   }
 
   const sortBy = e.target.innerText;
+  const index = [...headers].findIndex(header => header.innerText === sortBy);
   let callback = null;
-
-  this.useIndex = [...headers].findIndex(header => header.innerText === sortBy);
 
   switch (sortBy.toLowerCase()) {
     case 'name':
@@ -31,25 +30,26 @@ table.addEventListener('click', function(e) {
       callback = compareNumbers;
       break;
   }
-  // Я не смог придумать как по-другому передать useIndex в callback
 
-  const sortedList = [...employees.children].sort(callback.bind(this));
+  const sortedList = [...employees.children].sort((a, b) => {
+    return callback(a, b, index);
+  });
 
   for (const employee of sortedList) {
     employees.append(employee);
   }
 });
 
-function compareStrings(a, b) {
-  const stringA = a.children[this.useIndex].innerText;
-  const stringB = b.children[this.useIndex].innerText;
+function compareStrings(a, b, index) {
+  const stringA = a.children[index].innerText;
+  const stringB = b.children[index].innerText;
 
   return stringA.localeCompare(stringB);
 }
 
-function compareNumbers(a, b) {
-  const numA = getNumber(a.children[this.useIndex].innerText);
-  const numB = getNumber(b.children[this.useIndex].innerText);
+function compareNumbers(a, b, index) {
+  const numA = getNumber(a.children[index].innerText);
+  const numB = getNumber(b.children[index].innerText);
 
   return numA - numB;
 }
