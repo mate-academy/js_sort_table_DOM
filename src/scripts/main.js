@@ -2,46 +2,43 @@
 
 const heading = document.querySelector('table thead tr');
 const tableBody = document.querySelector('table tbody');
+const tableRows = tableBody.querySelectorAll('tr');
 
-const sortNumbers = (toBeSorted, index) => {
+const sortFunction = (toBeSorted, index) => {
   const sorted = [...toBeSorted];
+  const content = sorted[0].children[index].textContent.replace(/\D/g, '');
 
-  sorted.sort((one, two) => {
-    return one.children[index].textContent.replace(/\D/g, '')
-    - two.children[index].textContent.replace(/\D/g, '');
-  });
+  if (content === '') {
+    sorted.sort((one, two) => {
+      const first = one.children[index].textContent;
+      const second = two.children[index].textContent;
 
-  tableBody.append(...sorted);
-};
+      if (first > second) {
+        return 1;
+      };
 
-const sortText = (toBeSorted, index) => {
-  const sorted = [...toBeSorted];
+      if (first < second) {
+        return -1;
+      };
 
-  sorted.sort((one, two) => {
-    if (one.children[index].textContent > two.children[index].textContent) {
-      return 1;
-    };
+      return 0;
+    });
+  }
 
-    if (one.children[index].textContent < two.children[index].textContent) {
-      return -1;
-    };
+  if (!isNaN(content)) {
+    sorted.sort((one, two) => {
+      const first = one.children[index].textContent.replace(/\D/g, '');
+      const second = two.children[index].textContent.replace(/\D/g, '');
 
-    return 0;
-  });
+      return first - second;
+    });
+  };
 
   tableBody.append(...sorted);
 };
 
 heading.addEventListener('click', (eventX) => {
   const index = [...heading.children].indexOf(eventX.target);
-  const tableRows = tableBody.querySelectorAll('tr');
-  const cell = tableRows[0].children[index].textContent.replace(/\D/g, '');
 
-  if (cell === '') {
-    sortText(tableRows, index);
-  }
-
-  if (cell !== '') {
-    sortNumbers(tableRows, index);
-  }
+  sortFunction(tableRows, index);
 });
