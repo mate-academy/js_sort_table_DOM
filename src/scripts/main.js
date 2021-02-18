@@ -3,60 +3,61 @@
 // write code here
 
 const body = document.body;
-const thead = document.querySelector('thead');
-const hName = thead.children[0].children[0];
-const hPosition = thead.children[0].children[1];
-const hAge = thead.children[0].children[2];
-// const hSalary = thead.children[0].children[3];
 const tBody = document.querySelector('tbody');
-const rowsList = [...tBody.querySelectorAll('tr')];
+const tData = [...tBody.querySelectorAll('tr')];
+let colIndex = -1;
+
+const sortTable = function(columnIdx, tHeaderName, isSorted) {
+  const sortedData = tData.sort((p, n) => {
+    let prev = [...p.querySelectorAll('td')][columnIdx].textContent;
+    let next = [...n.querySelectorAll('td')][columnIdx].textContent;
+
+    switch (tHeaderName) {
+      case 'Name':
+      case 'Position':
+      case 'Office':
+      case 'Age':
+        return prev.localeCompare(next);
+      case 'Salary':
+        prev = prev.split('$').join('').split(',').join('');
+        next = next.split('$').join('').split(',').join('');
+
+        return parseFloat(prev) - parseFloat(next);
+    }
+  });
+
+  if (isSorted) {
+    tData.reverse();
+  }
+
+  tBody.append(...sortedData);
+};
+
+const selectedRow = function(target) {
+  const currentRow = document.querySelectorAll('.active');
+
+  if (currentRow.length > 0) {
+    currentRow[0].className = currentRow[0].className.replace('active', '');
+  }
+  target.parentElement.className = 'active';
+};
 
 body.addEventListener('click', (e) => {
   const target = e.target;
 
-  if (target.tagName !== 'TH') {
+  if (target.tagName === 'BODY') {
     return;
   }
 
-  switch (target) {
-    case hName:
-      const sortedNames = rowsList.sort((prev, next) => {
-        const prevColText = prev.children[0].textContent;
-        const nextColText = next.children[0].textContent;
+  if (target.tagName === 'TH') {
+    const columnIdx = target.cellIndex;
+    const tHeaderName = target.textContent;
 
-        return prevColText.localeCompare(nextColText);
-      });
+    sortTable(columnIdx, tHeaderName, colIndex === columnIdx);
+    colIndex = (colIndex === columnIdx) ? -1 : columnIdx;
+  }
 
-      tBody.append(...sortedNames);
-      break;
-    case hPosition:
-      const sortedPos = rowsList.sort((prev, next) => {
-        const prevColText = prev.children[1].textContent;
-        const nextColText = next.children[1].textContent;
-
-        return prevColText.localeCompare(nextColText);
-      });
-
-      tBody.append(...sortedPos);
-      break;
-    case hAge:
-      const sortedAges = rowsList.sort((prev, next) => {
-        const prevColText = prev.children[2].textContent;
-        const nextColText = next.children[2].textContent;
-
-        return prevColText - nextColText;
-      });
-
-      tBody.append(...sortedAges);
-      break;
-    default:
-      const sortedSalaries = rowsList.sort((prev, next) => {
-        const prevColText = prev.children[3].textContent.replace(/[$,]/g, '');
-        const nextColText = next.children[3].textContent.replace(/[$,]/g, '');
-
-        return prevColText - nextColText;
-      });
-
-      tBody.append(...sortedSalaries);
+  if (target.tagName === 'TD') {
+    selectedRow(target);
   }
 });
