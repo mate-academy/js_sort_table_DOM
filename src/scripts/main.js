@@ -9,12 +9,14 @@ const convert = (string) => {
   return Number(string.replace(/[$,]/g, ''));
 };
 
-thead.forEach((title, i) => title.addEventListener('click', () => {
+thead.forEach((title, index) => title.addEventListener('click', () => {
   const sorted = rows.sort(
-    (a, b) => {
-      return convert(rows[0].cells[i].innerText) > 0
-        ? convert(a.cells[i].innerText) - convert(b.cells[i].innerText)
-        : a.cells[i].innerText.localeCompare(b.cells[i].innerText);
+    (currentRow, nextRow) => {
+      return convert(rows[0].cells[index].innerText) > 0
+        ? convert(currentRow.cells[index].innerText)
+        - convert(nextRow.cells[index].innerText)
+        : currentRow.cells[index].innerText.localeCompare(
+          nextRow.cells[index].innerText);
     });
 
   tbody.append(...sorted);
