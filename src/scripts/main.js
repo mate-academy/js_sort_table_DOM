@@ -11,23 +11,30 @@ function converter(string) {
 }
 
 function sortCell(ev) {
-  const elementIndex = ev.target.closest('th').cellIndex;
-  const element = ev.target.closest('th');
+  const titleIndex = ev.target.closest('th').cellIndex;
+  const title = ev.target.closest('th');
   const newRows = [...rows];
 
-  if (!element || !thead.contains(element)) {
+  if (!title || !thead.contains(title)) {
     return;
   }
 
-  newRows.sort((current, next) => {
-    const currentCell = current.cells[elementIndex].innerText;
-    const nextCell = next.cells[elementIndex].innerText;
-    const convertedCurrent = converter(currentCell);
-    const convertedNext = converter(nextCell);
+  if (titleIndex === 0 || titleIndex === 1) {
+    newRows.sort((current, next) => {
+      const currentCellString = current.cells[titleIndex].innerText;
+      const nextCellString = next.cells[titleIndex].innerText;
 
-    return elementIndex === 0 || elementIndex === 1
-      ? currentCell.localeCompare(nextCell)
-      : convertedCurrent - convertedNext;
+      return currentCellString.localeCompare(nextCellString);
+    });
+  }
+
+  newRows.sort((current, next) => {
+    const currentCellNum = current.cells[titleIndex].innerText;
+    const nextCellNum = next.cells[titleIndex].innerText;
+    const convertedCurrentNum = converter(currentCellNum);
+    const convertedNextNum = converter(nextCellNum);
+
+    return convertedCurrentNum - convertedNextNum;
   });
 
   rows.forEach(row => tbody.removeChild(row));
