@@ -12,11 +12,14 @@ const convert = (string) => {
 thead.forEach((title, index) => title.addEventListener('click', () => {
   const sorted = rows.sort(
     (currentRow, nextRow) => {
-      return convert(rows[0].cells[index].innerText) > 0
-        ? convert(currentRow.cells[index].innerText)
-        - convert(nextRow.cells[index].innerText)
-        : currentRow.cells[index].innerText.localeCompare(
-          nextRow.cells[index].innerText);
+      const currentValue = currentRow.cells[index].innerText;
+      const nextValue = nextRow.cells[index].innerText;
+
+      if (Number.isNaN(convert(rows[0].cells[index].innerText))) {
+        return currentValue.localeCompare(nextValue);
+      }
+
+      return convert(currentValue) - convert(nextValue);
     });
 
   tbody.append(...sorted);
