@@ -19,23 +19,29 @@ function sortCell(ev) {
     return;
   }
 
-  if (titleIndex === 0 || titleIndex === 1) {
-    newRows.sort((current, next) => {
-      const currentCellString = current.cells[titleIndex].innerText;
-      const nextCellString = next.cells[titleIndex].innerText;
+  switch (title.innerText) {
+    case 'Name':
+    case 'Position':
+      newRows.sort((current, next) => {
+        const currentCellString = current.cells[titleIndex].innerText;
+        const nextCellString = next.cells[titleIndex].innerText;
 
-      return currentCellString.localeCompare(nextCellString);
-    });
+        return currentCellString.localeCompare(nextCellString);
+      });
+      break;
+
+    case 'Age':
+    case 'Salary':
+      newRows.sort((current, next) => {
+        const currentCellNum = current.cells[titleIndex].innerText;
+        const nextCellNum = next.cells[titleIndex].innerText;
+        const convertedCurrentNum = converter(currentCellNum);
+        const convertedNextNum = converter(nextCellNum);
+
+        return convertedCurrentNum - convertedNextNum;
+      });
+      break;
   }
-
-  newRows.sort((current, next) => {
-    const currentCellNum = current.cells[titleIndex].innerText;
-    const nextCellNum = next.cells[titleIndex].innerText;
-    const convertedCurrentNum = converter(currentCellNum);
-    const convertedNextNum = converter(nextCellNum);
-
-    return convertedCurrentNum - convertedNextNum;
-  });
 
   rows.forEach(row => tbody.removeChild(row));
 
