@@ -13,7 +13,7 @@ function converter(string) {
 function sortCell(ev) {
   const titleIndex = ev.target.closest('th').cellIndex;
   const title = ev.target.closest('th');
-  const newRows = [...rows];
+  const rowsForSorting = [...rows];
 
   if (!title || !thead.contains(title)) {
     return;
@@ -22,7 +22,7 @@ function sortCell(ev) {
   switch (title.innerText) {
     case 'Name':
     case 'Position':
-      newRows.sort((current, next) => {
+      rowsForSorting.sort((current, next) => {
         const currentCellString = current.cells[titleIndex].innerText;
         const nextCellString = next.cells[titleIndex].innerText;
 
@@ -32,7 +32,7 @@ function sortCell(ev) {
 
     case 'Age':
     case 'Salary':
-      newRows.sort((current, next) => {
+      rowsForSorting.sort((current, next) => {
         const currentCellNum = current.cells[titleIndex].innerText;
         const nextCellNum = next.cells[titleIndex].innerText;
         const convertedCurrentNum = converter(currentCellNum);
@@ -45,5 +45,5 @@ function sortCell(ev) {
 
   rows.forEach(row => tbody.removeChild(row));
 
-  newRows.forEach(newRow => tbody.appendChild(newRow));
+  rowsForSorting.forEach(newRow => tbody.appendChild(newRow));
 }
