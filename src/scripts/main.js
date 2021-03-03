@@ -8,23 +8,51 @@ const tBody = document.querySelector('tbody');
 const list = [...document.querySelector('tbody').children];
 
 function replacer(value) {
-  return value.replace(throwSymbols, '');
+  return Number(value.replace(throwSymbols, ''));
 }
 
 function sortByProperty(callback, array, selectedColumn, fieldName) {
-  if (fieldName === 'Salary' || fieldName === 'Age') {
-    return array.sort((a, b) => {
-      return (
-        Number(callback(a.children[selectedColumn].textContent))
-        - Number(callback(b.children[selectedColumn].textContent))
-      );
-    });
+  const sortStrings = (prevPerson, nextPerson) => {
+    const prevProperty = prevPerson.children[selectedColumn].textContent;
+    const nextProperty = nextPerson.children[selectedColumn].textContent;
+
+    return prevProperty.localeCompare(nextProperty);
+  };
+
+  const sortNumbers = (prevPerson, nextPerson) => {
+    const prevProperty = prevPerson.children[selectedColumn].textContent;
+    const nextProperty = nextPerson.children[selectedColumn].textContent;
+
+    if (prevProperty.match(throwSymbols) !== null) {
+      return callback(prevProperty) - callback(nextProperty);
+    }
+
+    return prevProperty - nextProperty;
+  };
+
+  let sortedColumn = null;
+
+  switch (fieldName) {
+    case 'Name':
+      sortedColumn = array.sort(sortStrings);
+      break;
+
+    case 'Position':
+      sortedColumn = array.sort(sortStrings);
+      break;
+
+    case 'Age':
+      sortedColumn = array.sort(sortNumbers);
+      break;
+
+    case 'Salary':
+      sortedColumn = array.sort(sortNumbers);
+      break;
+
+    default: return 0;
   }
 
-  return array.sort((a, b) => {
-    return (a.children[selectedColumn].textContent)
-      .localeCompare(b.children[selectedColumn].textContent);
-  });
+  return sortedColumn;
 }
 
 thead.addEventListener('click', e => {
