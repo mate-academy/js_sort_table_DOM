@@ -1,23 +1,38 @@
 'use strict';
 
 // write code here
-const head = document.querySelector('thead');
-const table = document.querySelector('tbody');
+const thead = document.querySelector('thead');
+const tbody = document.querySelector('tbody');
+const rows = tbody.querySelectorAll('tr');
 
-head.addEventListener('click', (e) => {
-  const index = e.target.cellIndex;
+thead.addEventListener('click', (e) => {
+  const th = e.target.closest('th');
+  const thIndex = th.cellIndex;
+  const rowsList = [...rows];
 
-  const sortTableElement = [...table.rows].sort((current, next) => {
-    const currentValue = current.cells[index].innerHTML;
-    const nextValue = next.cells[index].innerHTML;
+  switch (th.innerText) {
+    case 'Name':
+    case 'Position' :
+      rowsList.sort((current, next) => {
+        const currentString = current.cells[thIndex].innerText;
+        const nextString = next.cells[thIndex].innerText;
 
-    const numbersValue = +currentValue.replace(/[^0-9]/g, '');
-    const nextNumbersValue = +nextValue.replace(/[^0-9]/g, '');
+        return currentString.localeCompare(nextString);
+      });
+      break;
 
-    return numbersValue
-      ? numbersValue - nextNumbersValue
-      : currentValue.localeCompare(nextValue);
-  });
+    case 'Age':
+    case 'Salary':
+      rowsList.sort((current, next) => {
+        const currentNumber
+          = current.cells[thIndex].innerText.replace(/[^0-9]/g, '');
+        const nextNumber
+          = next.cells[thIndex].innerText.replace(/[^0-9]/g, '');
 
-  table.append(...sortTableElement);
+        return currentNumber - nextNumber;
+      });
+  }
+
+  rows.forEach(row => tbody.removeChild(row));
+  rowsList.forEach(rowed => tbody.appendChild(rowed));
 });
