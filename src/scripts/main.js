@@ -11,11 +11,11 @@ function dolarToNumber(value) {
   return +a;
 };
 
-function sortingTableByTitleIndex(i) {
-  switch (i) {
-    case 0:
-    case 1: {
-      const position = i;
+function sortingTableByTitleIndex(targetTitle) {
+  switch (targetTitle.innerText.toLowerCase()) {
+    case 'name':
+    case 'position': {
+      const position = targetTitle.cellIndex;
 
       tableRows.sort((currentRow, nextRow) => {
         return currentRow.children[position].innerText
@@ -27,22 +27,25 @@ function sortingTableByTitleIndex(i) {
 
       break;
 
-    case 2:
-    case 3: {
-      const position = i;
+    case 'age': {
+      const position = targetTitle.cellIndex;
 
-      if (i === 3) {
-        tableRows.sort((currentRow, nextRow) => {
-          return dolarToNumber(currentRow.children[position].innerText)
-            - dolarToNumber(nextRow.children[position].innerText);
-        });
-      } else {
-        tableRows.sort((currentRow, nextRow) => {
-          return currentRow.children[position].innerText
-            - nextRow.children[position].innerText;
-        });
-      }
+      tableRows.sort((currentRow, nextRow) => {
+        return currentRow.children[position].innerText
+          - nextRow.children[position].innerText;
+      });
 
+      table.append(...tableRows);
+    }
+      break;
+
+    case 'salary': {
+      const position = targetTitle.cellIndex;
+
+      tableRows.sort((currentRow, nextRow) => {
+        return dolarToNumber(currentRow.children[position].innerText)
+          - dolarToNumber(nextRow.children[position].innerText);
+      });
       table.append(...tableRows);
     }
       break;
@@ -51,9 +54,8 @@ function sortingTableByTitleIndex(i) {
 
 const chosingTitle = e => {
   const item = e.target;
-  const position = item.cellIndex;
 
-  sortingTableByTitleIndex(position);
+  sortingTableByTitleIndex(item);
 };
 
 titlesTop.addEventListener('click', chosingTitle);
