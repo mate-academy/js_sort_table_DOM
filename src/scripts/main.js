@@ -1,63 +1,50 @@
 'use strict';
 
-const titlesTop = document.querySelector('thead');
-const titlesBottom = document.querySelector('tfoot');
-const table = document.querySelector('tbody');
-const tableRows = [...table.children];
+const thead = document.querySelector('thead');
+const tfoot = document.querySelector('tfoot');
+const tbody = document.querySelector('tbody');
+const tableRows = [...tbody.children];
 
 function dolarToNumber(value) {
-  const a = value.replace('$', '').replace(',', '.');
-
-  return +a;
+  return +value.replace('$', '').replace(',', '.');
 };
 
 function sortingTableByTitleIndex(targetTitle) {
+  const position = targetTitle.cellIndex;
+
   switch (targetTitle.innerText.toLowerCase()) {
     case 'name':
-    case 'position': {
-      const position = targetTitle.cellIndex;
-
+    case 'position':
       tableRows.sort((currentRow, nextRow) => {
         return currentRow.children[position].innerText
           .localeCompare(nextRow.children[position].innerText);
       });
-
-      table.append(...tableRows);
-    }
-
       break;
 
-    case 'age': {
-      const position = targetTitle.cellIndex;
-
+    case 'age':
       tableRows.sort((currentRow, nextRow) => {
         return currentRow.children[position].innerText
           - nextRow.children[position].innerText;
       });
-
-      table.append(...tableRows);
-    }
       break;
 
-    case 'salary': {
-      const position = targetTitle.cellIndex;
-
+    case 'salary':
       tableRows.sort((currentRow, nextRow) => {
         return dolarToNumber(currentRow.children[position].innerText)
           - dolarToNumber(nextRow.children[position].innerText);
       });
-      table.append(...tableRows);
-    }
       break;
   }
+
+  return tableRows;
 }
 
 const chosingTitle = e => {
   const item = e.target;
 
-  sortingTableByTitleIndex(item);
+  tbody.append(...sortingTableByTitleIndex(item));
 };
 
-titlesTop.addEventListener('click', chosingTitle);
+thead.addEventListener('click', chosingTitle);
 
-titlesBottom.addEventListener('click', chosingTitle);
+tfoot.addEventListener('click', chosingTitle);
