@@ -1,29 +1,30 @@
 'use strict';
 
 const thead = document.querySelector('tr');
-const throwSymbols = /[^\d]/g;
+const tableHeadlines = [...thead.children];
 
-const properties = [...thead.children];
 const tBody = document.querySelector('tbody');
-const list = [...document.querySelector('tbody').children];
+const rowsList = [...tBody.children];
+
+const regExpReplaceSymbols = /[^\d]/g;
 
 function replacer(value) {
-  return Number(value.replace(throwSymbols, ''));
+  return Number(value.replace(regExpReplaceSymbols, ''));
 }
 
-function sortByProperty(callback, array, selectedColumn, fieldName) {
+function sortByHeadline(callback, tableRows, columnPosition, fieldName) {
   const sortStrings = (prevPerson, nextPerson) => {
-    const prevProperty = prevPerson.children[selectedColumn].textContent;
-    const nextProperty = nextPerson.children[selectedColumn].textContent;
+    const prevProperty = prevPerson.children[columnPosition].textContent;
+    const nextProperty = nextPerson.children[columnPosition].textContent;
 
     return prevProperty.localeCompare(nextProperty);
   };
 
   const sortNumbers = (prevPerson, nextPerson) => {
-    const prevProperty = prevPerson.children[selectedColumn].textContent;
-    const nextProperty = nextPerson.children[selectedColumn].textContent;
+    const prevProperty = prevPerson.children[columnPosition].textContent;
+    const nextProperty = nextPerson.children[columnPosition].textContent;
 
-    if (prevProperty.match(throwSymbols) !== null) {
+    if (prevProperty.match(regExpReplaceSymbols) !== null) {
       return callback(prevProperty) - callback(nextProperty);
     }
 
@@ -34,19 +35,13 @@ function sortByProperty(callback, array, selectedColumn, fieldName) {
 
   switch (fieldName) {
     case 'Name':
-      sortedColumn = array.sort(sortStrings);
-      break;
-
     case 'Position':
-      sortedColumn = array.sort(sortStrings);
+      sortedColumn = tableRows.sort(sortStrings);
       break;
 
     case 'Age':
-      sortedColumn = array.sort(sortNumbers);
-      break;
-
     case 'Salary':
-      sortedColumn = array.sort(sortNumbers);
+      sortedColumn = tableRows.sort(sortNumbers);
       break;
 
     default: return 0;
@@ -60,7 +55,7 @@ thead.addEventListener('click', e => {
 
   let counter = 0;
 
-  for (const item of properties) {
+  for (const item of tableHeadlines) {
     if (item.textContent === selectedTarget) {
       break;
     }
@@ -68,9 +63,9 @@ thead.addEventListener('click', e => {
     counter++;
   }
 
-  const sortedProperties = sortByProperty(
-    replacer, list, counter, selectedTarget
+  const sortedColumn = sortByHeadline(
+    replacer, rowsList, counter, selectedTarget
   );
 
-  tBody.append(...sortedProperties);
+  tBody.append(...sortedColumn);
 });
