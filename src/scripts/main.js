@@ -1,8 +1,6 @@
 'use strict';
 
 const thead = document.querySelector('tr');
-const tableHeadlines = [...thead.children];
-
 const tBody = document.querySelector('tbody');
 const rowsList = [...tBody.children];
 
@@ -52,19 +50,10 @@ function sortByHeadline(callback, tableRows, columnPosition, fieldName) {
 
 thead.addEventListener('click', e => {
   const selectedTarget = e.target.textContent;
-
-  let counter = 0;
-
-  for (const item of tableHeadlines) {
-    if (item.textContent === selectedTarget) {
-      break;
-    }
-
-    counter++;
-  }
+  const column = e.target.cellIndex;
 
   const sortedColumn = sortByHeadline(
-    replacer, rowsList, counter, selectedTarget
+    replacer, rowsList, column, selectedTarget
   );
 
   tBody.append(...sortedColumn);
