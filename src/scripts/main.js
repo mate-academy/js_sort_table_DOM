@@ -2,11 +2,11 @@
 
 const thead = document.querySelector('tr');
 const tBody = document.querySelector('tbody');
-const rowsList = [...tBody.children];
+const rowsList = tBody.querySelectorAll('tr');
 
 const regExpReplaceSymbols = /[^\d]/g;
 
-function replacer(value) {
+function numbersFilter(value) {
   return Number(value.replace(regExpReplaceSymbols, ''));
 }
 
@@ -34,12 +34,12 @@ function sortByHeadline(callback, tableRows, columnPosition, fieldName) {
   switch (fieldName) {
     case 'Name':
     case 'Position':
-      sortedColumn = tableRows.sort(sortStrings);
+      sortedColumn = [...tableRows].sort(sortStrings);
       break;
 
     case 'Age':
     case 'Salary':
-      sortedColumn = tableRows.sort(sortNumbers);
+      sortedColumn = [...tableRows].sort(sortNumbers);
       break;
 
     default: return 0;
@@ -53,7 +53,7 @@ thead.addEventListener('click', e => {
   const column = e.target.cellIndex;
 
   const sortedColumn = sortByHeadline(
-    replacer, rowsList, column, selectedTarget
+    numbersFilter, rowsList, column, selectedTarget
   );
 
   tBody.append(...sortedColumn);
