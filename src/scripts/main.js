@@ -2,7 +2,7 @@
 
 const thead = document.querySelector('tr');
 const tBody = document.querySelector('tbody');
-const rowsList = tBody.querySelectorAll('tr');
+const rowsList = [...tBody.querySelectorAll('tr')];
 
 const regExpReplaceSymbols = /[^\d]/g;
 
@@ -34,15 +34,13 @@ function sortByHeadline(callback, tableRows, columnPosition, fieldName) {
   switch (fieldName) {
     case 'Name':
     case 'Position':
-      sortedColumn = [...tableRows].sort(sortStrings);
+      sortedColumn = tableRows.sort(sortStrings);
       break;
 
     case 'Age':
     case 'Salary':
-      sortedColumn = [...tableRows].sort(sortNumbers);
+      sortedColumn = tableRows.sort(sortNumbers);
       break;
-
-    default: return 0;
   }
 
   return sortedColumn;
