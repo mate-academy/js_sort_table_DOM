@@ -4,13 +4,13 @@ const thead = document.querySelector('tr');
 const tBody = document.querySelector('tbody');
 const rowsList = [...tBody.querySelectorAll('tr')];
 
-const regExpReplaceSymbols = /[^\d]/g;
+const leaveNumbers = new RegExp(/[^\d]/g);
 
 function numbersFilter(value) {
-  return Number(value.replace(regExpReplaceSymbols, ''));
+  return Number(value.replace(leaveNumbers, ''));
 }
 
-function sortByHeadline(callback, tableRows, columnPosition, fieldName) {
+function sortByColumnName(callback, tableRows, columnPosition, fieldName) {
   const sortStrings = (prevPerson, nextPerson) => {
     const prevProperty = prevPerson.children[columnPosition].textContent;
     const nextProperty = nextPerson.children[columnPosition].textContent;
@@ -22,7 +22,7 @@ function sortByHeadline(callback, tableRows, columnPosition, fieldName) {
     const prevProperty = prevPerson.children[columnPosition].textContent;
     const nextProperty = nextPerson.children[columnPosition].textContent;
 
-    if (prevProperty.match(regExpReplaceSymbols) !== null) {
+    if (prevProperty.match(leaveNumbers) !== null) {
       return callback(prevProperty) - callback(nextProperty);
     }
 
@@ -50,7 +50,7 @@ thead.addEventListener('click', e => {
   const selectedTarget = e.target.textContent;
   const column = e.target.cellIndex;
 
-  const sortedColumn = sortByHeadline(
+  const sortedColumn = sortByColumnName(
     numbersFilter, rowsList, column, selectedTarget
   );
 
