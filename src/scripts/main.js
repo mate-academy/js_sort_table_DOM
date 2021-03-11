@@ -2,33 +2,39 @@
 
 const tableHead = document.querySelector('thead');
 const tableBody = document.querySelector('tbody');
-const bodyRows = [...tableBody.querySelectorAll('tr')];
 
 tableHead.addEventListener('click', (e) => {
-  const cellIndex = e.target.cellIndex;
-  const rowsAfterSort = sortedTable(cellIndex, bodyRows);
+  const headClick = e.target.closest('th');
+  const cellIndex = headClick.cellIndex;
+  const rows = [...tableBody.children];
 
-  tableHead.append(...rowsAfterSort);
+  if (!headClick || !tableHead.contains(headClick)) {
+    return;
+  }
+
+  sortedTable(cellIndex, rows);
 });
 
 function sortedTable(index, table) {
-  let sortedList = table.sort((a, b) => a.children[index]
-    .innerText
-    .localeCompare(b.children[index].innerText
-    ));
+  const sortedList = table;
 
-  if (index === 2) {
-    sortedList = table.sort((a, b) => Number(a.children[index].innerText)
-      - Number(b.children[index].innerText));
+  sortedList.sort((a, b) => {
+    const cellA = a.cells[index].textContent;
+    const cellB = b.cells[index].textContent;
+
+    if (cellA.includes('$')) {
+      return Number(cellA.replace(/[$,]/g, ''))
+       - Number(cellB.replace(/[$,]/g, ''));
+    }
+
+    if (!isNaN(Number(cellA))) {
+      return Number(cellA) - Number(cellB);
+    } else {
+      return cellA.localeCompare(cellB);
+    }
+  });
+
+  for (const row of sortedList) {
+    tableBody.appendChild(row);
   }
-
-  if (index === 3) {
-    sortedList = table.sort((a, b) => Number(a.children[index]
-      .innerText
-      .replace(/\$|,/g, '')) - Number(b.children[index]
-      .innerText
-      .replace(/\$|,/g, '')));
-  }
-
-  return sortedList;
 }
