@@ -32,16 +32,3 @@ mainTable.addEventListener('click', (clickHandler) => {
     tbody.append(...sortedElements);
   };
 });
-
-// let previousElement;
-
-// document.body.addEventListener('click', clickEvent => {
-//   clickEvent.preventDefault();
-
-//   if (previousElement) {
-//     previousElement.style.border = '';
-//   }
-//   previousElement = clickEvent.target;
-//   previousElement.style.border = "3px solid #0000FF";
-
-// })
