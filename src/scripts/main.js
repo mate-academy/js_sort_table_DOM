@@ -4,7 +4,7 @@
 const thead = document.querySelector('thead');
 const tbody = document.querySelector('tbody');
 
-function sortByLetter(index) {
+function sorted(index) {
   const rows = Array.from(tbody.rows).sort((rowA, rowB) => {
     const firstRow = rowA.cells[index].innerHTML;
     const secondRow = rowB.cells[index].innerHTML;
@@ -25,5 +25,5 @@ function sortByLetter(index) {
 thead.addEventListener('click', e => {
   const thIndex = e.target.cellIndex;
 
-  sortByLetter(thIndex);
+  sorted(thIndex);
 });
