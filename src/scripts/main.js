@@ -6,42 +6,57 @@ const tableBody = document.querySelector('tbody');
 
 tableHeader.addEventListener('click', (eventClick) => {
   const clickedByUserCategory = eventClick.target.closest('th');
+
   let sortedList;
+
+  const numberOfClickedHeaderElement = [...tableHeader.rows[0].cells]
+    .indexOf(clickedByUserCategory);
 
   switch (clickedByUserCategory.innerText) {
     case 'Name':
-      sortedList = sortByNameOrPosition(listOfEmpoyees, 'name'); break;
+      sortedList = sortByNameOrPosition(
+        listOfEmpoyees,
+        numberOfClickedHeaderElement
+      );
+      break;
     case 'Position':
-      sortedList = sortByNameOrPosition(listOfEmpoyees, 'position'); break;
+      sortedList = sortByNameOrPosition(
+        listOfEmpoyees,
+        numberOfClickedHeaderElement
+      );
+      break;
     case 'Age':
-      sortedList = sortByAge(listOfEmpoyees); break;
+      sortedList = sortByAge(listOfEmpoyees, numberOfClickedHeaderElement);
+      break;
     case 'Salary':
-      sortedList = sortBySalary(listOfEmpoyees); break;
+      sortedList = sortBySalary(listOfEmpoyees, numberOfClickedHeaderElement);
+      break;
   }
 
   sortedList.forEach((row) =>
     tableBody.append(row));
 });
 
-function sortByNameOrPosition(list, sortBy) {
-  const sortByText = (sortBy === 'name') ? 0 : 1;
+function sortByNameOrPosition(list, numberOfElement) {
+  const sortByText = numberOfElement;
 
-  return [...list].sort((a, b) =>
-    a.cells[sortByText].innerText.localeCompare(b.cells[sortByText].innerText)
+  return [...list].sort((prev, next) =>
+    prev.cells[sortByText].innerText
+      .localeCompare(next.cells[sortByText].innerText)
   );
 }
 
-function sortByAge(list) {
-  return [...list].sort((a, b) => {
-    return parseInt(a.cells[2].innerText)
-    - parseInt(b.cells[2].innerText);
+function sortByAge(list, numberOfElement) {
+  return [...list].sort((prev, next) => {
+    return parseInt(prev.cells[numberOfElement].innerText)
+    - parseInt(next.cells[numberOfElement].innerText);
   });
 }
 
-function sortBySalary(list) {
-  return [...list].sort((a, b) => {
-    return convertToMoney(a.cells[3].innerText)
-    - convertToMoney(b.cells[3].innerText);
+function sortBySalary(list, numberOfElement) {
+  return [...list].sort((prev, next) => {
+    return convertToMoney(prev.cells[numberOfElement].innerText)
+    - convertToMoney(next.cells[numberOfElement].innerText);
   });
 }
 
