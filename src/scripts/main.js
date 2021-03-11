@@ -4,13 +4,12 @@
 
 const thead = document.querySelector('thead');
 const tbody = document.querySelector('tbody');
-const rows = document.querySelectorAll('tbody > tr');
-const copyRows = [...rows];
+const arrOfEmployees = [...document.querySelectorAll('tbody > tr')];
 
 thead.addEventListener('click', (e) => {
   const indexOfElement = e.target.cellIndex;
 
-  copyRows.sort((prew, next) => {
+  arrOfEmployees.sort((prew, next) => {
     let firstElement = prew.children[indexOfElement].textContent;
     let secondElement = next.children[indexOfElement].textContent;
 
@@ -26,5 +25,5 @@ thead.addEventListener('click', (e) => {
       : firstElement - secondElement;
   });
 
-  tbody.append(...copyRows);
+  tbody.append(...arrOfEmployees);
 });
