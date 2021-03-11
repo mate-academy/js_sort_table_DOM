@@ -39,21 +39,18 @@ function replaceSymbols(string) {
 thead.addEventListener('click', (clickEvent) => {
   if (clickEvent.target.innerText === 'Name') {
     sortArrayAsString(rows, nameColumn);
-    tbody.append(...rows);
   }
 
   if (clickEvent.target.innerText === 'Position') {
     sortArrayAsString(rows, positionColumn);
-    tbody.append(...rows);
   }
 
   if (clickEvent.target.innerText === 'Age') {
     sortArrayAsNumbers(rows, ageColumn);
-    tbody.append(...rows);
   }
 
   if (clickEvent.target.innerText === 'Salary') {
     sortArrayAsNumbers(rows, salaryColumn);
-    tbody.append(...rows);
   }
+  tbody.append(...rows);
 });
