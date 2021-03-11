@@ -12,15 +12,14 @@ function makeSortTablet(tablet) {
   const thead = tablet.querySelector('thead');
   const tbody = tablet.querySelector('tbody');
 
-  // eslint-disable-next-line no-shadow
   thead.addEventListener('click', () => {
-    const th = event.target.closest('th');
+    const tableHeader = event.target.closest('th');
 
-    if (!th) {
+    if (!tableHeader) {
       return;
     }
 
-    const column = th.cellIndex;
+    const column = tableHeader.cellIndex;
     const rows = [...tbody.children];
 
     rows.sort((rowA, rowB) => {
