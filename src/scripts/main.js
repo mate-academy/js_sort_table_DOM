@@ -16,17 +16,21 @@ tableHead.addEventListener('click', (clickEvent) => {
     return;
   }
 
-  if (typeof column.textContent === 'string') {
+  if (column.textContent === 'Name' || column.textContent === 'Position') {
     rows.sort((currentCell, nextCell) => {
       return currentCell.cells[columnIndex].innerText.localeCompare(
         nextCell.cells[columnIndex].innerText
       );
     });
+
+    tableBody.append(...rows);
+
+    return;
   }
 
   rows.sort((currentCell, nextCell) => {
     return convertToNumber(currentCell.cells[columnIndex].innerText)
-    - convertToNumber(nextCell.cells[columnIndex].innerText);
+      - convertToNumber(nextCell.cells[columnIndex].innerText);
   });
 
   tableBody.append(...rows);
