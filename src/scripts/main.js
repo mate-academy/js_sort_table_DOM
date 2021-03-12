@@ -3,34 +3,34 @@
 const tableHead = document.querySelector('thead');
 const tableBody = document.querySelector('tbody');
 
-tableHead.addEventListener('click', (e) => {
-  const headClick = e.target.closest('th');
+tableHead.addEventListener('click', (clickEvent) => {
+  const headClick = clickEvent.target.closest('th');
   const cellIndex = headClick.cellIndex;
   const rows = [...tableBody.children];
+  const eventA = clickEvent.target.textContent;
 
   if (!headClick || !tableHead.contains(headClick)) {
     return;
   }
 
-  sortedTable(cellIndex, rows);
+  sortedTable(cellIndex, rows, eventA);
 });
 
-function sortedTable(index, table) {
+function sortedTable(index, table, eventClick) {
   const sortedList = table;
 
   sortedList.sort((a, b) => {
-    const cellA = a.cells[index].textContent;
-    const cellB = b.cells[index].textContent;
+    const currentCell = a.cells[index].textContent;
+    const previousCell = b.cells[index].textContent;
 
-    if (cellA.includes('$')) {
-      return Number(cellA.replace(/[$,]/g, ''))
-       - Number(cellB.replace(/[$,]/g, ''));
-    }
-
-    if (!isNaN(Number(cellA))) {
-      return Number(cellA) - Number(cellB);
+    if (eventClick === 'Salary') {
+      return Number(currentCell.replace(/[$,]/g, ''))
+       - Number(previousCell.replace(/[$,]/g, ''));
+    } else if (eventClick === 'Age') {
+      return Number(currentCell)
+      - Number(previousCell);
     } else {
-      return cellA.localeCompare(cellB);
+      return currentCell.localeCompare(previousCell);
     }
   });
 
