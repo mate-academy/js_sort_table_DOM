@@ -32,7 +32,7 @@ function sortRows(selectedElement) {
 tableHead.addEventListener('click', (clickEvent) => {
   sortRows(clickEvent.target);
 
-  rows.forEach(row => tableBody.appendChild(row));
+  tableBody.append(...rows);
 
-  table.appendChild(tableBody);
+  table.append(tableBody);
 });
