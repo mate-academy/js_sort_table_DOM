@@ -18,6 +18,13 @@ const sort = (e) => {
 
   switch (th.innerText) {
     case 'Name':
+      rowList.sort((currentItem, nextItem) => {
+        const current = currentItem.querySelector('td').innerText;
+        const next = nextItem.querySelector('td').innerText;
+
+        return current.localeCompare(next);
+      });
+      break;
     case 'Age':
     case 'Salary':
       rowList.sort((currentItem, nextItem) => {
