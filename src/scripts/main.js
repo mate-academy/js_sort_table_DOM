@@ -19,18 +19,18 @@ tableHead.addEventListener('click', (clickEvent) => {
 function sortedTable(index, table, eventClick) {
   const sortedList = table;
 
-  sortedList.sort((a, b) => {
-    const currentCell = a.cells[index].textContent;
-    const previousCell = b.cells[index].textContent;
+  sortedList.sort((previous, current) => {
+    const previousCell = previous.cells[index].textContent;
+    const currentCell = current.cells[index].textContent;
 
     if (eventClick === 'Salary') {
-      return Number(currentCell.replace(/[$,]/g, ''))
-       - Number(previousCell.replace(/[$,]/g, ''));
+      return Number(previousCell.replace(/[$,]/g, ''))
+       - Number(currentCell.replace(/[$,]/g, ''));
     } else if (eventClick === 'Age') {
-      return Number(currentCell)
-      - Number(previousCell);
+      return Number(previousCell)
+      - Number(currentCell);
     } else {
-      return currentCell.localeCompare(previousCell);
+      return previousCell.localeCompare(currentCell);
     }
   });
 
