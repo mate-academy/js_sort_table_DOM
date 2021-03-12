@@ -7,9 +7,9 @@ function convertToNumber(value) {
 const thead = document.querySelector('thead');
 const tbody = document.querySelector('tbody');
 const rows = tbody.querySelectorAll('tr');
-const sort = (e) => {
-  const th = e.target.closest('th');
-  const index = th.cellIndex;
+const sort = (clickEvent) => {
+  const th = clickEvent.target.closest('th');
+  const thIndex = th.cellIndex;
   const rowList = [...rows];
 
   if (!th || !thead.contains(th)) {
@@ -17,36 +17,29 @@ const sort = (e) => {
   }
 
   switch (th.innerText) {
-    case 'Name':
-      rowList.sort((currentItem, nextItem) => {
-        const current = currentItem.querySelector('td').innerText;
-        const next = nextItem.querySelector('td').innerText;
-
-        return current.localeCompare(next);
-      });
-      break;
     case 'Age':
     case 'Salary':
       rowList.sort((currentItem, nextItem) => {
         const current
- = convertToNumber(currentItem.cells[index].innerText);
+          = convertToNumber(currentItem.cells[thIndex].innerText);
         const next
-          = convertToNumber(nextItem.cells[index].innerText);
+          = convertToNumber(nextItem.cells[thIndex].innerText);
 
         return current - next;
       });
       break;
-    case 'Position' :
-      rowList.sort((currentString, nextString) => {
-        const currentStringText = currentString.cells[index].innerText;
-        const nextStringText = nextString.cells[index].innerText;
+    case 'Name':
+    case 'Position':
+      rowList.sort((currentItem, nextItem) => {
+        const current = currentItem.cells[thIndex].innerText;
+        const next = nextItem.cells[thIndex].innerText;
 
-        return currentStringText.localeCompare(nextStringText);
+        return current.localeCompare(next);
       });
   }
 
   rows.forEach(row => tbody.removeChild(row));
-  rowList.forEach(rowed => tbody.appendChild(rowed));
+  tbody.append(...rowList);
 };
 
 thead.addEventListener('click', sort);
