@@ -7,10 +7,10 @@ function convertToNumber(value) {
 const thead = document.querySelector('thead');
 const tbody = document.querySelector('tbody');
 const rows = tbody.querySelectorAll('tr');
-const sorted = (e) => {
+const sort = (e) => {
   const th = e.target.closest('th');
   const index = th.cellIndex;
-  const rowsList = [...rows];
+  const rowList = [...rows];
 
   if (!th || !thead.contains(th)) {
     return;
@@ -20,17 +20,17 @@ const sorted = (e) => {
     case 'Name':
     case 'Age':
     case 'Salary':
-      rowsList.sort((currentItem, nextItem) => {
-        const currentItemNumber
-          = convertToNumber(currentItem.cells[index].innerText);
-        const nextItemNumber
+      rowList.sort((currentItem, nextItem) => {
+        const current
+ = convertToNumber(currentItem.cells[index].innerText);
+        const next
           = convertToNumber(nextItem.cells[index].innerText);
 
-        return currentItemNumber - nextItemNumber;
+        return current - next;
       });
       break;
     case 'Position' :
-      rowsList.sort((currentString, nextString) => {
+      rowList.sort((currentString, nextString) => {
         const currentStringText = currentString.cells[index].innerText;
         const nextStringText = nextString.cells[index].innerText;
 
@@ -39,7 +39,7 @@ const sorted = (e) => {
   }
 
   rows.forEach(row => tbody.removeChild(row));
-  rowsList.forEach(rowed => tbody.appendChild(rowed));
+  rowList.forEach(rowed => tbody.appendChild(rowed));
 };
 
-thead.addEventListener('click', sorted);
+thead.addEventListener('click', sort);
