@@ -14,30 +14,24 @@ tableHeader.addEventListener('click', (eventClick) => {
 
   switch (clickedByUserCategory.innerText) {
     case 'Name':
-      sortedList = sortByNameOrPosition(
-        listOfEmpoyees,
-        numberOfClickedHeaderElement
-      );
-      break;
     case 'Position':
-      sortedList = sortByNameOrPosition(
+      sortedList = sortStrings(
         listOfEmpoyees,
         numberOfClickedHeaderElement
       );
       break;
     case 'Age':
-      sortedList = sortByAge(listOfEmpoyees, numberOfClickedHeaderElement);
+      sortedList = sortNumbers(listOfEmpoyees, numberOfClickedHeaderElement);
       break;
     case 'Salary':
-      sortedList = sortBySalary(listOfEmpoyees, numberOfClickedHeaderElement);
+      sortedList = sortByCurrency(listOfEmpoyees, numberOfClickedHeaderElement);
       break;
   }
 
-  sortedList.forEach((row) =>
-    tableBody.append(row));
+  tableBody.append(...sortedList);
 });
 
-function sortByNameOrPosition(list, numberOfElement) {
+function sortStrings(list, numberOfElement) {
   const sortByText = numberOfElement;
 
   return [...list].sort((prev, next) =>
@@ -46,14 +40,14 @@ function sortByNameOrPosition(list, numberOfElement) {
   );
 }
 
-function sortByAge(list, numberOfElement) {
+function sortNumbers(list, numberOfElement) {
   return [...list].sort((prev, next) => {
     return parseInt(prev.cells[numberOfElement].innerText)
     - parseInt(next.cells[numberOfElement].innerText);
   });
 }
 
-function sortBySalary(list, numberOfElement) {
+function sortByCurrency(list, numberOfElement) {
   return [...list].sort((prev, next) => {
     return convertToMoney(prev.cells[numberOfElement].innerText)
     - convertToMoney(next.cells[numberOfElement].innerText);
