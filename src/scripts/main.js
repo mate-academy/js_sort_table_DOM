@@ -5,28 +5,31 @@ const tableBody = table.tBodies[0];
 const rows = [...tableBody.rows];
 const tableHead = table.tHead;
 
-function normalizeSalary(row, cellIndex) {
-  return parseFloat(
-    row.cells[cellIndex].textContent.replace('$', '')
+function normalizeNumber(row, cellIndex) {
+  return Number(
+    row.cells[cellIndex].textContent.replace(/[^0-9]/g, '')
   );
 }
 
 function sortRows(selectedElement) {
   const cellIndex = selectedElement.cellIndex;
+  const columnName = selectedElement.textContent;
 
-  if (selectedElement.textContent === 'Salary') {
-    rows.sort((currentRow, nextRow) => {
-      return normalizeSalary(currentRow, cellIndex)
-        - normalizeSalary(nextRow, cellIndex);
-    });
+  switch (columnName) {
+    case 'Salary':
+    case 'Age':
+      rows.sort((currentRow, nextRow) => {
+        return normalizeNumber(currentRow, cellIndex)
+          - normalizeNumber(nextRow, cellIndex);
+      });
 
-    return;
+      break;
+    default:
+      rows.sort((currentRow, nextRow) => {
+        return currentRow.cells[cellIndex].textContent.localeCompare(
+          nextRow.cells[cellIndex].textContent);
+      });
   }
-
-  rows.sort((currentRow, nextRow) => {
-    return currentRow.cells[cellIndex].textContent.localeCompare(
-      nextRow.cells[cellIndex].textContent);
-  });
 }
 
 tableHead.addEventListener('click', (clickEvent) => {
