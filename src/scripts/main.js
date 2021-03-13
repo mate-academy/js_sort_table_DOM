@@ -1,19 +1,20 @@
 'use strict';
 
-const people = document.querySelectorAll('table tbody tr');
-const tableBody = document.querySelector('table tbody');
+const people = document.querySelectorAll('tbody tr');
+const tableBody = document.querySelector('tbody');
+const tableHead = tableBody.parentElement.firstElementChild;
 
-document.addEventListener('click', (clickEvent) => {
+tableHead.addEventListener('click', (clickEvent) => {
   if (clickEvent.target.tagName !== 'TH') {
     return;
   }
 
   const header = clickEvent.target.closest('th').innerText;
   const headerNumber = clickEvent.target.closest('th').cellIndex;
-  let sorted;
+  let sortedList;
 
   if (header === 'Name' || header === 'Position') {
-    sorted = [...people].sort((current, next) => {
+    sortedList = [...people].sort((current, next) => {
       const first = current.children[headerNumber].innerText;
       const second = next.children[headerNumber].innerText;
 
@@ -22,21 +23,24 @@ document.addEventListener('click', (clickEvent) => {
   }
 
   if (header === 'Age' || header === 'Salary') {
-    sorted = [...people].sort((current, next) => {
-      const first = +current
-        .children[headerNumber]
-        .innerText
-        .replace(/[$,]/g, '');
+    sortedList = [...people].sort((current, next) => {
+      const first = getPureString(current, header);
 
-      const second = +next
-        .children[headerNumber]
-        .innerText
-        .replace(/[$,]/g, '');
+      const second = getPureString(next, header);
 
       return first - second;
     });
   }
 
   tableBody.innerHTML = '';
-  sorted.forEach(row => tableBody.append(row));
+  tableBody.append(...sortedList);
+
+  function getPureString(arg, string) {
+    if (string === 'Age') {
+      return +arg.children[headerNumber].innerText;
+    } else {
+      return +arg.children[headerNumber]
+        .innerText.replace(/[$,]/g, '');
+    }
+  }
 });
