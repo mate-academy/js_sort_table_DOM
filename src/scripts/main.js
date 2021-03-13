@@ -4,18 +4,22 @@
 const thead = document.querySelector('thead');
 const tbody = document.querySelector('tbody');
 
-function sorted(index) {
+function sortNumber(number) {
+  return parseFloat(number.replace(/\$/g, ''));
+}
+
+function sortTable(index) {
   const rows = Array.from(tbody.rows).sort((rowA, rowB) => {
-    const firstRow = rowA.cells[index].innerHTML;
-    const secondRow = rowB.cells[index].innerHTML;
+    const firstCell = rowA.cells[index].innerHTML;
+    const secondCell = rowB.cells[index].innerHTML;
 
-    if (rowA.cells[index].innerHTML.includes('$')) {
-      const salaryA = parseFloat(firstRow.replace(/\$/g, ''));
-      const salaryB = parseFloat(secondRow.replace(/\$/g, ''));
+    if (firstCell.includes('$') || Number(firstCell)) {
+      const firstNumber = sortNumber(firstCell);
+      const secondNumber = sortNumber(secondCell);
 
-      return salaryA - salaryB;
+      return firstNumber - secondNumber;
     } else {
-      return firstRow > secondRow ? 1 : -1;
+      return firstCell.localeCompare(secondCell);
     }
   });
 
@@ -23,7 +27,7 @@ function sorted(index) {
 }
 
 thead.addEventListener('click', e => {
-  const thIndex = e.target.cellIndex;
+  const header = e.target.cellIndex;
 
-  sorted(thIndex);
+  sortTable(header);
 });
