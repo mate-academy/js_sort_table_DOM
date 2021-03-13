@@ -24,9 +24,9 @@ tableHead.addEventListener('click', (clickEvent) => {
 
   if (header === 'Age' || header === 'Salary') {
     sortedList = [...people].sort((current, next) => {
-      const first = getPureString(current, header);
+      const first = getPureNumber(current, header);
 
-      const second = getPureString(next, header);
+      const second = getPureNumber(next, header);
 
       return first - second;
     });
@@ -35,7 +35,7 @@ tableHead.addEventListener('click', (clickEvent) => {
   tableBody.innerHTML = '';
   tableBody.append(...sortedList);
 
-  function getPureString(arg, string) {
+  function getPureNumber(arg, string) {
     if (string === 'Age') {
       return +arg.children[headerNumber].innerText;
     } else {
