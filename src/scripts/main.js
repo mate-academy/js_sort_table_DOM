@@ -5,11 +5,6 @@ const rows = [...document.body.querySelectorAll('tbody > tr')];
 const thead = document.querySelector('thead');
 const tbody = document.querySelector('tbody');
 
-const nameColumn = 0;
-const positionColumn = 1;
-const ageColumn = 2;
-const salaryColumn = 3;
-
 function sortArrayAsString(array, columnNumber) {
   array.sort((currentRow, nextRow) => {
     return currentRow.children[columnNumber].innerText.localeCompare(
@@ -37,20 +32,17 @@ function replaceSymbols(string) {
 }
 
 thead.addEventListener('click', (clickEvent) => {
-  if (clickEvent.target.innerText === 'Name') {
-    sortArrayAsString(rows, nameColumn);
-  }
+  const targetColumn = clickEvent.target.closest('th').cellIndex;
+  const columnHeader = clickEvent.target.innerText;
 
-  if (clickEvent.target.innerText === 'Position') {
-    sortArrayAsString(rows, positionColumn);
-  }
-
-  if (clickEvent.target.innerText === 'Age') {
-    sortArrayAsNumbers(rows, ageColumn);
-  }
-
-  if (clickEvent.target.innerText === 'Salary') {
-    sortArrayAsNumbers(rows, salaryColumn);
+  switch (columnHeader) {
+    case 'Name':
+    case 'Position':
+      sortArrayAsString(rows, targetColumn);
+      break;
+    case 'Age':
+    case 'Salary':
+      sortArrayAsNumbers(rows, targetColumn);
   }
   tbody.append(...rows);
 });
