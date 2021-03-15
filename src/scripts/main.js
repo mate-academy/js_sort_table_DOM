@@ -44,14 +44,10 @@ thead.parentNode.addEventListener('click', (clickEvent) => {
 
   switch (clickEvent.target.textContent) {
     case 'Name' :
-      sortedList = sortString(rows, cellIndex);
-      break;
     case 'Position' :
       sortedList = sortString(rows, cellIndex);
       break;
     case 'Age' :
-      sortedList = sortNumber(rows, cellIndex);
-      break;
     case 'Salary':
       sortedList = sortNumber(rows, cellIndex);
       break;
