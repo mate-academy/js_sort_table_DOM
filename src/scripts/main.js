@@ -8,23 +8,39 @@ function convertToNumber(value) {
   return +value.replace('$', '').replace(',', '');
 }
 
+function sortByLetters(index) {
+  rows.sort((rowA, rowB) => {
+    const firstCellContent = rowA.children[index].textContent;
+    const secondCellContent = rowB.children[index].textContent;
+
+    return firstCellContent.localeCompare(secondCellContent);
+  });
+
+  body.append(...rows);
+}
+
+function sortByNumbers(index) {
+  rows.sort((rowA, rowB) => {
+    const a = convertToNumber(rowA.children[index].textContent);
+    const b = convertToNumber(rowB.children[index].textContent);
+
+    return a - b;
+  });
+
+  body.append(...rows);
+}
+
 headings.addEventListener('click', (clickEvent) => {
   const heading = clickEvent.target.closest('th');
   const columnIndex = heading.cellIndex;
 
-  rows.sort((rowA, rowB) => {
-    const firstCellContent = rowA.children[columnIndex].textContent;
-    const secondCellContent = rowB.children[columnIndex].textContent;
-
-    if (firstCellContent.includes('$') || Number(firstCellContent)) {
-      const a = convertToNumber(firstCellContent);
-      const b = convertToNumber(secondCellContent);
-
-      return a - b;
-    } else {
-      return firstCellContent.localeCompare(secondCellContent);
-    }
-  });
-
-  body.append(...rows);
+  switch (heading.textContent) {
+    case 'Name':
+    case 'Position':
+      sortByLetters(columnIndex);
+      break;
+    case 'Age':
+    case 'Salary':
+      sortByNumbers(columnIndex);
+  }
 });
