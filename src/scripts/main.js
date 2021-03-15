@@ -3,37 +3,32 @@
 const table = document.querySelector('table');
 const tableHead = table.tHead;
 const tableBody = table.tBodies[0];
+let columnIndex;
 
 function containsNumber(string) {
   return /\d/.test(string);
 }
 
 function getNumberFromString(string) {
-  return Number(
-    string
-      .match(/\d/g)
-      .join('')
-  );
+  return Number(string.match(/\d/g).join(''));
 }
 
-function sortByValue(rows, columnIndex) {
-  rows.sort((previousRow, nextRow) => {
-    const previousValue = previousRow.children[columnIndex].textContent;
-    const nextValue = nextRow.children[columnIndex].textContent;
+const sortRowByValue = (previousRow, nextRow) => {
+  const previousValue = previousRow.children[columnIndex].textContent;
+  const nextValue = nextRow.children[columnIndex].textContent;
 
-    return containsNumber(previousValue)
-      ? getNumberFromString(previousValue) - getNumberFromString(nextValue)
-      : previousValue.localeCompare(nextValue);
-  });
-}
+  return containsNumber(previousValue)
+    ? getNumberFromString(previousValue) - getNumberFromString(nextValue)
+    : previousValue.localeCompare(nextValue);
+};
 
 function sortColumn(element) {
   const selectedColumn = element.target;
-  const columnIndex = selectedColumn.cellIndex;
   const bodyRows = [...tableBody.children];
 
-  sortByValue(bodyRows, columnIndex);
+  columnIndex = selectedColumn.cellIndex;
 
+  bodyRows.sort(sortRowByValue);
   tableBody.append(...bodyRows);
 }
 
