@@ -5,21 +5,22 @@ const tableHead = table.tHead;
 const tableBody = table.tBodies[0];
 let columnIndex;
 
-function containsNumber(string) {
-  return /\d/.test(string);
-}
-
 function getNumberFromString(string) {
   return Number(string.match(/\d/g).join(''));
 }
 
-const sortRowByValue = (previousRow, nextRow) => {
+const sortRowsByValue = (previousRow, nextRow) => {
   const previousValue = previousRow.children[columnIndex].textContent;
   const nextValue = nextRow.children[columnIndex].textContent;
 
-  return containsNumber(previousValue)
-    ? getNumberFromString(previousValue) - getNumberFromString(nextValue)
-    : previousValue.localeCompare(nextValue);
+  return getNumberFromString(previousValue) - getNumberFromString(nextValue);
+};
+
+const sortRowsByString = (previousRow, nextRow) => {
+  const previousString = previousRow.children[columnIndex].textContent;
+  const nextString = nextRow.children[columnIndex].textContent;
+
+  return previousString.localeCompare(nextString);
 };
 
 function sortColumn(element) {
@@ -28,7 +29,18 @@ function sortColumn(element) {
 
   columnIndex = selectedColumn.cellIndex;
 
-  bodyRows.sort(sortRowByValue);
+  switch (selectedColumn.textContent) {
+    case 'Name':
+    case 'Position':
+      bodyRows.sort(sortRowsByString);
+      break;
+
+    case 'Age':
+    case 'Salary':
+      bodyRows.sort(sortRowsByValue);
+      break;
+  }
+
   tableBody.append(...bodyRows);
 }
 
