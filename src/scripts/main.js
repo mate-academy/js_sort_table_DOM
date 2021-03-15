@@ -2,8 +2,8 @@
 
 const mainTable = document.querySelector('table');
 
-const tbody = document.querySelector('tbody');
-const thead = document.querySelector('thead');
+const tbody = mainTable.tBodies[0];
+const thead = mainTable.tHead;
 const rows = [...tbody.rows];
 
 const headers = [...mainTable.rows[0].cells];
@@ -21,13 +21,16 @@ thead.parentNode.addEventListener('click', (clickEvent) => {
         const value = formatText(
           currentTbodyElement.cells[cellIndex].textContent
         );
+
+        const valuesAsNumber = +formatText(value);
+
         const nextValue = formatText(
           nextTbodyElement.cells[cellIndex].textContent
         );
 
-        return isNaN(parseInt(value))
-          ? value.localeCompare(nextValue)
-          : parseInt(value) - parseInt(nextValue);
+        return valuesAsNumber
+          ? valuesAsNumber - parseInt(+nextValue)
+          : value.localeCompare(nextValue);
       });
 
     tbody.append(...sortedElements);
