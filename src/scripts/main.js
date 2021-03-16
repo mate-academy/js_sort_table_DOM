@@ -1,7 +1,8 @@
 'use strict';
 
-const people = document.querySelectorAll('tbody tr');
-const tableBody = document.querySelector('tbody');
+const table = document.querySelector('table');
+const people = table.tBodies[0].querySelectorAll('tr');
+const tableBody = table.tBodies[0];
 const tableHead = tableBody.parentElement.firstElementChild;
 
 tableHead.addEventListener('click', (clickEvent) => {
@@ -13,23 +14,25 @@ tableHead.addEventListener('click', (clickEvent) => {
   const headerNumber = clickEvent.target.closest('th').cellIndex;
   let sortedList;
 
-  if (header === 'Name' || header === 'Position') {
-    sortedList = [...people].sort((current, next) => {
-      const first = current.children[headerNumber].innerText;
-      const second = next.children[headerNumber].innerText;
+  switch (header) {
+    case 'Name':
+    case 'Position':
+      sortedList = [...people].sort((current, next) => {
+        const first = current.children[headerNumber].innerText;
+        const second = next.children[headerNumber].innerText;
 
-      return first.localeCompare(second);
-    });
-  }
+        return first.localeCompare(second);
+      });
+      break;
 
-  if (header === 'Age' || header === 'Salary') {
-    sortedList = [...people].sort((current, next) => {
-      const first = getPureNumber(current, header);
+    case 'Age':
+    case 'Salary':
+      sortedList = [...people].sort((current, next) => {
+        const first = getPureNumber(current, header);
+        const second = getPureNumber(next, header);
 
-      const second = getPureNumber(next, header);
-
-      return first - second;
-    });
+        return first - second;
+      });
   }
 
   tableBody.innerHTML = '';
