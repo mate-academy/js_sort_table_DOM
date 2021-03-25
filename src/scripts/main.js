@@ -2,9 +2,10 @@
 
 let th = [...document.querySelectorAll('thead th')];
 let tr = [...document.querySelectorAll('tbody tr')];
-let count = 0;
 
 for (let j = 0; j < th.length; j++) {
+  let count = 0;
+
   th[j].addEventListener('click', (e) => {
     const copy = [];
 
