@@ -1,10 +1,8 @@
 'use strict';
 
-const tbody = document.querySelector('tbody')
+const tbody = document.querySelector('tbody');
 const thead = document.querySelector('thead');
 const tbodyRows = [...document.querySelector('tbody').rows];
-
-console.log(tbodyRows);
 
 const onlyNumber = function(string) {
   return +string.replace(/[$,]/g, '');
