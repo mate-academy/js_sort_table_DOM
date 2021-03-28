@@ -20,7 +20,7 @@ table.addEventListener('click', e => {
           const a = rowA.cells[colNum].innerHTML;
           const b = rowB.cells[colNum].innerHTML;
 
-          return a.innerHTML.localeCompare(b);
+          return a.localeCompare(b);
         });
         break;
 
