@@ -3,7 +3,6 @@
 const categories = document.querySelectorAll('thead tr th');
 const content = document.querySelector('tbody');
 const elements = [...document.querySelectorAll('tbody tr')];
-let toggler = false;
 
 const convert = field => (
   +field
@@ -12,9 +11,9 @@ const convert = field => (
 );
 
 [...categories].forEach(element => {
-  element.addEventListener('click', (e) => {
-    toggler = !toggler;
+  let toggler = true;
 
+  element.addEventListener('click', (e) => {
     const sortedContent = elements.sort((first, second) => {
       const firstElement = first.children[e.target.cellIndex].textContent;
       const secondElement = second.children[e.target.cellIndex].textContent;
@@ -31,5 +30,6 @@ const convert = field => (
     });
 
     content.append(...sortedContent);
+    toggler = !toggler;
   });
 });
