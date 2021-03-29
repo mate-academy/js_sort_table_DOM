@@ -5,8 +5,8 @@ const head = document.querySelector('thead');
 const body = document.querySelectorAll('tbody tr');
 const tbody = document.querySelector('tbody');
 
-function converter(ifSalary) {
-  return ifSalary.replace('$', '').replace(',', '');
+function converter(salary) {
+  return salary.replace('$', '').replace(',', '');
 }
 
 head.addEventListener('click', (e) => {
