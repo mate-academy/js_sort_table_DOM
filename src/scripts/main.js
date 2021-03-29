@@ -4,15 +4,15 @@ const head = document.querySelector('thead');
 const body = document.querySelectorAll('tbody tr');
 const tbody = document.querySelector('tbody');
 
-function converter(Salary) {
-  return Salary.replace('$', '').replace(',', '');
+function convertSalary(salary) {
+  return salary.replace('$', '').replace(',', '');
 }
 
 head.addEventListener('click', (ev) => {
   const sortedList = [...body].sort((first, second) => {
     const index = ev.target.cellIndex;
-    const firstResult = converter(first.children[index].innerText);
-    const secondResult = converter(second.children[index].innerText);
+    const firstResult = convertSalary(first.children[index].innerText);
+    const secondResult = convertSalary(second.children[index].innerText);
 
     if (isNaN(+firstResult)) {
       return firstResult.localeCompare(secondResult);
