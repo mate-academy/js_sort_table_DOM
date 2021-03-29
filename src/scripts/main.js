@@ -7,42 +7,27 @@ table.addEventListener('click', e => {
     return;
   }
 
-  const th = e.target;
-
-  const sortTable = (colNum) => {
-    const list = table.querySelector('tbody');
-    const rowsArray = [...list.rows];
-
-    switch (colNum) {
-      case 0:
-      case 1:
-        rowsArray.sort((rowA, rowB) => {
-          const a = rowA.cells[colNum].innerHTML;
-          const b = rowB.cells[colNum].innerHTML;
-
-          return a.localeCompare(b);
-        });
-        break;
-
-      case 2:
-        rowsArray.sort((rowA, rowB) => {
-          return rowA.cells[colNum].innerHTML - rowB.cells[colNum].innerHTML;
-        });
-        break;
-
-      case 3:
-
-        rowsArray.sort((rowA, rowB) => {
-          const a = +rowA.cells[colNum].innerHTML.replace(/[$,]/g, '');
-          const b = +rowB.cells[colNum].innerHTML.replace(/[$,]/g, '');
-
-          return a - b;
-        });
-        break;
-    }
-
-    list.append(...rowsArray);
+  const salaryConvert = (input) => {
+    return input.replace('$', '').replace(',', '');
   };
 
-  sortTable(th.cellIndex);
+  const list = table.querySelector('tbody');
+
+  const rowsArray = [...list.rows].sort((current, next) => {
+    const targetIndex = e.target.cellIndex;
+    const currentConverted = salaryConvert(
+      current.children[targetIndex].textContent
+    );
+    const nextConverted = salaryConvert(
+      next.children[targetIndex].textContent
+    );
+
+    if ((Number.isNaN(+currentConverted))) {
+      return currentConverted.localeCompare(nextConverted);
+    }
+
+    return currentConverted - nextConverted;
+  });
+
+  list.append(...rowsArray);
 });
