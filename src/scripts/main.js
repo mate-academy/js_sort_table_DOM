@@ -1,38 +1,36 @@
 'use strict';
 
-const rows = [...document.querySelector('tbody').children];
-let people = [];
-
-for (const row of rows) {
-  people.push({
-    name: row.children[0].textContent,
-    position: row.children[1].textContent,
-    age: row.children[2].textContent,
-    salary: row.children[3].textContent,
-  });
-}
+const body = document.querySelector('tbody');
+const rows = [...body.children];
+let sortedRows = [];
 
 document.querySelector('thead')
   .addEventListener('click', (e) => sortTable(e.target.textContent));
 
 function sortTable(textContent) {
-  if (textContent === 'Name') {
-    people = people.sort((a, b) => a.name.localeCompare(b.name));
-  } else if (textContent === 'Position') {
-    people = people.sort((a, b) => a.position.localeCompare(b.position));
-  } else if (textContent === 'Age') {
-    people = people.sort((a, b) => parseFloat(a.age) - parseFloat(b.age));
-  } else if (textContent === 'Salary') {
-    people = people.sort((a, b) =>
-      parseSalary(a.salary) - parseSalary(b.salary));
+  switch (textContent) {
+    case 'Name':
+      sortedRows = rows.sort((a, b) =>
+        a.children[0].textContent.localeCompare(b.children[0].textContent));
+      break;
+    case 'Position':
+      sortedRows = rows.sort((a, b) =>
+        a.children[1].textContent.localeCompare(b.children[1].textContent));
+      break;
+    case 'Age':
+      sortedRows = rows.sort((a, b) => parseFloat(a.children[2].textContent)
+        - parseFloat(b.children[2].textContent));
+      break;
+    case 'Salary':
+      sortedRows = rows.sort((a, b) => parseSalary(a.children[3].textContent)
+        - parseSalary(b.children[3].textContent));
+      break;
   }
 
-  for (const i in people) {
-    rows[i].children[0].textContent = people[i].name;
-    rows[i].children[1].textContent = people[i].position;
-    rows[i].children[2].textContent = people[i].age;
-    rows[i].children[3].textContent = people[i].salary;
+  while (body.firstChild) {
+    body.removeChild(body.firstChild);
   }
+  sortedRows.forEach(row => body.append(row));
 }
 
 function parseSalary(salary) {
