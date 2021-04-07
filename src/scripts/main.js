@@ -30,7 +30,7 @@ function sortTable(textContent) {
   while (body.firstChild) {
     body.removeChild(body.firstChild);
   }
-  sortedRows.forEach(row => body.append(row));
+  body.append(...sortedRows);
 }
 
 function parseSalary(salary) {
