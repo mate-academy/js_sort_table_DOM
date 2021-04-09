@@ -1,7 +1,6 @@
 'use strict';
 
 const head = document.querySelector('thead').querySelector('tr');
-// const list = document.querySelector('tbody');
 const body = document.querySelector('tbody');
 const sortedBody = [...body.querySelectorAll('tr')];
 const byName = head.children[0];
