@@ -1,6 +1,8 @@
 'use strict';
 
 const tableHead = document.querySelector('thead');
+const tableBody = document.querySelector('tbody');
+const tableRows = tableBody.querySelectorAll('tr');
 
 tableHead.addEventListener('click', ev => {
   const header = ev.target.closest('th');
@@ -9,10 +11,9 @@ tableHead.addEventListener('click', ev => {
     return;
   }
 
-  const rows = document.querySelectorAll('tr');
-  const values = [...rows].map(row => {
+  const values = [...tableRows].map(row => {
     return row.cells[ev.target.cellIndex].textContent;
-  }).slice(1, -1);
+  });
 
   switch (header.textContent) {
     case 'Age':
@@ -28,11 +29,7 @@ tableHead.addEventListener('click', ev => {
       break;
   }
 
-  rows.forEach((row, idx) => {
-    if (idx === 0 || idx === rows.length - 1) {
-      return;
-    }
-
-    row.cells[ev.target.cellIndex].textContent = values[idx - 1];
+  tableRows.forEach((row, idx) => {
+    row.cells[ev.target.cellIndex].textContent = values[idx];
   });
 });
