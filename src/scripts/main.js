@@ -3,40 +3,35 @@
 const head = document.querySelector('thead').querySelector('tr');
 const body = document.querySelector('tbody');
 const sortedBody = [...body.querySelectorAll('tr')];
-const byName = head.children[0];
-const byPosition = head.children[1];
-const byAge = head.children[2];
-const bySalary = head.children[3];
 
-bySalary.addEventListener('click', () => {
-  sortedBody.sort((a, b) => {
-    const first = Number(a.children[3].textContent
-      .slice(1).split(',').join(''));
-    const second = Number(b.children[3].textContent
-      .slice(1).split(',').join(''));
+const mySort = (arr, index) => {
+  if (index === 3) {
+    arr.sort((a, b) => {
+      const first = Number(a.children[index].textContent
+        .slice(1).split(',').join(''));
+      const second = Number(b.children[index].textContent
+        .slice(1).split(',').join(''));
 
-    return first - second;
+      return first - second;
+    });
+  } else if (index === 2) {
+    arr.sort((a, b) => {
+      return a.children[index].textContent - b.children[index].textContent;
+    });
+  } else {
+    arr.sort((a, b) => {
+      return a.children[index].textContent
+        .localeCompare(b.children[index].textContent);
+    });
+  }
+};
+
+document.querySelector('thead').addEventListener('click', (e) => {
+  const item = e.target;
+  const index = [...head.querySelectorAll('th')].findIndex(td => {
+    return item.textContent === td.textContent;
   });
-  body.prepend(...sortedBody);
-});
 
-byAge.addEventListener('click', () => {
-  sortedBody.sort((a, b) => {
-    return a.children[2].textContent - b.children[2].textContent;
-  });
-  body.prepend(...sortedBody);
-});
-
-byPosition.addEventListener('click', () => {
-  sortedBody.sort((a, b) => {
-    return a.children[1].textContent.localeCompare(b.children[1].textContent);
-  });
-  body.prepend(...sortedBody);
-});
-
-byName.addEventListener('click', () => {
-  sortedBody.sort((a, b) => {
-    return a.children[0].textContent.localeCompare(b.children[0].textContent);
-  });
+  mySort(sortedBody, index);
   body.prepend(...sortedBody);
 });
