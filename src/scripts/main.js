@@ -5,7 +5,7 @@ const body = document.querySelector('tbody');
 const sortedBody = [...body.querySelectorAll('tr')];
 
 const mySort = (arr, index) => {
-  if (index === 3) {
+  if ([...head.querySelectorAll('th')][index].textContent === 'Salary') {
     arr.sort((a, b) => {
       const first = Number(a.children[index].textContent
         .slice(1).split(',').join(''));
@@ -14,7 +14,7 @@ const mySort = (arr, index) => {
 
       return first - second;
     });
-  } else if (index === 2) {
+  } else if ([...head.querySelectorAll('th')][index].textContent === 'Age') {
     arr.sort((a, b) => {
       return a.children[index].textContent - b.children[index].textContent;
     });
