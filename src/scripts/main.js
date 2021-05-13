@@ -10,21 +10,29 @@ thead.addEventListener('click', e => {
 });
 
 function sortRows(colNum) {
+  const colName = thead.rows[0].cells[colNum].innerHTML;
   const rowsArray = [...tbody.rows].slice(0);
   let choice;
 
-  switch (colNum) {
-    case 3:
+  switch (colName) {
+    case 'Salary':
+      const parseSalary = cell =>
+        +cell
+          .slice(1)
+          .split(',')
+          .join('');
+
       choice = (rowA, rowB) =>
-        parseInt(rowA.cells[colNum].innerHTML.slice(1))
-          - parseInt(rowB.cells[colNum].innerHTML.slice(1));
+        parseSalary(rowA.cells[colNum].innerHTML)
+          - parseSalary(rowB.cells[colNum].innerHTML);
       break;
     default:
       choice = (rowA, rowB) =>
-        rowA.cells[colNum].innerHTML
-          > rowB.cells[colNum].innerHTML
-          ? 1
-          : -1;
+        isNaN(rowA.cells[colNum].innerHTML)
+          ? (rowA.cells[colNum].innerHTML)
+            .localeCompare(rowB.cells[colNum].innerHTML)
+          : +rowA.cells[colNum].innerHTML
+            - +rowB.cells[colNum].innerHTML;
       break;
   }
 
