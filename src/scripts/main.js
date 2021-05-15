@@ -14,7 +14,7 @@ for (let i = 0; i < columnName.length; i++) {
 
       return isFinite(filterStr(valueA))
         ? filterStr(valueA) - filterStr(valueB)
-        : filterStr(valueA).filterStr(valueB);
+        : valueA.localeCompare(valueB);
     });
 
     tableBody.append(...tableRow);
