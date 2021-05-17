@@ -1,22 +1,22 @@
 'use strict';
 
-const columnName = document.querySelectorAll('thead th');
+const thead = document.querySelector('thead');
 const tableBody = document.querySelector('tbody');
 const tableRow = [...tableBody.querySelectorAll('tr')];
 
 const filterStr = (str) => str.replace(/[^a-zA-Z0-9]/g, '');
 
-for (let i = 0; i < columnName.length; i++) {
-  columnName[i].addEventListener('click', () => {
-    tableRow.sort((a, b) => {
-      const valueA = a.children[i].textContent;
-      const valueB = b.children[i].textContent;
+thead.addEventListener('click', e => {
+  const index = [...thead.children[0].children].indexOf(e.target);
 
-      return isFinite(filterStr(valueA))
-        ? filterStr(valueA) - filterStr(valueB)
-        : valueA.localeCompare(valueB);
-    });
+  tableRow.sort((a, b) => {
+    const valueA = a.children[index].textContent;
+    const valueB = b.children[index].textContent;
 
-    tableBody.append(...tableRow);
+    return isFinite(filterStr(valueA))
+      ? filterStr(valueA) - filterStr(valueB)
+      : valueA.localeCompare(valueB);
   });
-}
+
+  tableBody.append(...tableRow);
+});
