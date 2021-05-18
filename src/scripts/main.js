@@ -18,11 +18,6 @@ tHeader.addEventListener('click', (e) => {
 });
 
 function sortColumn(cells) {
-  const regex = new RegExp('[$,]', 'g');
-  const convertRawInput = (cell) => {
-    return String(cell.innerText).replaceAll(regex, '');
-  };
-
   return [...cells].sort((a, b) => {
     const pureAValue = convertRawInput(a);
     const pureBValue = convertRawInput(b);
@@ -31,6 +26,12 @@ function sortColumn(cells) {
       ? pureAValue - pureBValue
       : pureAValue.localeCompare(pureBValue);
   });
+}
+
+function convertRawInput(cell) {
+  const regex = new RegExp('[$,]', 'g');
+
+  return String(cell.innerText).replaceAll(regex, '');
 }
 
 function findColumnIndex(header, columnTitle) {
