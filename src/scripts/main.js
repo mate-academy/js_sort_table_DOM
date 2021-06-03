@@ -1,38 +1,29 @@
 'use strict';
 
 // write code here
-// const table = document.querySelectorAll('table');
-// const trs = [...document.querySelectorAll('tr')];
 
-const ths = document.querySelectorAll('thead th');
+const thead = document.querySelector('thead');
 const table = document.querySelector('table');
 const tableBody = table.querySelector('tbody');
 const rows = tableBody.querySelectorAll('tr');
-
-// looking for our ths
-for (let i = 0; i < ths.length; i++) {
-  ths[i].addEventListener('click', function() {
-    getItemSort(i);
-  });
-}
-
+console.log(thead);
 // function for convert string to number
 function getSalaryNumber(salary) {
   return +salary.substr(1).split(',').join('');
 }
 
-// function for sort our columns
-function getItemSort(i) {
+thead.addEventListener('click', (e) => {
+  const header = e.target;
   const newRows = Array.from(rows);
   let sort;
 
-  if (ths[i].textContent === 'Salary') {
+  if (header.textContent === 'Salary') {
     sort = newRows.sort((a, b) =>
-      getSalaryNumber(a.children[i].innerText)
-      - getSalaryNumber(b.children[i].innerText));
+      getSalaryNumber(a.children[e.target.cellIndex].innerText)
+      - getSalaryNumber(b.children[e.target.cellIndex].innerText));
   } else {
     sort = newRows.sort((a, b) =>
-      (a.children[i].innerText > b.children[i].innerText) ? 1 : -1);
+      (a.children[e.target.cellIndex].innerText > b.children[e.target.cellIndex].innerText) ? 1 : -1);
   };
 
   // remove old row
@@ -44,4 +35,4 @@ function getItemSort(i) {
   for (const nRow of sort) {
     tableBody.appendChild(nRow);
   };
-}
+});
