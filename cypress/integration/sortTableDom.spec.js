@@ -1,9 +1,9 @@
 'use strict';
 
-Cypress.Commands.add('isSorted', (columnName, columnNumber) => {
+Cypress.Commands.add('isSorted', (columnName, index) => {
   cy.contains(columnName).click();
 
-  cy.get(`tr:nth-child(n) td:nth-child(${columnNumber})`).then(($column) => {
+  cy.get(`tr:nth-child(n) td:nth-child(${index})`).then(($column) => {
     const columns = [...$column].map((column) =>
       column.innerText.replace('$', '').replace(',', ''));
     let counter = 0;
