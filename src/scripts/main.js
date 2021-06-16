@@ -8,19 +8,25 @@ let rows = document.querySelector('tbody').children;
 header.addEventListener('click', (e) => {
   const index = [...header.children].indexOf(e.target);
 
-  switch (true) {
-    case header.children[index].innerHTML === 'Name'
-  || header.children[index].innerHTML === 'Position':
+  const columnName = header.children[index].innerHTML;
+
+  switch (columnName) {
+    case 'Name':
       rows = [...rows].sort((a, b) => a.children[index].innerHTML
         .localeCompare(b.children[index].innerHTML));
       break;
 
-    case header.children[index].innerHTML === 'Age':
+    case 'Position':
+      rows = [...rows].sort((a, b) => a.children[index].innerHTML
+        .localeCompare(b.children[index].innerHTML));
+      break;
+
+    case 'Age':
       rows = [...rows].sort((a, b) =>
         a.children[index].innerHTML - b.children[index].innerHTML);
       break;
 
-    case header.children[index].innerHTML === 'Salary':
+    case 'Salary':
 
       rows = [...rows].sort((a, b) => {
         const prev = a.children[index].innerHTML
