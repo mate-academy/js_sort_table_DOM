@@ -10,11 +10,11 @@ const strInNumber = (str) => {
   return str.replace(/[^\d]/g, '') * 1;
 };
 
-const sortTable = (clumn) => {
+const sortTable = (column) => {
   [...tbody].sort((item, item1) => {
-    if (clumn !== 3) {
+    if (column !== 3) {
       return (
-        item1.children[clumn].textContent - item.children[clumn].textContent
+        item1.children[column].textContent - item.children[column].textContent
       );
     }
 
