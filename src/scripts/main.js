@@ -12,29 +12,22 @@ const strInNumber = (str) => {
 
 const sortTable = (column) => {
   [...tbody].sort((item, item1) => {
-    if (column === 2) {
-      if (+item1.children[column].textContent > +item.children[column].textContent) {
-        return 1
-      }
-      if (+item1.children[column].textContent < +item.children[column].textContent) {
-        return -1
-      }
-      return 0;
+    const sortItem = item.children[column].textContent;
+    const sortItem1 = item1.children[column].textContent;
+
+    if (strInNumber(sortItem)) {
+      return strInNumber(sortItem1) - strInNumber(sortItem);
     }
 
-    if (column !== 3) {
-      if (item1.children[column].textContent > item.children[column].textContent) {
-        return 1
-      }
-      if (item1.children[column].textContent < item.children[column].textContent) {
-        return -1
-      }
-      return 0;
+    if (sortItem1 < sortItem) {
+      return 1;
     }
 
-    return strInNumber(
-      item1.children[3].textContent) - strInNumber(
-      item.children[3].textContent);
+    if (sortItem1 > sortItem) {
+      return -1;
+    }
+
+    return 0;
   }).forEach(function(node) {
     prnt.appendChild(node);
   });
