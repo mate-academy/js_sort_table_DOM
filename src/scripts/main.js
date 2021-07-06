@@ -8,29 +8,38 @@ table.tHead.addEventListener('click', e => {
   const cellIndex = header.cellIndex;
   const sortedRows = Array.from(tableRows);
 
-  switch (cellIndex) {
-    case 2:
-      sortedRows.sort((left, right) => {
-        return left.cells[2].innerText - right.cells[2].innerText;
-      });
+  switch (header.innerText) {
+    case 'Age':
+      sortedRows.sort((left, right) =>
+        compareNumsCells(left, right, cellIndex));
       break;
-    case 0:
-    case 1:
-      sortedRows.sort((left, right) => {
-        return left.cells[cellIndex].innerText
-          .localeCompare(right.cells[cellIndex].innerText);
-      });
+    case 'Name':
+    case 'Position':
+      sortedRows.sort((left, right) =>
+        compareTextCells(left, right, cellIndex));
       break;
-    case 3:
-      sortedRows.sort((left, right) => {
-        return toNumber(left.cells[3].innerText)
-        - toNumber(right.cells[3].innerText);
-      });
+    case 'Salary':
+      sortedRows.sort((left, right) =>
+        compareSalaryCells(left, right, cellIndex));
       break;
   }
 
   table.tBodies[0].append(...sortedRows);
 });
+
+function compareTextCells(left, right, cellIndex) {
+  return left.cells[cellIndex].innerText
+    .localeCompare(right.cells[cellIndex].innerText);
+}
+
+function compareNumsCells(left, right, cellIndex) {
+  return left.cells[cellIndex].innerText - right.cells[cellIndex].innerText;
+}
+
+function compareSalaryCells(left, right, cellIndex) {
+  return toNumber(left.cells[cellIndex].innerText)
+    - toNumber(right.cells[cellIndex].innerText);
+}
 
 function toNumber(number) {
   const converted = number.slice(1).split(',').join('');
