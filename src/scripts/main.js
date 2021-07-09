@@ -3,58 +3,47 @@
 const tableHead = document.querySelector('thead');
 const tableBody = document.querySelector('tbody');
 
-tableBody.sortTable = function(callback) {
-  let count;
-
-  do {
-    count = 0;
-
-    for (let i = 1; i < this.rows.length; i++) {
-      if (callback(this.rows[i - 1], this.rows[i]) > 0) {
-        this.rows[i - 1].before(tableBody.rows[i]);
-        count++;
-      }
-    }
-  } while (count > 0);
-
-  return this;
-};
-
-function sortedByCallback(type, column) {
-  if (type === 'string') {
-    return (a, b) =>
-      (a.children[column].innerHTML)
-        .localeCompare(b.children[column].innerHTML);
-  } else if (type === 'salary') {
-    return (a, b) =>
-      +a.children[column].innerHTML.slice(1).split(',').join('')
-        - +b.children[column].innerHTML.slice(1).split(',').join('');
-  } else {
-    return (a, b) =>
-      +a.children[column].innerHTML
-      - +b.children[column].innerHTML;
-  }
-}
-
 tableHead.addEventListener('click', e => {
   const tableCeil = e.target;
   const columnforSort = [...tableHead.children[0].children].indexOf(tableCeil);
-  let typeToSort;
+  let sorted;
+
+  function getString(value) {
+    return value.children[columnforSort].innerText;
+  }
+
+  function getSalary(value) {
+    return getString(value).slice(1).split(',').join('');
+  }
+
+  function callbackForString(a, b) {
+    return a.localeCompare(b);
+  }
+
+  function callbackForNumbers(a, b) {
+    return +a - +b;
+  }
 
   switch (tableCeil.innerText) {
     case 'Name':
     case 'Position':
-      typeToSort = 'string';
+      sorted = [...tableBody.rows].sort(
+        (a, b) => callbackForString(getString(a), getString(b))
+      );
       break;
 
     case 'Age':
-      typeToSort = 'age';
+      sorted = [...tableBody.rows].sort(
+        (a, b) => callbackForNumbers(getString(a), getString(b))
+      );
       break;
 
     case 'Salary':
-      typeToSort = 'salary';
+      sorted = [...tableBody.rows].sort(
+        (a, b) => callbackForNumbers(getSalary(a), getSalary(b))
+      );
       break;
   }
 
-  tableBody.sortTable(sortedByCallback(typeToSort, columnforSort));
+  sorted.forEach(item => tableBody.append(item));
 });
