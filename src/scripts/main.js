@@ -5,7 +5,7 @@ const tableBody = document.querySelector('tbody');
 
 tableHead.addEventListener('click', e => {
   const tableCeil = e.target;
-  const columnforSort = [...tableHead.children[0].children].indexOf(tableCeil);
+  const columnforSort = tableCeil.cellIndex;
   let sorted;
 
   function getString(value) {
