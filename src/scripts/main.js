@@ -1,61 +1,51 @@
 'use strict';
 
-function Employee(data) {
-  for (let i = 0; i < data.length; i++) {
-    this[headerRow.children[i].textContent.toLowerCase()] = data[i].textContent;
-  }
-}
-
 function getSalary(salary) {
-  return Number(salary
-    .replace(/,/g, '')
-    .replace(/\$/g, ''));
+  return Number(salary.replace(/[$,]/g, ''));
 }
 
-const headerRow = document
-  .querySelector('thead')
-  .querySelector('tr');
-
+const headerRow = document.querySelector('thead tr');
 const tbody = document.querySelector('tbody');
-const tbodyRows = tbody.querySelectorAll('tr');
-
-let employees = [];
-
-for (const person of tbodyRows) {
-  employees.push(new Employee(person.children));
-}
+let tbodyRows = tbody.querySelectorAll('tr');
 
 headerRow.addEventListener('click', () => {
-  switch (event.target.textContent) {
+  const index = [...headerRow.children].indexOf(event.target);
+  const columnName = headerRow.children[index].textContent;
+
+  switch (columnName) {
     case 'Name': {
-      employees = employees.sort((a, b) => a.name.localeCompare(b.name));
+      tbodyRows = [...tbodyRows].sort((a, b) =>
+        a.children[index].textContent
+          .localeCompare(b.children[index].textContent));
+
       break;
     }
 
     case 'Position': {
-      employees = employees.sort((a, b) =>
-        a.position.localeCompare(b.position));
+      tbodyRows = [...tbodyRows].sort((a, b) =>
+        a.children[index].textContent
+          .localeCompare(b.children[index].textContent));
+
       break;
     }
 
     case 'Age': {
-      employees = employees.sort((a, b) => a.age - b.age);
+      tbodyRows = [...tbodyRows].sort((a, b) =>
+        a.children[index].textContent - b.children[index].textContent);
+
       break;
     }
 
     case 'Salary': {
-      employees = employees.sort((a, b) =>
-        getSalary(a.salary) - getSalary(b.salary));
+      tbodyRows = [...tbodyRows].sort((a, b) =>
+        getSalary(a.children[index].textContent)
+        - getSalary(b.children[index].textContent));
+
       break;
     }
   }
 
-  for (const objItem of employees) {
-    for (const node of tbodyRows) {
-      if (objItem.name === node.children[0].textContent) {
-        tbody.append(node);
-        break;
-      }
-    }
+  for (const row of tbodyRows) {
+    tbody.append(row);
   }
 });
