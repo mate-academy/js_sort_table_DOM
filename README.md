@@ -16,7 +16,7 @@ As always, all the necessary styles have already been written for you, you do no
 Start table:
 
 ![Preview](./src/images/preview.png)
-
-##### Implement table sorting by clicking on the title
+itle
 - Clicking on one of the table headers should sort the table rows in ASC order.
 
+##### Implement table sorting by clicking on the t

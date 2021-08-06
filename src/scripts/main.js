@@ -11,19 +11,15 @@ const parseSalary = (string) => {
   return parseFloat(string.substring(1).replace(',', ''));
 };
 
-for (let i = 0; i <= 3; i++) {
+for (let i = 0; i < selectorTop.childElementCount; i++) {
   selectorTop.children[i].addEventListener('click', (e) => {
     arrToSort.sort((a, b) => {
       const firstEl = a.children[i].innerHTML;
       const secondEl = b.children[i].innerHTML;
-      let compareResult = firstEl - secondEl;
+      let compareResult = firstEl.localeCompare(secondEl);
 
-      if (i === 3) {
+      if (selectorTop.children[i].textContent === 'Salary') {
         compareResult = parseSalary(firstEl) - parseSalary(secondEl);
-      };
-
-      if (i < 2) {
-        compareResult = firstEl.localeCompare(secondEl);
       };
 
       return compareResult;
