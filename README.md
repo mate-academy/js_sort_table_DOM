@@ -1,5 +1,5 @@
 1. Replace `<your_account>` with your Github username in the link
-    - [DEMO LINK](https://<your_account>.github.io/js_sort_table_DOM/)
+    - [DEMO LINK](https://Timoszkin.github.io/js_sort_table_DOM/)
 2. Follow [this instructions](https://mate-academy.github.io/layout_task-guideline/)
     - Run `npm run test` command to test your code;
     - Run `npm run test:only -- -n` to run fast test ignoring linter;
@@ -16,7 +16,7 @@ As always, all the necessary styles have already been written for you, you do no
 Start table:
 
 ![Preview](./src/images/preview.png)
-
-##### Implement table sorting by clicking on the title
+itle
 - Clicking on one of the table headers should sort the table rows in ASC order.
 
+##### Implement table sorting by clicking on the t
