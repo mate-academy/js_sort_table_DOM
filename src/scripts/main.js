@@ -1,39 +1,40 @@
 'use strict';
 
+const thead = document.querySelector('thead');
 const tbody = document.querySelector('tbody');
+let trowColl = tbody.querySelectorAll('tr');
+const trowArr = [...trowColl];
 
-const array = [...tbody.rows].map(row =>
-  [
-    row.cells[0].innerText,
-    row.cells[1].innerText,
-    row.cells[2].innerText,
-    row.cells[3].innerText,
-  ]
-);
+thead.addEventListener('click', (e) => {
+  switch (e.target.innerText) {
+    case 'Name': {
+      trowColl = trowArr.sort((a, b) =>
+        a.children[0].textContent.localeCompare(b.children[0].textContent));
+      break;
+    }
 
-document.addEventListener('click', e => {
-  if (e.target.tagName === 'TH') {
-    switch (e.target.innerText) {
-      case 'Name':
-        array.sort((a, b) => a[0].localeCompare(b[0]));
-        break;
-      case 'Position':
-        array.sort((a, b) => a[1].localeCompare(b[1]));
-        break;
-      case 'Age':
-        array.sort((a, b) => a[2] - b[2]);
-        break;
-      case 'Salary':
-        array.sort((a, b) => {
-          return a[3].replace(/[^0-9]/g, '') - b[3].replace(/[^0-9]/g, '');
-        });
-        break;
+    case 'Position': {
+      trowColl = trowArr.sort((a, b) =>
+        a.children[1].textContent.localeCompare(b.children[1].textContent));
+      break;
+    }
+
+    case 'Age': {
+      trowColl = trowArr.sort((a, b) =>
+        a.children[2].textContent - b.children[2].textContent);
+      break;
+    }
+
+    case 'Salary': {
+      trowColl = trowArr.sort((a, b) => {
+        return a.children[3].textContent.replace(/[^0-9]/g, '')
+          - b.children[3].textContent.replace(/[^0-9]/g, '');
+      });
+      break;
     }
   }
 
-  for (let i = 0; i < tbody.rows.length; i++) {
-    for (let j = 0; j < tbody.rows[i].cells.length; j++) {
-      tbody.rows[i].cells[j].innerText = array[i][j];
-    }
+  for (const row of trowColl) {
+    tbody.append(row);
   }
 });
