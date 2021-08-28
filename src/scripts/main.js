@@ -1,9 +1,8 @@
 'use strict';
 
 const counter = document.querySelectorAll('tr');
-const type = document.querySelector('thead');
-const list = document.querySelectorAll('td');
-const lists = document.querySelectorAll('tr');
+const listName = document.querySelector('thead');
+const list = document.querySelector('tbody');
 
 const changeToNum = (value) => value.replace('$', '').replace(',', '');
 
@@ -13,7 +12,7 @@ for (let i = 0; i < [...counter].length; i++) {
   }
 }
 
-type.addEventListener('click', (e) => {
+listName.addEventListener('click', (e) => {
   const item = e.target;
 
   sortedList(item.count, list);
@@ -22,21 +21,22 @@ type.addEventListener('click', (e) => {
 function sortedList(count, sortList) {
   const arr = [];
 
-  for (let i = 0; i < [...sortList].length; i++) {
-    if (count === [...sortList][i].count) {
-      arr.push([...sortList][i]);
-    }
+  for (let i = 0; i < sortList.children.length; i++) {
+    arr.push(sortList.children[i]);
   }
 
   const sorted = arr.sort((a, b) => {
-    if (isNaN(changeToNum(a.textContent))) {
-      return a.textContent.localeCompare(b.textContent);
+    const prev = [...a.children].find(item => item.count === count);
+    const next = [...b.children].find(item => item.count === count);
+
+    if (isNaN(changeToNum(prev.textContent))) {
+      return prev.textContent.localeCompare(next.textContent);
     }
 
-    return changeToNum(a.textContent) - changeToNum(b.textContent);
+    return changeToNum(prev.textContent) - changeToNum(next.textContent);
   });
 
   for (let y = 0; y < sorted.length; y++) {
-    lists[y + 1].insertBefore(sorted[y], lists[y + 1].children[count]);
+    list.append(sorted[y]);
   }
 };
