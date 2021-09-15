@@ -18,9 +18,9 @@ function sortList(columnN) {
 
     if (!isNaN(getNumberFromString(value))) {
       return getNumberFromString(value) - getNumberFromString(nextValue);
-    } else {
-      return value.localeCompare(nextValue);
     }
+
+    return value.localeCompare(nextValue);
   });
 
   newPersonArray.forEach(person => personArray.append(person));
