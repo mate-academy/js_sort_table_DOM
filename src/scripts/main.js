@@ -19,7 +19,7 @@ const sortTable = (index, sortMethod = 1) => {
     } else {
       return partA.localeCompare(partB);
     }
-  }).map(el => tableBody.append(el));
+  }).forEach(el => tableBody.append(el));
 };
 
 tableNavigation.addEventListener('click', (e) => {
