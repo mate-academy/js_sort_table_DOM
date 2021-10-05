@@ -25,12 +25,6 @@ function sortGrid(colNum, type) {
       break;
 
     case 'Position':
-      compare = function(a, b) {
-        return a.children[colNum].textContent
-          .localeCompare(b.children[colNum].textContent);
-      };
-      break;
-
     case 'Name':
       compare = function(a, b) {
         return a.children[colNum].textContent
