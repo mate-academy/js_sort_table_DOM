@@ -14,45 +14,35 @@ for (const row of rows) {
 };
 
 const sort = (e) => {
+  let newList;
+
   switch (true) {
     case e.target.classList.contains('name'):
-      const nameList = [...bodyRows].sort((a, b) => {
+      newList = [...bodyRows].sort((a, b) => {
         const first = a.firstElementChild.innerText;
         const second = b.firstElementChild.innerText;
 
         return first.localeCompare(second);
       });
-
-      for (const item of nameList) {
-        body.append(item);
-      };
       break;
 
     case e.target.classList.contains('position'):
-      const positionList = [...bodyRows].sort((a, b) => {
+      newList = [...bodyRows].sort((a, b) => {
         const first = a.children[1].innerText;
         const second = b.children[1].innerText;
 
         return first.localeCompare(second);
       });
-
-      for (const item of positionList) {
-        body.append(item);
-      };
       break;
 
     case e.target.classList.contains('age'):
-      const ageList = [...bodyRows].sort((a, b) => {
+      newList = [...bodyRows].sort((a, b) => {
         return +a.children[2].innerText - +b.children[2].innerText;
       });
-
-      for (const item of ageList) {
-        body.append(item);
-      };
       break;
 
     case e.target.classList.contains('salary'):
-      const salaryList = [...bodyRows].sort((a, b) => {
+      newList = [...bodyRows].sort((a, b) => {
         function GetNumSalary(item) {
           const element = item.children[3].innerText;
 
@@ -61,12 +51,12 @@ const sort = (e) => {
 
         return (GetNumSalary(a) - GetNumSalary(b));
       });
-
-      for (const item of salaryList) {
-        body.append(item);
-      };
       break;
   }
+
+  for (const item of newList) {
+    body.append(item);
+  };
 };
 
 foot.addEventListener('click', sort);
