@@ -1,35 +1,24 @@
 'use strict';
 
+const tableRows = document.querySelectorAll('tbody tr');
 const tableHead = document.querySelector('thead');
 const tableBody = document.querySelector('tbody');
-const tableRows = tableBody.querySelectorAll('tr');
 
-tableHead.addEventListener('click', e => {
-  const header = e.target.closest('th');
+function getNumber(str) {
+  return +str.replace(/[$,]/g, '');
+}
 
-  if (!header || !tableHead.contains(header)) {
-    return;
-  }
+tableHead.addEventListener('click', (e) => {
+  const sorted = [...tableRows].sort((a, b) => {
+    const valueA = a.children[e.target.cellIndex].innerText;
+    const valueB = b.children[e.target.cellIndex].innerText;
 
-  const values = [...tableRows].map(row => {
-    return row.cells[e.target.cellIndex].textContent;
+    if (!isNaN(getNumber(valueA))) {
+      return getNumber(valueA) - getNumber(valueB);
+    } else {
+      return valueA.localeCompare(valueB);
+    }
   });
 
-  switch (header.textContent) {
-    case 'Age':
-      values.sort((a, b) => +a - +b);
-      break;
-    case 'Salary':
-      values.sort((a, b) => +a.replace(/\D/g, '') - +b.replace(/\D/g, ''));
-      break;
-    case 'Name':
-    case 'Position':
-    default:
-      values.sort();
-      break;
-  }
-
-  tableRows.forEach((row, index) => {
-    row.cells[e.target.cellIndex].textContent = values[index];
-  });
+  tableBody.append(...sorted);
 });
