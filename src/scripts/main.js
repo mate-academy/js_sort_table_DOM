@@ -1,49 +1,56 @@
 'use strict';
 
 // write code here
+function salatyToNumber(string) {
+  let number = string.split('$');
+
+  number = number[1].split(',').join('');
+
+  return number;
+}
+
+const body = document.querySelector('tbody');
+
 const table = document.querySelector('table');
 
-function sortTable(event) {
-  let childNumber;
+function sortTable(e) {
   const header = document.querySelectorAll('th');
 
-  childNumber = [...header].findIndex(item =>
-    item.textContent === event.target.textContent);
+  const childNumber = [...header].findIndex(item =>
+    item.textContent === e.target.textContent);
 
   const data = document.querySelectorAll('tbody tr');
   let sorted;
 
-  console.log(typeof +data[0].children[childNumber].textContent);
+  switch (event.target.textContent) {
+    case 'Age':
+      sorted = [...data].sort((a, b) =>
+        a.children[childNumber].textContent
+        - b.children[childNumber].textContent);
+      break;
 
-  if (childNumber === 2) {
-    sorted = [...data].sort((a, b) =>
-      a.children[childNumber].textContent -
-      b.children[childNumber].textContent);
-  }
+    case 'Salary':
+      sorted = [...data].sort((a, b) =>
+        salatyToNumber(a.children[childNumber].textContent)
+        - salatyToNumber(b.children[childNumber].textContent));
+      break;
 
-  function salatyToNumber(string) {
-    let number = string.split('$');
+    case 'Name':
+      sorted = [...data].sort((a, b) =>
+        a.children[childNumber].textContent.localeCompare(
+          b.children[childNumber].textContent)
+      );
+      break;
 
-    number = number[1].split(',').join('');
-
-    return number;
-  }
-
-  if (childNumber === 3) {
-    sorted = [...data].sort((a, b) =>
-      salatyToNumber(a.children[childNumber].textContent)
-      - salatyToNumber(b.children[childNumber].textContent));
-  }
-
-  if (childNumber === 0 || childNumber === 1) {
-    sorted = [...data].sort((a, b) => {
-      return a.children[childNumber].textContent.localeCompare(b.children[childNumber].textContent);
-    });
+    case 'Position':
+      sorted = [...data].sort((a, b) =>
+        a.children[childNumber].textContent.localeCompare(
+          b.children[childNumber].textContent)
+      );
+      break;
   }
 
   sorted.forEach(item => {
-    const body = document.querySelector('tbody');
-
     body.append(item);
   });
 }
