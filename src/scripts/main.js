@@ -16,11 +16,11 @@ headers.forEach(header => {
       const x = a.cells[headerIndex].innerText;
       const y = b.cells[headerIndex].innerText;
 
-      if (typeof x === 'string') {
-        return x.localeCompare(y);
+      if (e.target.innerText === 'Salary') {
+        return toNumber(x) - toNumber(y);
       }
 
-      return toNumber(x) - toNumber(y);
+      return x - y || x.localeCompare(y);
     });
 
     tableBody.append(...tableRows);
