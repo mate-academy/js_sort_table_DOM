@@ -1,5 +1,5 @@
 body {
-  background-image: linear-gradient(45deg, #4ebd36, #7e7cf9);
+  background-color: #eaeaea;
   background-attachment: fixed;
   display: flex;
   justify-content: center;
@@ -15,6 +15,8 @@ table {
   border-collapse: collapse;
   min-width: 600px;
   max-width: 1000px;
+  border-radius: 8px;
+  overflow: hidden;
 }
 
 tr {
@@ -27,7 +29,7 @@ tr:nth-child(2n + 1) {
 }
 
 thead tr:first-child {
-  background: #e25644;
+  background-color: #1d1d1d;
   color: #fff;
 }
 
@@ -42,7 +44,7 @@ th {
 }
 
 thead th:hover {
-  color: #fff400;
+  color: #bcbcbc;
   cursor: pointer;
 }
 
