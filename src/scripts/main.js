@@ -7,18 +7,19 @@ const headers = document.querySelector('thead');
 headers.addEventListener('click', (e) => {
   const employeesTable = document.querySelector('tbody');
   const employeesArray = [...employeesTable.rows];
-  const clickPoint = e.target.cellIndex;
+  const clickPoint = e.target.innerText;
+  const column = e.target.cellIndex;
 
   function sortList(list, callback) {
-    if (clickPoint > 1) {
+    if (clickPoint === 'Age' || clickPoint === 'Salary') {
       list.sort((a, b) =>
-        callback(a.cells[clickPoint].innerText)
-        - callback(b.cells[clickPoint].innerText)
+        callback(a.cells[column].innerText)
+        - callback(b.cells[column].innerText)
       );
     } else {
       list.sort((a, b) =>
-        a.cells[clickPoint].innerText.localeCompare(
-          b.cells[clickPoint].innerText
+        a.cells[column].innerText.localeCompare(
+          b.cells[column].innerText
         )
       );
     }
