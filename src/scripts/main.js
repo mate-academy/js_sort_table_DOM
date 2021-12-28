@@ -2,7 +2,27 @@
 
 const tbody = document.querySelector('tbody');
 
-const sort = (index) => {
+const sort = (target) => {
+  let index = null;
+
+  switch (target) {
+    case 'Name':
+      index = 0;
+      break;
+
+    case 'Position':
+      index = 1;
+      break;
+
+    case 'Age':
+      index = 2;
+      break;
+
+    case 'Salary':
+      index = 3;
+      break;
+  }
+
   let sorted = null;
 
   if (index === 3) {
@@ -19,13 +39,5 @@ const sort = (index) => {
 };
 
 document.addEventListener('click', (eve) => {
-  if (eve.target.innerText === 'Name') {
-    sort(0);
-  } else if (eve.target.innerText === 'Position') {
-    sort(1);
-  } else if (eve.target.innerText === 'Age') {
-    sort(2);
-  } else if (eve.target.innerText === 'Salary') {
-    sort(3);
-  }
+  sort(eve.target.innerText);
 });
