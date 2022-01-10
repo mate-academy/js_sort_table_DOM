@@ -24,11 +24,11 @@ head.addEventListener('click', (e) => {
     }
 
     if (row === 3) {
-      return +bE.toString().replace(/\$|,/g, '')
-            - +aE.toString().replace(/\$|,/g, '');
+      return +aE.toString().replace(/\$|,/g, '')
+          - +bE.toString().replace(/\$|,/g, '');
     }
 
-    return +bE - +aE;
+    return +aE - +bE;
   });
 
   sorted.forEach(item => sortList.appendChild(item));
