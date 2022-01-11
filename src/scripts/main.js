@@ -15,6 +15,7 @@ head.addEventListener('click', (e) => {
     list[i].remove();
   }
 
+
   sorted.sort((a, b) => {
     const aE = a.children[row].textContent;
     const bE = b.children[row].textContent;
@@ -24,11 +25,11 @@ head.addEventListener('click', (e) => {
     }
 
     if (row === 3) {
-      return +aE.toString().replace(/\$|,/g, '')
-          - +bE.toString().replace(/\$|,/g, '');
+      return +bE.toString().replace(/\$|,/g, '')
+          - +aE.toString().replace(/\$|,/g, '');
     }
 
-    return +aE - +bE;
+    return +bE - +aE;
   });
 
   sorted.forEach(item => sortList.appendChild(item));
