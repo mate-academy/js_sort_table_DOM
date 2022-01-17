@@ -10,25 +10,10 @@ table.addEventListener('click', function sortTable(action) {
   const sortedList = rows.sort((a, b) => {
     switch (target.textContent) {
       case 'Name':
-        const nameA = a.innerText
-          .split('\t')[0]
-          .trim()
-          .split(' ')[0];
+        const nameA = a.innerText;
+        const nameB = b.innerText;
 
-        const nameB = b.innerText
-          .split('\t')[0]
-          .trim()
-          .split(' ')[0];
-
-        if (nameA > nameB) {
-          return 1;
-        }
-
-        if (nameA < nameB) {
-          return -1;
-        }
-
-        break;
+        return nameA.localeCompare(nameB);
 
       case 'Position':
         const posA = a.innerText
@@ -41,15 +26,7 @@ table.addEventListener('click', function sortTable(action) {
           .trim()
           .split(' ')[0];
 
-        if (posA > posB) {
-          return 1;
-        }
-
-        if (posA < posB) {
-          return -1;
-        }
-
-        break;
+        return posA.localeCompare(posB);
 
       case 'Age':
         const ageA = a.innerText.split('\t')[2].trim();
