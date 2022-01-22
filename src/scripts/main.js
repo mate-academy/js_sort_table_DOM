@@ -4,7 +4,7 @@
 const table = document.querySelector('table');
 const thead = table.querySelector('thead');
 const trList = [...table.querySelectorAll('tr')];
-const trListNotTh = trList.slice(1, trList.length - 1);
+const trListNotTh = [...table.querySelectorAll('tbody tr')];
 const headList = [...trList[0].children];
 
 thead.addEventListener('click', (ev) => {
