@@ -2,13 +2,13 @@
 
 const tabBody = document.querySelector('tbody');
 
-const arr = tabBody.innerText.split('\n');
+const personsInfo = tabBody.innerText.split('\n');
 
-const Arr = arr.map(el => el.split('\t'));
+const persons = personsInfo.map(el => el.split('\t'));
 
-Arr.pop();
+persons.pop();
 
-const tabArr = Arr.map(el => (
+const personsInTrueFormat = persons.map(el => (
   {
     Name: `${el[0]}`,
     Position: `${el[1]}`,
@@ -27,10 +27,10 @@ document.body.addEventListener('click', (event1) => {
   if (event1.target) {
     selected = `${event1.target.innerText}`;
 
-    const sortTabArr = [...tabArr].sort(byField(selected));
+    const sortedPersons = [...personsInTrueFormat].sort(byField(selected));
     let text = '';
 
-    for (const el of sortTabArr) {
+    for (const el of sortedPersons) {
       text += `<tr>
       <td>${el.Name}</td>
       <td>${el.Position}</td>
