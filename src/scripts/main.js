@@ -3,7 +3,7 @@
 const tabBody = document.querySelector('tbody');
 const tabHeader = document.querySelector('thead');
 
-const currentSort = {
+const currentSorted = {
   'Name': false,
   'Position': false,
   'Age': false,
@@ -17,7 +17,7 @@ const sorting = (el) => {
     .sort((a, b) => {
       let [x, y] = [a, b];
 
-      if (currentSort[handleSorted]) {
+      if (currentSorted[handleSorted]) {
         [x, y] = [y, x];
       }
 
@@ -37,7 +37,7 @@ const sorting = (el) => {
     })
     .map(element => tabBody.append(element));
 
-  currentSort[handleSorted] = !currentSort[handleSorted];
+  currentSorted[handleSorted] = !currentSorted[handleSorted];
 };
 
 tabHeader.addEventListener('click', sorting);
