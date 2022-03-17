@@ -1,44 +1,43 @@
 'use strict';
 
 const tabBody = document.querySelector('tbody');
+const tabHeader = document.querySelector('thead');
 
-const personsInfo = tabBody.innerText.split('\n');
-
-const persons = personsInfo.map(el => el.split('\t'));
-
-persons.pop();
-
-const personsInTrueFormat = persons.map(el => (
-  {
-    Name: `${el[0]}`,
-    Position: `${el[1]}`,
-    Age: `${el[2]}`,
-    Salary: `${el[3]}`,
-  })
-);
-
-let selected = '';
-
-function byField(field) {
-  return (a, b) => a[field] > b[field] ? 1 : -1;
+const currentSort = {
+  'Name': false,
+  'Position': false,
+  'Age': false,
+  'Salary': false,
 };
 
-document.body.addEventListener('click', (event1) => {
-  if (event1.target) {
-    selected = `${event1.target.innerText}`;
+const sorting = (el) => {
+  const handleButton = el.target.innerText;
 
-    const sortedPersons = [...personsInTrueFormat].sort(byField(selected));
-    let text = '';
+  [...tabBody.children]
+    .sort((a, b) => {
+      let [x, y] = [a, b];
 
-    for (const el of sortedPersons) {
-      text += `<tr>
-      <td>${el.Name}</td>
-      <td>${el.Position}</td>
-      <td>${el.Age}</td>
-      <td>${el.Salary}</td>
-    </tr>`;
-    }
+      if (currentSort[handleButton]) {
+        [x, y] = [y, x];
+      }
 
-    tabBody.innerHTML = text;
-  }
-});
+      switch (handleButton) {
+        case 'Name':
+          return x.children[0].innerText.localeCompare(y.children[0].innerText);
+        case 'Position':
+          return x.children[1].innerText.localeCompare(y.children[1].innerText);
+        case 'Age':
+          return (x.children[2].innerText - y.children[2].innerText);
+        default:
+          x = x.children[3].innerText.replace(/[^0-9]/gi, '');
+          y = y.children[3].innerText.replace(/[^0-9]/gi, '');
+
+          return y - x;
+      }
+    })
+    .map(element => tabBody.append(element));
+
+  currentSort[handleButton] = !currentSort[handleButton];
+};
+
+tabHeader.addEventListener('click', sorting);
