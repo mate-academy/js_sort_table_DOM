@@ -11,17 +11,17 @@ const currentSort = {
 };
 
 const sorting = (el) => {
-  const handleSort = el.target.innerText;
+  const handleSorted = el.target.innerText;
 
   [...tabBody.children]
     .sort((a, b) => {
       let [x, y] = [a, b];
 
-      if (currentSort[handleSort]) {
+      if (currentSort[handleSorted]) {
         [x, y] = [y, x];
       }
 
-      switch (handleSort) {
+      switch (handleSorted) {
         case 'Name':
           return x.children[0].innerText.localeCompare(y.children[0].innerText);
         case 'Position':
@@ -37,7 +37,7 @@ const sorting = (el) => {
     })
     .map(element => tabBody.append(element));
 
-  currentSort[handleSort] = !currentSort[handleSort];
+  currentSort[handleSorted] = !currentSort[handleSorted];
 };
 
 tabHeader.addEventListener('click', sorting);
