@@ -22,12 +22,12 @@ function toNumber(numberAsString) {
 }
 
 function sortByColumn(tableToSort, columnNumber) {
-  const tableRows = tableToSort.querySelector('tbody').rows;
-  const tableHeader = tableToSort.querySelector('thead');
-  const tableFooter = tableToSort.querySelector('tfoot');
+  const list = document.querySelector('tbody');
+  const row = list.querySelectorAll('tr');
+  const head = document.querySelector('thead');
 
-  for (let i = 0; i < tableRows.length; i++) {
-    tableArray.push(tableRows[i]);
+  for (let i = 0; i < row.length; i++) {
+    tableArray.push(row[i]);
   }
 
   if (typeof (toNumber(tableArray[0].cells[columnNumber].innerHTML))
@@ -43,13 +43,12 @@ function sortByColumn(tableToSort, columnNumber) {
     });
   }
 
-  tableToSort.append(tableHeader);
+  tableToSort.append(head);
 
   for (let i = 0; i < tableArray.length; i++) {
     tableToSort.append(tableArray[i]);
   }
 
-  tableToSort.append(tableFooter);
 }
 
 document.addEventListener('click', e => {
