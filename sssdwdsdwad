@@ -1,0 +1,110 @@
+[33mcommit 5f8cafdba4d1da1fe8b5a0e3102892f76716b08b[m[33m ([m[1;36mHEAD -> [m[1;32mdevelop[m[33m)[m
+Author: Misha Novikov <novikov1807@gmail.com>
+Date:   Thu Mar 17 17:10:39 2022 +0200
+
+    done all!
+
+[33mcommit d03fca17a2539ccf2509507355783cea3761c8d9[m
+Author: Misha Novikov <novikov1807@gmail.com>
+Date:   Thu Mar 17 17:01:19 2022 +0200
+
+    all done like best
+
+[33mcommit 4dd4cc40b69e6ad7c795f5989c9f2b7b60386fad[m
+Author: Misha Novikov <novikov1807@gmail.com>
+Date:   Thu Mar 17 16:57:02 2022 +0200
+
+    full remake
+
+[33mcommit 468db661b61c63f471fa1a2c6c061cf4dc6004cf[m[33m ([m[1;31morigin/develop[m[33m)[m
+Author: Misha Novikov <novikov1807@gmail.com>
+Date:   Tue Mar 15 15:58:05 2022 +0200
+
+    fixed after mentor review
+
+[33mcommit 84c991a09098d99897062e71273ab213e6d14fe0[m
+Author: Misha Novikov <novikov1807@gmail.com>
+Date:   Fri Mar 11 18:49:15 2022 +0200
+
+    Complite all
+
+[33mcommit 718c30603eabf360aea6b73b6de80f4bc320bc4a[m
+Author: Misha Novikov <novikov1807@gmail.com>
+Date:   Fri Mar 11 18:48:12 2022 +0200
+
+    Complite
+
+[33mcommit 25bcedc6c9c8737c0347e1118afa467d948ca432[m[33m ([m[1;31morigin/master[m[33m, [m[1;31morigin/HEAD[m[33m, [m[1;32mmaster[m[33m)[m
+Author: Yaroslav Kostenko <39385053+iBrianWarner@users.noreply.github.com>
+Date:   Thu Nov 26 15:20:33 2020 +0200
+
+    js_sort_table_DOM: Cypress tests added (#101)
+    
+    * tests added
+    
+    * tests edited
+    
+    * deleted support
+    
+    * small changes to readme and test
+    
+    * test refactored
+    
+    * fixed the sorting of array
+    
+    * added cycle to compare elements
+    
+    * localeCompare method added
+    
+    Co-authored-by: y.kostenko <y.kostenko@mate.academy>
+
+[33mcommit 0e2ee1db536798a9a06d01f96de88c2c2853f266[m
+Merge: 0026d20 841c47c
+Author: Yurii Holiuk <bionicuss@gmail.com>
+Date:   Fri Nov 20 12:43:30 2020 +0200
+
+    Merge pull request #106 from mate-academy/mate-scripts-update
+    
+    Upgrade to layoutDOM with cypress
+
+[33mcommit 841c47c3ccb634749aa8637cf635f09c74d3b328[m[33m ([m[1;31morigin/mate-scripts-update[m[33m)[m
+Author: Yurii Holiuk <bionicuss@gmail.com>
+Date:   Fri Nov 20 11:39:10 2020 +0200
+
+    Upgrade to layoutDOM with cypress
+
+[33mcommit 0026d20740dbdc0572760741beaed539dabca8e3[m
+Author: Vladyslav Polets <46418908+vpolets@users.noreply.github.com>
+Date:   Mon Jul 13 18:51:36 2020 +0300
+
+    Update README.md
+
+[33mcommit 105175480705adf9ae055166004c5a41040f7726[m
+Author: Vladyslav Polets <46418908+vpolets@users.noreply.github.com>
+Date:   Thu Jul 2 12:32:34 2020 +0300
+
+    Update README.md
+
+[33mcommit 1c4e72282673a67657ae4f6d97a7606094e9615d[m
+Author: Vladyslav Polets <46418908+vpolets@users.noreply.github.com>
+Date:   Thu Jul 2 10:45:50 2020 +0300
+
+    Update README.md
+
+[33mcommit bffaee453ad115085222cd1aad318d36bab74248[m
+Author: vpolets <vpolets@gmail.com>
+Date:   Wed Jul 1 18:41:18 2020 +0300
+
+    init task
+
+[33mcommit 36f5717ec69bff3bea8cc81af1498ae5a64bc61a[m
+Author: vpolets <vpolets@gmail.com>
+Date:   Wed Jul 1 18:34:49 2020 +0300
+
+    init task
+
+[33mcommit 52c3813681d50898a18779992de4a0a39ecd7c54[m
+Author: Vladyslav Polets <46418908+vpolets@users.noreply.github.com>
+Date:   Wed Jul 1 18:10:04 2020 +0300
+
+    Initial commit
