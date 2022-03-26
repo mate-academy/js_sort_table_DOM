@@ -14,25 +14,26 @@ const sorting = (el) => {
   const handleSorted = el.target.innerText;
 
   [...tabBody.children]
-    .sort((a, b) => {
-      let [x, y] = [a, b];
+    .sort((element1, element2) => {
+      let [el1, el2] = [element1, element2];
 
       if (currentSorted[handleSorted]) {
-        [x, y] = [y, x];
+        [el1, el2] = [el2, el1];
       }
 
       switch (handleSorted) {
         case 'Name':
-          return x.children[0].innerText.localeCompare(y.children[0].innerText);
+          return el1.children[0]
+            .innerText.localeCompare(el2.children[0].innerText);
         case 'Position':
-          return x.children[1].innerText.localeCompare(y.children[1].innerText);
+          return el1.children[1]
+            .innerText.localeCompare(el2.children[1].innerText);
         case 'Age':
-          return (x.children[2].innerText - y.children[2].innerText);
+          return (el1.children[2].innerText - el2.children[2].innerText);
         default:
-          x = x.children[3].innerText.replace(/[^0-9]/gi, '');
-          y = y.children[3].innerText.replace(/[^0-9]/gi, '');
 
-          return y - x;
+          return el1.children[3].innerText.replace(/[^0-9]/gi, '')
+          - el2.children[3].innerText.replace(/[^0-9]/gi, '');
       }
     })
     .map(element => tabBody.append(element));
