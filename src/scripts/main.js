@@ -1,19 +1,15 @@
 'use strict';
 
 const tbody = document.querySelector('tbody');
-const rows = document.querySelector('tbody').rows;
-const table = document.querySelector('table');
+const thead = document.querySelector('thead');
+const rows = tbody.rows;
 
 function getToNumber(str) {
   return str.split('$').join('').split(',').join('');
 }
 
-table.addEventListener('click', e => {
+thead.addEventListener('click', e => {
   const targeted = e.target.closest('th');
-
-  if (!targeted) {
-    return;
-  }
 
   const cellIndex = targeted.cellIndex;
 
