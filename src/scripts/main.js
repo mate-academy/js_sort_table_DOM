@@ -3,10 +3,10 @@
 function sortTableByProretry(e) {
   const tableEl = e.currentTarget.closest('table');
   const tableBody = tableEl.querySelector('tbody');
-  const sortPropIndex = [...tableEl.querySelectorAll('th')].indexOf(e.target);
-  const rows = [...tableBody.children]
+  const sortPropIndex = e.target.cellIndex;
+  const rows = [...tableBody.rows]
     .map(tr => ({
-      sortValue: tr.children[sortPropIndex].innerText,
+      sortValue: tr.cells[sortPropIndex].innerText,
       element: tr,
     }));
 
