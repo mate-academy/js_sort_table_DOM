@@ -1,10 +1,10 @@
 'use strict';
 
 // write code here
-const table = document.querySelector('tbody');
-const tabletHead = document.querySelector('thead');
-const titles = [...tabletHead.querySelectorAll('th')];
-const tabletRows = [...tabletHead.nextElementSibling.querySelectorAll('tr')];
+const table = document.querySelector('table');
+const tableBody = table.tBodies[0];
+const tableHead = table.tHead;
+const tableBodyRows = [...tableBody.rows];
 
 function sortRows(rows, index) {
   const sorted = rows.sort((x, y) => {
@@ -18,11 +18,11 @@ function sortRows(rows, index) {
     }
   });
 
-  sorted.forEach(x => table.append(x));
+  sorted.forEach(x => tableBody.append(x));
 }
 
-tabletHead.addEventListener('click', (ev) => {
-  const columnIndex = titles.findIndex(x => x === ev.target);
+tableHead.addEventListener('click', (ev) => {
+  const columnIndex = ev.target.cellIndex;
 
-  sortRows(tabletRows, columnIndex);
+  sortRows(tableBodyRows, columnIndex);
 });
