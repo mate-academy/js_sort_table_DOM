@@ -16,9 +16,14 @@ const sort = (index, type) => {
     const item = current.children[index].innerText;
     const nextItem = next.children[index].innerText;
 
-    return type === 'Salary'
-      ? salaryNum(item) - salaryNum(nextItem)
-      : item.localeCompare(nextItem);
+    switch (type) {
+      case 'Salary' :
+        return salaryNum(item) - salaryNum(nextItem);
+      case 'Age' :
+        return +item - +nextItem;
+      default:
+        return item.localeCompare(nextItem);
+    }
   });
 };
 
