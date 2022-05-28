@@ -1,29 +1,36 @@
 'use strict';
 
-// write code here
-const headers = document.querySelectorAll('thead th');
-const body = document.querySelector('tbody');
-const rows = [...body.rows];
+const table = document.querySelector('table');
 
-function toNumber(str) {
-  return +str.replace('$', '').split(',').join('');
-}
+table.addEventListener('click', (e) => {
+  const item = e.target;
 
-headers.forEach(header => {
-  header.addEventListener('click', (e) => {
-    const headerIndex = [...headers].indexOf(e.target);
+  if (!item.closest('thead')) {
+    return;
+  }
 
-    rows.sort((a, b) => {
-      const x = a.cells[headerIndex].innerText;
-      const y = b.cells[headerIndex].innerText;
+  function sorted(element) {
+    const column = element.cellIndex;
 
-      if (e.target.innerText === 'Salary') {
-        return toNumber(x) - toNumber(y);
-      }
+    if (element.innerHTML.toLowerCase() !== 'salary'
+      && element.innerHTML.toLowerCase() !== 'age') {
+      const sortedRows = [...table.rows]
+        .slice(1, table.rows.length - 1)
+        .sort((rowA, rowB) => rowA.cells[column]
+          .innerHTML.localeCompare(rowB.cells[column]
+            .innerHTML));
 
-      return x - y || x.localeCompare(y);
-    });
+      table.tBodies[0].append(...sortedRows);
+    } else {
+      const sortedRows = [...table.rows]
+        .slice(1, table.rows.length - 1)
+        .sort((rowA, rowB) => +rowA.cells[column]
+          .innerHTML.split('$').join('').split(',').join('')
+          - (+rowB.cells[column]
+            .innerHTML.split('$').join('').split(',').join('')));
 
-    body.append(...rows);
-  });
+      table.tBodies[0].append(...sortedRows);
+    }
+  }
+  sorted(item);
 });
