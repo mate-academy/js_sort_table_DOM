@@ -7,27 +7,26 @@ const tableRow = tbody.rows;
 thead.addEventListener('click', (e) => {
   const sortBy = e.target.textContent;
   const arrOfRow = [...tableRow];
+  const indexEl = [...thead.rows[0].cells].indexOf(e.target);
 
   switch (sortBy) {
     case 'Name':
-      arrOfRow.sort((a, b) =>
-        (a.children[0].textContent).localeCompare(b.children[0].textContent));
-      break;
-
     case 'Position':
       arrOfRow.sort((a, b) =>
-        (a.children[1].textContent).localeCompare(b.children[1].textContent));
+        (a.children[indexEl].textContent)
+          .localeCompare(b.children[indexEl].textContent)
+      );
       break;
 
     case 'Age':
       arrOfRow.sort((a, b) =>
-        (a.children[2].textContent) - (b.children[2].textContent));
+        (a.children[indexEl].textContent) - (b.children[indexEl].textContent));
       break;
 
     case 'Salary':
       arrOfRow.sort((a, b) =>
-        (a.children[3].textContent.slice(1).split(',').join(''))
-          - (b.children[3].textContent.slice(1).split(',').join('')));
+        (a.children[indexEl].textContent.slice(1).split(',').join(''))
+          - (b.children[indexEl].textContent.slice(1).split(',').join('')));
       break;
 
     default:
