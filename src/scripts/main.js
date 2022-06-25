@@ -27,7 +27,7 @@ thead.addEventListener('click', (click) => {
         const salary1 = text1.split(',').join('').slice(1);
         const salary2 = text2.split(',').join('').slice(1);
 
-        return Number(salary2) - Number(salary1);
+        return Number(salary1) - Number(salary2);
     }
   };
 
