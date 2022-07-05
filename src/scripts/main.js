@@ -1,28 +1,37 @@
 'use strict';
 
-// write code here
-
+const table = document.querySelector('table');
+const headers = table.querySelectorAll('thead th');
 const tbody = document.querySelector('tbody');
-const th = document.querySelectorAll('thead th');
-const rows = document.querySelectorAll('tbody tr');
 
-[].forEach.call(th, (title, index) => {
-  title.addEventListener('click', () => {
-    sortColumn(index);
-  });
-});
+headers[0].setAttribute('data-type', 'text');
+headers[1].setAttribute('data-type', 'text');
+headers[2].setAttribute('data-type', 'age');
+headers[3].setAttribute('data-type', 'salary');
+
+const directions = Array.from(headers).map(() => '');
 
 const sortColumn = (index) => {
-  const newRows = [...rows];
+  const type = headers[index].getAttribute('data-type');
+  const rows = tbody.querySelectorAll('tbody tr');
+  const direction = directions[index] || 'sortUp';
+  const multiply = direction === 'sortUp' ? 1 : -1;
+  const newRows = Array.from(rows);
 
-  newRows.sort((a, b) => {
-    const cellA = a.querySelectorAll('td')[index].innerHTML;
-    const cellB = b.querySelectorAll('td')[index].innerHTML;
+  newRows.sort((row1, row2) => {
+    const cellA = row1.querySelectorAll('td')[index].textContent;
+    const cellB = row2.querySelectorAll('td')[index].textContent;
+
+    const a = transform(type, cellA);
+    const b = transform(type, cellB);
 
     switch (true) {
-      case cellA > cellB: return 1;
-      case cellA < cellB: return -1;
-      case cellA === cellB: return 0;
+      case a < b:
+        return 1 * multiply;
+      case a > b:
+        return -1 * multiply;
+      case a === b:
+        return 0;
     }
   });
 
@@ -30,7 +39,27 @@ const sortColumn = (index) => {
     tbody.removeChild(row);
   });
 
-  newRows.forEach((newRow) => {
+  directions[index] = direction === 'sortUp' ? 'sortDown' : 'sortUp';
+
+  newRows.forEach(newRow => {
     tbody.appendChild(newRow);
   });
 };
+
+const transform = (type, content) => {
+  switch (type) {
+    case 'age':
+      return parseFloat(content);
+    case 'salary':
+      return parseFloat(content.slice(1).replaceAll(',', ''));
+    case 'text':
+    default:
+      return content.replaceAll(' ', '');
+  }
+};
+
+[].forEach.call(headers, (head, index) => {
+  head.addEventListener('click', () => {
+    sortColumn(index);
+  });
+});
