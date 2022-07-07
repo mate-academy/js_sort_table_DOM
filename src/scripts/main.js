@@ -5,37 +5,43 @@ const tbody = document.querySelector('tbody');
 const data = [];
 
 for (const row of tbody.children) {
-  data.push([row.children[0].textContent,
-    row.children[1].textContent, +row.children[2].textContent,
-    +row.children[3].textContent.replace(/\$|,/g, '')]);
+  data.push({
+    name: row.children[0].textContent,
+    position: row.children[1].textContent,
+    age: +row.children[2].textContent,
+    salary: +row.children[3].textContent.replace(/\$|,/g, ''),
+  });
 }
 
 for (let i = 0; i < headRow.children.length; ++i) {
+  const key = headRow.children[i].innerText.toLowerCase();
+
   headRow.children[i].addEventListener('click', e => {
-    if (typeof data[0][i] === 'number') {
-      data.sort((a, b) => a[i] - b[i]);
-    } else {
-      data.sort((a, b) => {
-        if (a[i] < b[i]) {
-          return -1;
-        }
+    data.sort((a, b) => {
+      if (typeof a[key] === 'number') {
+        return a[key] - b[key];
+      }
 
-        if (a[i] > b[i]) {
-          return 1;
-        }
+      if (a[key] > b[key]) {
+        return 1;
+      }
 
-        return 0;
-      });
-    }
+      if (a[key] < b[key]) {
+        return -1;
+      }
+
+      return 0;
+    });
 
     for (let j = 0; j < data.length; ++j) {
-      for (let k = 0; k < data[j].length; ++k) {
-        if (headRow.children[k].textContent === 'Salary') {
-          tbody.children[j].children[k].innerText
-            = `$${data[j][k].toLocaleString('en-US')}`;
-        } else {
-          tbody.children[j].children[k].innerText = data[j][k];
+      for (let k = 0; k < Object.keys(data[j]).length; ++k) {
+        let result = data[j][Object.keys(data[j])[k]];
+
+        if (Object.keys(data[j])[k] === 'salary') {
+          result = `$${result.toLocaleString('en-US')}`;
         }
+
+        tbody.children[j].children[k].innerText = result;
       }
     }
   });
