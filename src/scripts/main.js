@@ -1,28 +1,20 @@
 'use strict';
 
-const table = document.querySelector('table');
-const tBody = table.querySelector('tbody');
+const employees = [...document.querySelectorAll('tbody tr')];
+const filters = document.querySelector('thead tr');
 
-table.addEventListener('click', (e) => {
-  const column = e.target.closest('th');
+filters.addEventListener('click', (e) => {
+  const category = [...filters.children].indexOf(e.target);
+  const sortedList = employees.sort((a, b) => {
+    const firstPerson = a.children[category].innerText.replace(/[$,]/g, '');
+    const secondPerson = b.children[category].innerText.replace(/[$,]/g, '');
 
-  if (!table.contains(column) || !column) {
-    return;
-  }
-
-  const index = column.cellIndex;
-  const rows = tBody.rows;
-
-  const sorted = [...rows].sort((a, b) => {
-    const rowA = a.sells[index].textContent.replace(/[$,]/g, '');
-    const rowB = b.sells[index].textContent.replace(/[$,]/g, '');
-
-    if (!isNaN(rowA)) {
-      return rowA - rowB;
-    } else {
-      rowA.localeCompare(rowB);
+    if (isNaN(firstPerson)) {
+      return firstPerson.localeCompare(secondPerson);
     }
+
+    return firstPerson - secondPerson;
   });
 
-  tBody.append(...sorted);
+  document.querySelector('tbody').append(...sortedList);
 });
