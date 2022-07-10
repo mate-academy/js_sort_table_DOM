@@ -1,5 +1,5 @@
 1. Replace `<your_account>` with your Github username in the link
-    - [DEMO LINK](https://<your_account>.github.io/js_sort_table_DOM/)
+    - [DEMO LINK](https://pushkalov.github.io/js_sort_table_DOM/)
 2. Follow [this instructions](https://mate-academy.github.io/layout_task-guideline/)
     - Run `npm run test` command to test your code;
     - Run `npm run test:only -- -n` to run fast test ignoring linter;
@@ -8,10 +8,13 @@
 ### Task: Sort of employees table
 
 Hi! In previous tasks, you already implemented table sort by salary. Today task is the same but with using browser events.
+Привет! В предыдущих задачах вы уже реализовали сортировку таблицы по зарплате. Сегодня та же задача, но с использованием событий браузера.
 
 Your task: Implement table sorting in ASC order, by clicking on table headers. 
+Ваша задача: Реализовать сортировку таблиц в порядке ASC, кликая по заголовкам таблиц.
 
 As always, all the necessary styles have already been written for you, you do not need to change the layout or styles in this task.
+Как всегда, все необходимые стили уже написаны за вас, вам не нужно менять макет или стили в этом задании.
 
 Start table:
 
@@ -19,4 +22,6 @@ Start table:
 
 ##### Implement table sorting by clicking on the title
 - Clicking on one of the table headers should sort the table rows in ASC order.
+Щелчок по одному из заголовков таблицы должен отсортировать строки таблицы в порядке ASC.
+
 
