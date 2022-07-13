@@ -28,6 +28,5 @@ table.addEventListener('click', (e) => {
       - convertToNumber(b.cells[index].innerText)
     : a.cells[index].innerText.localeCompare(b.cells[index].innerText));
 
-  tbody.innerHTML = '';
   rows.forEach(row => tbody.append(row));
 });
