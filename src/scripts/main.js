@@ -32,20 +32,14 @@ header.addEventListener('click', (e) => {
   const sortBy = e.target.innerText;
 
   switch (sortBy) {
-    case 'Name':
-      const sortByName = [...table.rows].sort((a, b) => {
-        return a.cells[0].innerText.localeCompare(b.cells[0].innerText);
+    case 'Name' || 'Position':
+      const sortByStr = [...table.rows].sort((a, b) => {
+        for (let i = 0; i < 2; i++) {
+          return a.cells[i].innerText.localeCompare(b.cells[i].innerText);
+        }
       });
 
-      table.append(...sortByName);
-      break;
-
-    case 'Position':
-      const sortByPosition = [...table.rows].sort((a, b) => {
-        return a.cells[1].innerText.localeCompare(b.cells[1].innerText);
-      });
-
-      table.append(...sortByPosition);
+      table.append(...sortByStr);
       break;
 
     case 'Age':
