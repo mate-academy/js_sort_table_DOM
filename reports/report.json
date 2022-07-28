@@ -1,0 +1,162 @@
+{
+  "stats": {
+    "suites": 1,
+    "tests": 4,
+    "passes": 4,
+    "pending": 0,
+    "failures": 0,
+    "start": "2022-07-28T22:23:20.182Z",
+    "end": "2022-07-28T22:23:20.972Z",
+    "duration": 763,
+    "testsRegistered": 4,
+    "passPercent": 100,
+    "pendingPercent": 0,
+    "other": 0,
+    "hasOther": false,
+    "skipped": 0,
+    "hasSkipped": false
+  },
+  "results": [
+    {
+      "uuid": "8fa2746e-3de2-4312-b8e5-8ef591a295d3",
+      "title": "",
+      "fullFile": "cypress/integration/sortTableDom.spec.js",
+      "file": "cypress/integration/sortTableDom.spec.js",
+      "beforeHooks": [],
+      "afterHooks": [],
+      "tests": [],
+      "suites": [
+        {
+          "uuid": "36a98544-7fde-4137-9ae8-6b456068058c",
+          "title": "Sorting table app",
+          "fullFile": "",
+          "file": "",
+          "beforeHooks": [],
+          "afterHooks": [],
+          "tests": [
+            {
+              "title": "should sort in ASC order when user clicks on `Name` header",
+              "fullTitle": "Sorting table app should sort in ASC order when user clicks on `Name` header",
+              "timedOut": null,
+              "duration": 284,
+              "state": "passed",
+              "speed": "slow",
+              "pass": true,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "cy.isSorted('Name', 1);",
+              "err": {},
+              "uuid": "6e320ee4-7fc6-48d7-9a1d-9ed22fd77459",
+              "parentUUID": "36a98544-7fde-4137-9ae8-6b456068058c",
+              "isHook": false,
+              "skipped": false
+            },
+            {
+              "title": "should sort in ASC order when user clicks on `Position` header",
+              "fullTitle": "Sorting table app should sort in ASC order when user clicks on `Position` header",
+              "timedOut": null,
+              "duration": 162,
+              "state": "passed",
+              "speed": "slow",
+              "pass": true,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "cy.isSorted('Position', 2);",
+              "err": {},
+              "uuid": "a505f6ba-c26e-4382-ab19-4939ccae0390",
+              "parentUUID": "36a98544-7fde-4137-9ae8-6b456068058c",
+              "isHook": false,
+              "skipped": false
+            },
+            {
+              "title": "should sort in ASC order when user clicks on `Age` header",
+              "fullTitle": "Sorting table app should sort in ASC order when user clicks on `Age` header",
+              "timedOut": null,
+              "duration": 159,
+              "state": "passed",
+              "speed": "slow",
+              "pass": true,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "cy.isSorted('Age', 3);",
+              "err": {},
+              "uuid": "d684d857-abfe-4de1-be1a-514aca335c21",
+              "parentUUID": "36a98544-7fde-4137-9ae8-6b456068058c",
+              "isHook": false,
+              "skipped": false
+            },
+            {
+              "title": "should sort in ASC order when user clicks on `Salary` header",
+              "fullTitle": "Sorting table app should sort in ASC order when user clicks on `Salary` header",
+              "timedOut": null,
+              "duration": 158,
+              "state": "passed",
+              "speed": "slow",
+              "pass": true,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "cy.isSorted('Salary', 4);",
+              "err": {},
+              "uuid": "70f7cbea-fe70-411e-be1f-f22e611cd185",
+              "parentUUID": "36a98544-7fde-4137-9ae8-6b456068058c",
+              "isHook": false,
+              "skipped": false
+            }
+          ],
+          "suites": [],
+          "passes": [
+            "6e320ee4-7fc6-48d7-9a1d-9ed22fd77459",
+            "a505f6ba-c26e-4382-ab19-4939ccae0390",
+            "d684d857-abfe-4de1-be1a-514aca335c21",
+            "70f7cbea-fe70-411e-be1f-f22e611cd185"
+          ],
+          "failures": [],
+          "pending": [],
+          "skipped": [],
+          "duration": 763,
+          "root": false,
+          "rootEmpty": false,
+          "_timeout": 2000
+        }
+      ],
+      "passes": [],
+      "failures": [],
+      "pending": [],
+      "skipped": [],
+      "duration": 0,
+      "root": true,
+      "rootEmpty": true,
+      "_timeout": 2000
+    }
+  ],
+  "meta": {
+    "mocha": {
+      "version": "7.0.1"
+    },
+    "mochawesome": {
+      "options": {
+        "quiet": false,
+        "reportFilename": "mochawesome",
+        "saveHtml": false,
+        "saveJson": true,
+        "consoleReporter": "spec",
+        "useInlineDiffs": false,
+        "code": true
+      },
+      "version": "6.2.1"
+    },
+    "marge": {
+      "options": {
+        "reportDir": "raw_reports",
+        "overwrite": false,
+        "html": false,
+        "json": true
+      },
+      "version": "5.1.0"
+    }
+  }
+}
