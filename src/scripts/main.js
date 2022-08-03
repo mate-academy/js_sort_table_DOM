@@ -32,7 +32,8 @@ header.addEventListener('click', (e) => {
   const sortBy = e.target.innerText;
 
   switch (sortBy) {
-    case 'Name' || 'Position':
+    case 'Name':
+    case 'Position':
       const sortByStr = [...table.rows].sort((a, b) => {
         for (let i = 0; i < 2; i++) {
           return a.cells[i].innerText.localeCompare(b.cells[i].innerText);
@@ -43,9 +44,9 @@ header.addEventListener('click', (e) => {
       break;
 
     case 'Age':
-      const sortByAge = [...table.rows].sort((a, b) => {
-        return a.cells[2].innerText - b.cells[2].innerText;
-      });
+      const sortByAge = [...table.rows].sort((a, b) =>
+        a.cells[2].innerText - b.cells[2].innerText
+      );
 
       table.append(...sortByAge);
       break;
