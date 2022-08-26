@@ -10,8 +10,8 @@ function getNumber(num) {
 header.addEventListener('click', e => {
   const targeted = e.target.innerText;
 
-  switch (true) {
-    case targeted === 'Name':
+  switch (targeted) {
+    case 'Name':
       const nameSort = [...table.rows].sort((a, b) => {
         return a.cells[0].innerText.localeCompare(b.cells[0].innerText);
       });
@@ -27,7 +27,7 @@ header.addEventListener('click', e => {
       table.append(...positionSort);
       break;
 
-    case targeted === 'Age':
+    case 'Age':
       const ageSort = [...table.rows].sort((a, b) => {
         return +a.cells[2].innerText - +b.cells[2].innerText;
       });
@@ -35,7 +35,7 @@ header.addEventListener('click', e => {
       table.append(...ageSort);
       break;
 
-    case targeted === 'Salary':
+    case 'Salary':
       const salarySort = [...table.rows].sort((a, b) => {
         return getNumber(a.cells[3].innerText)
         - getNumber(b.cells[3].innerText);
