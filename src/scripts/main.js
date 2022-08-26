@@ -19,7 +19,7 @@ header.addEventListener('click', e => {
       table.append(...nameSort);
       break;
 
-    case targeted === 'Position':
+    case 'Position':
       const positionSort = [...table.rows].sort((a, b) => {
         return a.cells[1].innerText.localeCompare(b.cells[1].innerText);
       });
