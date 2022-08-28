@@ -17,36 +17,16 @@ tr.forEach(item => arr.push(item));
 arr.shift();
 arr.pop();
 
-const handler = e => {
+const headingEventHandler = e => {
   const targetItem = e.target.closest('th');
 
   if (!targetItem || !heading.contains(targetItem)) {
     return;
   }
 
-  let index = null;
-
-  switch (targetItem.innerText) {
-    case 'Name':
-      index = 0;
-      break;
-
-    case 'Position':
-      index = 1;
-      break;
-
-    case 'Age':
-      index = 2;
-      break;
-
-    case 'Salary':
-      index = 3;
-      break;
-  }
-
   arr.sort((a, b) => {
-    const aElement = a.children[index].innerText;
-    const bElement = b.children[index].innerText;
+    const aElement = a.children[targetItem.cellIndex].innerText;
+    const bElement = b.children[targetItem.cellIndex].innerText;
 
     if (targetItem.innerText === 'Salary' || targetItem.innerText === 'Age') {
       return toNum(aElement) - toNum(bElement);
@@ -65,4 +45,4 @@ const handler = e => {
   `).join('');
 };
 
-heading.addEventListener('click', handler);
+heading.addEventListener('click', headingEventHandler);
