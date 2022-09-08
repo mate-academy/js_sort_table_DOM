@@ -12,14 +12,15 @@ const tableData = [...tableBody.children].map(tableRow => ({
 
 tableHeaders.addEventListener('click', () => {
   tableData.sort((element1, element2) => {
-    if (event.target.innerText === 'Name') {
-      return element1.name.localeCompare(element2.name);
-    } else if (event.target.innerText === 'Position') {
-      return element1.position.localeCompare(element2.position);
-    } else if (event.target.innerText === 'Age') {
-      return element1.age - element2.age;
-    } else {
-      return +changeSalaryFormat(element1.salary)
+    switch (event.target.innerText) {
+      case 'Name':
+        return element1.name.localeCompare(element2.name);
+      case 'Position':
+        return element1.position.localeCompare(element2.position);
+      case 'Age':
+        return element1.age - element2.age;
+      default:
+        return +changeSalaryFormat(element1.salary)
         - +changeSalaryFormat(element2.salary);
     }
   });
