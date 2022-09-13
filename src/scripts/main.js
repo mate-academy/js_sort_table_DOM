@@ -29,10 +29,14 @@ table.addEventListener('click', el => {
 
     case 'Salary':
       row.sort((a, b) =>
-        (a.children[3].innerText.slice(1).split(',').join(''))
-        - (b.children[3].innerText.slice(1).split(',').join('')));
+        (normalize(a.children[3].innerText))
+        - (normalize(b.children[3].innerText)));
       break;
   }
 
   row.forEach(e => tbody.append(e));
 });
+
+function normalize(el) {
+  return el.slice(1).split(',').join('');
+}
