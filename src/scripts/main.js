@@ -1,11 +1,10 @@
-/* eslint-disable no-shadow */
 'use strict';
 
 const head = document.querySelector('thead');
 const body = document.querySelector('tbody');
 
-head.addEventListener('click', (event) => {
-  const position = event.target.cellIndex;
+head.addEventListener('click', (e) => {
+  const position = e.target.cellIndex;
 
   const sort = [...body.children].sort((a, b) => {
     const sortA = a.cells[position].textContent.replace(',', '')
