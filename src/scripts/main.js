@@ -21,14 +21,14 @@ function tableSort(type, tableItems) {
 
     case 'Age':
       sortedTable = [...tableItems]
-        .sort((a, b) => (b.children[2].innerText - a.children[2].innerText));
+        .sort((a, b) => (a.children[2].innerText - b.children[2].innerText));
       break;
 
     case 'Salary':
       sortedTable = [...tableItems]
         .sort((a, b) => (
-          b.children[3].innerText.slice(1).split(',').join('')
-          - a.children[3].innerText.slice(1).split(',').join('')
+          a.children[3].innerText.slice(1).split(',').join('')
+          - b.children[3].innerText.slice(1).split(',').join('')
         ));
       break;
 
