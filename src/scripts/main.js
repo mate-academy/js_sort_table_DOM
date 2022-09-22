@@ -4,17 +4,14 @@ const table = document.querySelector('table');
 const headers = table.querySelectorAll('th');
 const tableBody = table.querySelector('tbody');
 
-[].forEach.call(headers, function(header, index) {
-  header.addEventListener('click', (e) => {
+headers.forEach(function(header, index) {
+  header.addEventListener('click', () => {
     sortColumn(index);
   });
 });
 
 function sortColumn(index) {
   let sortedRows = [];
-  const salaryToNumber = (text) => {
-    return +text.slice(1).replace(/,/g, '');
-  };
 
   if (index === 3) {
     sortedRows = Array.from(tableBody.rows).sort((a, b) =>
@@ -26,3 +23,7 @@ function sortColumn(index) {
   }
   table.tBodies[0].append(...sortedRows);
 }
+
+function salaryToNumber(text) {
+  return +text.slice(1).replace(/,/g, '');
+};
