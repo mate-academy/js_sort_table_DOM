@@ -27,8 +27,8 @@ function listSorting(list, sortParam) {
         return +a.children[2].innerText - +b.children[2].innerText;
 
       case 'Salary':
-        return salaryToNumber(b.children[3].innerText)
-          - salaryToNumber(a.children[3].innerText);
+        return salaryToNumber(a.children[3].innerText)
+          - salaryToNumber(b.children[3].innerText);
 
       case 'Name':
         return (a.children[0].innerText).localeCompare(b.children[0].innerText);
