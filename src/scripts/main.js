@@ -16,20 +16,23 @@ function sortList(colNum, type) {
 
   const rowsArray = Array.from(tbody.rows);
 
-  function valuesToNumber(string) {
-    return string.replace(',', '.').slice(1);
-  }
-
   const compare = function(rowA, rowB) {
-    if (type === 'string') {
-      return rowA.cells[colNum].innerHTML
-        .localeCompare(rowB.cells[colNum].innerHTML);
-    } else if (type === 'salary') {
-      return valuesToNumber(rowA.cells[colNum].innerHTML)
-      - valuesToNumber(rowB.cells[colNum].innerHTML);
-    } else {
-      return rowA.cells[colNum].innerHTML
-      - rowB.cells[colNum].innerHTML;
+    switch (type) {
+      case 'string':
+        return rowA.cells[colNum].innerHTML
+          .localeCompare(rowB.cells[colNum].innerHTML);
+
+      case 'number':
+        return rowA.cells[colNum].innerHTML
+        - rowB.cells[colNum].innerHTML;
+
+      case 'salary':
+        return valuesToNumber(rowA.cells[colNum].innerHTML)
+        - valuesToNumber(rowB.cells[colNum].innerHTML);
+    }
+
+    function valuesToNumber(string) {
+      return string.replace(',', '.').slice(1);
     }
   };
 
