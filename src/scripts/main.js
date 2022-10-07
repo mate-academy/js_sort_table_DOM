@@ -1,41 +1,32 @@
 'use strict';
 
 const tableBody = document.querySelector('tbody');
-let persons = [...document.querySelector('tbody').querySelectorAll('tr')];
+const persons = [...tableBody.querySelectorAll('tr')];
 
-function getPersonTable(person) {
-  return `
-  ${person.map(personEl => `
-    <tr>
-        <td>${personEl.children[0].innerText}</td>
-        <td>${personEl.children[1].innerText}</td>
-        <td>${personEl.children[2].innerText}</td>
-        <td>${personEl.children[3].innerText}</td>
-      </tr>
-  `).join('')}
-`;
-}
-
-function getSalery(el) {
-  return +el.innerText.slice(1).split(',').join('')
+function getSalary(el) {
+  return el.replace(/\D/g, '');
 }
 
 document.querySelector('thead').addEventListener('click', (e) => {
-  persons = persons.sort((a, b) => {
+  persons.sort((a, b) => {
     switch (e.target.innerText) {
       case 'Name':
-        return a.children[0].innerText.localeCompare(b.children[0].innerText);
+        return a.children[e.target.cellIndex].innerText
+          .localeCompare(b.children[e.target.cellIndex].innerText);
 
       case 'Position':
-        return a.children[1].innerText.localeCompare(b.children[1].innerText);
+        return a.children[e.target.cellIndex].innerText
+          .localeCompare(b.children[e.target.cellIndex].innerText);
 
       case 'Age':
-        return +a.children[2].innerText - +b.children[2].innerText;
+        return +a.children[e.target.cellIndex].innerText
+        - +b.children[e.target.cellIndex].innerText;
 
       case 'Salary':
-        return getSalery(a.children[3]) - getSalery(b.children[3]);
+        return getSalary(a.children[e.target.cellIndex].innerText)
+        - getSalary(b.children[e.target.cellIndex].innerText);
     }
   });
 
-  tableBody.innerHTML = getPersonTable(persons);
+  tableBody.append(...persons);
 });
