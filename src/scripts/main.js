@@ -8,23 +8,25 @@ function getSalary(el) {
 }
 
 document.querySelector('thead').addEventListener('click', (e) => {
+  const whereСlicked = e.target;
+
   persons.sort((a, b) => {
-    switch (e.target.innerText) {
+    switch (whereСlicked.innerText) {
       case 'Name':
-        return a.children[e.target.cellIndex].innerText
-          .localeCompare(b.children[e.target.cellIndex].innerText);
+        return a.children[whereСlicked.cellIndex].innerText
+          .localeCompare(b.children[whereСlicked.cellIndex].innerText);
 
       case 'Position':
-        return a.children[e.target.cellIndex].innerText
-          .localeCompare(b.children[e.target.cellIndex].innerText);
+        return a.children[whereСlicked.cellIndex].innerText
+          .localeCompare(b.children[whereСlicked.cellIndex].innerText);
 
       case 'Age':
-        return +a.children[e.target.cellIndex].innerText
-        - +b.children[e.target.cellIndex].innerText;
+        return +a.children[whereСlicked.cellIndex].innerText
+        - +b.children[whereСlicked.cellIndex].innerText;
 
       case 'Salary':
-        return getSalary(a.children[e.target.cellIndex].innerText)
-        - getSalary(b.children[e.target.cellIndex].innerText);
+        return getSalary(a.children[whereСlicked.cellIndex].innerText)
+        - getSalary(b.children[whereСlicked.cellIndex].innerText);
     }
   });
 
