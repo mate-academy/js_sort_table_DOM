@@ -6,6 +6,10 @@ const tableBody = document.querySelector('tbody');
 const tableRows = [...tableBody.children];
 
 headingItems.forEach(item => item.setAttribute('class', 'column'));
+headingItems[0].dataset.type = 'text';
+headingItems[1].dataset.type = 'text';
+headingItems[2].dataset.type = 'number';
+headingItems[3].dataset.type = 'salary';
 
 function tableSort(column) {
   const index = headingItems.indexOf(column);
@@ -14,14 +18,18 @@ function tableSort(column) {
     const first = rowA.children[index].innerText;
     const second = rowB.children[index].innerText;
 
-    if (index <= 1) {
-      return first.localeCompare(second);
-    } else if (index === 3) {
-      return first.slice(1).split(',').join('')
-      - second.slice(1).split(',').join('');
-    }
+    const transformSalary = (cell) => {
+      return cell.slice(1).split(',').join('');
+    };
 
-    return first - second;
+    if (column.dataset.type === 'text') {
+      return first.localeCompare(second);
+    } else if (column.dataset.type === 'salary') {
+      return transformSalary(first)
+      - transformSalary(second);
+    } else if (column.dataset.type === 'number') {
+      return first - second;
+    }
   };
 
   const sorted = tableRows.sort(callbackSort);
