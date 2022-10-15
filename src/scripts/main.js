@@ -2,38 +2,29 @@
 
 const heads = document.querySelectorAll('th');
 const rows = document.querySelectorAll('tr');
-const arr = [];
-const obj = {};
+const arrTable = [];
+let sortColumns;
 
 rows.forEach((row, index) => {
   if (index !== 0 && index !== rows.length - 1) {
-    obj.name = row.children[0].innerText;
-    obj.position = row.children[1].innerText;
-    obj.age = row.children[2].innerText;
-    obj.salary = row.children[3].innerText;
-
-    arr.push(Object.assign({}, obj));
+    arrTable.push({
+      name: row.children[0].innerText,
+      position: row.children[1].innerText,
+      age: row.children[2].innerText,
+      salary: row.children[3].innerText,
+    });
   }
 });
 
 const sortTable = (sortedBy) => {
-  if (sortedBy === 'names') {
-    arr.sort((a, b) => a.name.localeCompare(b.name));
-  } else if (sortedBy === 'positions') {
-    arr.sort((a, b) => a.position.localeCompare(b.position));
-  } else if (sortedBy === 'ages') {
-    arr.sort((a, b) => a.age - b.age);
-  } else if (sortedBy === 'salaries') {
-    arr.sort((a, b) => parseFloat(a.salary.slice(1))
-    - parseFloat(b.salary.slice(1)));
-  }
+  sortedBy();
 
-  rows.forEach((row, index) => {
+  [...rows].map((row, index) => {
     if (index !== 0 && index !== rows.length - 1) {
-      row.children[0].innerText = arr[index - 1].name;
-      row.children[1].innerText = arr[index - 1].position;
-      row.children[2].innerText = arr[index - 1].age;
-      row.children[3].innerText = arr[index - 1].salary;
+      row.children[0].innerText = arrTable[index - 1].name;
+      row.children[1].innerText = arrTable[index - 1].position;
+      row.children[2].innerText = arrTable[index - 1].age;
+      row.children[3].innerText = arrTable[index - 1].salary;
     }
   });
 };
@@ -43,21 +34,32 @@ heads.forEach(item => {
     item.addEventListener('click', (e) => {
       switch (e.target.innerText) {
         case 'Name':
-          sortTable('names');
+          sortColumns = () => {
+            arrTable.sort((a, b) => a.name.localeCompare(b.name));
+          };
           break;
 
         case 'Position':
-          sortTable('positions');
+          sortColumns = () => {
+            arrTable.sort((a, b) => a.position.localeCompare(b.position));
+          };
           break;
 
         case 'Age':
-          sortTable('ages');
+          sortColumns = () => {
+            arrTable.sort((a, b) => a.age - b.age);
+          };
           break;
 
         case 'Salary':
-          sortTable('salaries');
+          sortColumns = () => {
+            arrTable.sort((a, b) => parseFloat(a.salary.slice(1))
+              - parseFloat(b.salary.slice(1)));
+          };
           break;
       }
+
+      sortTable(sortColumns);
     });
   }
 });
