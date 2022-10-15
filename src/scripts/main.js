@@ -19,7 +19,7 @@ rows.forEach((row, index) => {
 const sortTable = (sortedBy) => {
   sortedBy();
 
-  [...rows].map((row, index) => {
+  rows.forEach((row, index) => {
     if (index !== 0 && index !== rows.length - 1) {
       row.children[0].innerText = arrTable[index - 1].name;
       row.children[1].innerText = arrTable[index - 1].position;
