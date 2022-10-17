@@ -25,8 +25,7 @@ function tableSort(column) {
     if (column.dataset.type === 'text') {
       return first.localeCompare(second);
     } else if (column.dataset.type === 'salary') {
-      return transformSalary(first)
-      - transformSalary(second);
+      return transformSalary(first) - transformSalary(second);
     } else if (column.dataset.type === 'number') {
       return first - second;
     }
