@@ -7,6 +7,10 @@ const rows = [...tbody.rows];
 document.body.addEventListener('click', e => {
   const index = theadList.indexOf(e.target);
 
+  function salaryToNumber(sal) {
+    return +sal.slice(1).split(',').join('');
+  };
+
   if (e.target.tagName !== 'TH') {
     return;
   };
@@ -21,10 +25,6 @@ document.body.addEventListener('click', e => {
 
     return elementA.localeCompare(elementB);
   });
-
-  function salaryToNumber(sal) {
-    return +sal.slice(1).split(',').join('');
-  };
 
   tbody.append(...rows);
 });
