@@ -11,11 +11,15 @@ class Employee {
     this.name = fullName;
     this.position = position;
     this.age = +age;
-    this.salary = this.getSalary(salary);
+    this.salary = this.getSalaryNum(salary);
   }
 
-  getSalary(str) {
+  getSalaryNum(str) {
     return +str.slice(1).split(',').join('');
+  }
+
+  getSalaryStr(num) {
+    return '$' + num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
   }
 }
 
@@ -47,7 +51,7 @@ tHead.addEventListener('click', (clickEvent) => {
       <td>${el.name}</td>
       <td>${el.position}</td>
       <td>${el.age}</td>
-      <td>${el.salary}</td>
+      <td>${el.getSalaryStr(el.salary)}</td>
     </tr>
   `).join('')}
   `;
