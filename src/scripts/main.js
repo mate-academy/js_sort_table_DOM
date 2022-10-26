@@ -17,29 +17,29 @@ for (let i = 0; i <= tbody.children.length - 1; i++) {
 
 thead.addEventListener('click', (e) => {
   if (e.target.innerText === 'Name') {
-    sort(arrayPeople, e.target.innerText);
-    showSort(arrayPeople);
+    sortEmployees(arrayPeople, e.target.innerText);
+    showSorted(arrayPeople);
   }
 
   if (e.target.innerText === 'Position') {
-    sort(arrayPeople, e.target.innerText);
-    showSort(arrayPeople);
+    sortEmployees(arrayPeople, e.target.innerText);
+    showSorted(arrayPeople);
   }
 
   if (e.target.innerText === 'Age') {
-    sort(arrayPeople, e.target.innerText);
-    showSort(arrayPeople);
+    sortEmployees(arrayPeople, e.target.innerText);
+    showSorted(arrayPeople);
   }
 
   if (e.target.innerText === 'Salary') {
-    sort(arrayPeople, e.target.innerText);
+    sortEmployees(arrayPeople, e.target.innerText);
 
-    showSort(arrayPeople);
+    showSorted(arrayPeople);
   }
 }
 );
 
-function showSort(list) {
+function showSorted(list) {
   tbody.innerHTML = '';
 
   for (let i = 0; i < list.length; i++) {
@@ -54,7 +54,7 @@ function showSort(list) {
   }
 };
 
-function sort(array, field) {
+function sortEmployees(array, field) {
   const fieldLower = field.toLowerCase();
 
   array.sort((a, b) => {
