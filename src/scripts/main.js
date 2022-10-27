@@ -1,48 +1,46 @@
 'use strict';
+// 423
 
 const thead = document.querySelector('thead');
 const tbody = document.querySelector('tbody');
-const persons = tbody.querySelectorAll('tr');
+const people = tbody.querySelectorAll('tr');
 
 thead.addEventListener('click', (e) => {
-  let sortedPersons;
+  let sortedPeople;
 
   switch (e.target.textContent) {
     case 'Name':
-      sortedPersons = [...persons]
+      sortedPeople = [...people]
         .sort((a, b) => {
           return a.children[0].textContent
             .localeCompare(b.children[0].textContent);
         });
 
-      sortedPersons.forEach(person => tbody.append(person));
       break;
     case 'Position':
-      sortedPersons = [...persons]
+      sortedPeople = [...people]
         .sort((a, b) => {
           return a.children[1].textContent
             .localeCompare(b.children[1].textContent);
         });
 
-      sortedPersons.forEach(person => tbody.append(person));
       break;
     case 'Age':
-      sortedPersons = [...persons]
+      sortedPeople = [...people]
         .sort((a, b) => {
           return a.children[2].textContent
             .localeCompare(b.children[2].textContent);
         });
 
-      sortedPersons.forEach(person => tbody.append(person));
       break;
     case 'Salary':
-      sortedPersons = [...persons]
+      sortedPeople = [...people]
         .sort((a, b) => {
           return a.children[3].textContent
             .localeCompare(b.children[3].textContent);
         });
 
-      sortedPersons.forEach(person => tbody.append(person));
       break;
   }
+  sortedPeople.forEach(person => tbody.append(person));
 });
