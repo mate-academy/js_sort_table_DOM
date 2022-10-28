@@ -27,9 +27,8 @@ const sort = (e) => {
         return b.age - a.age;
 
       case 'Salary':
-        // eslint-disable-next-line no-useless-escape
-        const aConverted = a.salary.slice(1).replace(/\,/g, '');
-        const bConverted = b.salary.slice(1).replace(/\,/g, '');
+        const aConverted = a.salary.slice(1).replace(/,/g, '');
+        const bConverted = b.salary.slice(1).replace(/,/g, '');
 
         return bConverted - aConverted;
     };
