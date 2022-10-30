@@ -10,27 +10,8 @@ const columnIndex = {
   Salary: 3,
 };
 
-document.querySelector('thead').addEventListener('click', e => {
-  switch (e.target.textContent) {
-    case 'Name':
-      sortTable(columnIndex.Name);
-      break;
-    case 'Position':
-      sortTable(columnIndex.Position);
-      break;
-    case 'Age':
-      sortTable(columnIndex.Age);
-      break;
-    case 'Salary':
-      sortTable(columnIndex.Salary);
-      break;
-    default:
-      throw new Error('Unknown step');
-  }
-});
-
 function sortTable(column) {
-  rows.sort(function(a, b) {
+  rows.sort((a, b) => {
     if (column === columnIndex.Salary) {
       return Normalize(a.children[column].textContent)
            - Normalize(b.children[column].textContent);
@@ -51,3 +32,22 @@ function sortTable(column) {
 function Normalize(salary) {
   return +salary.replace(/[^0-9.-]+/g, '');
 }
+
+document.querySelector('thead').addEventListener('click', e => {
+  switch (e.target.textContent) {
+    case 'Name':
+      sortTable(columnIndex.Name);
+      break;
+    case 'Position':
+      sortTable(columnIndex.Position);
+      break;
+    case 'Age':
+      sortTable(columnIndex.Age);
+      break;
+    case 'Salary':
+      sortTable(columnIndex.Salary);
+      break;
+    default:
+      throw new Error('Unknown step');
+  }
+});
