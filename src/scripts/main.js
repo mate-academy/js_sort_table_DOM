@@ -36,6 +36,11 @@ function sortTable(column) {
            - Normalize(b.children[column].textContent);
     }
 
+    if (column === columnIndex.Age) {
+      return a.children[column].textContent
+      - b.children[column].textContent;
+    }
+
     return a.children[column].textContent
       .localeCompare(b.children[column].textContent);
   }
