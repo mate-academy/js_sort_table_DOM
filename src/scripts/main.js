@@ -1,48 +1,42 @@
 'use strict';
 
 const employeeList = [...document.querySelectorAll('tr')].slice(1, -1);
-const mainList = document.querySelector('tbody');
-const menu = document.querySelector('thead').firstElementChild.children;
+const tableBody = document.querySelector('tbody');
+const menu = document.querySelector('thead');
 
-function salarySort(list) {
-  list.sort((a, b) => (+a.children[3].innerText.slice(1).split(',').join(''))
-   - (+b.children[3].innerText.slice(1).split(',').join('')));
+menu.addEventListener('click', (e) => {
+  if (e.target.tagName !== 'TH') {
+    return;
+  }
 
-  mainList.append(...list);
-}
+  const th = e.target;
 
-function ageSort(list) {
-  list.sort((a, b) => (+a.children[2].innerText) - (+b.children[2].innerText));
-
-  mainList.append(...list);
-}
-
-function positionSort(list) {
-  list.sort((a, b) => (a.children[1].innerText
-    .localeCompare(b.children[1].innerText)));
-
-  mainList.append(...list);
-}
-
-function nameSort(list) {
-  list.sort((a, b) => (a.children[0].innerText
-    .localeCompare(b.children[0].innerText)));
-
-  mainList.append(...list);
-}
-
-menu[3].addEventListener('click', () => {
-  salarySort(employeeList);
+  sortColumn(th.cellIndex);
 });
 
-menu[2].addEventListener('click', () => {
-  ageSort(employeeList);
-});
+function sortColumn(colNumber) {
+  let sortingType;
 
-menu[1].addEventListener('click', () => {
-  positionSort(employeeList);
-});
+  switch (colNumber) {
+    case 0:
+    case 1:
+      sortingType = (a, b) => (a.children[colNumber].innerText
+        .localeCompare(b.children[colNumber].innerText));
+      break;
 
-menu[0].addEventListener('click', () => {
-  nameSort(employeeList);
-});
+    case 2:
+      sortingType = (a, b) => (+a.children[colNumber].innerText)
+       - (+b.children[colNumber].innerText);
+      break;
+
+    case 3:
+      sortingType = (a, b) => (+a.children[colNumber].innerText
+        .slice(1).split(',').join('')) - (+b.children[colNumber]
+        .innerText.slice(1).split(',').join(''));
+      break;
+  }
+
+  employeeList.sort(sortingType);
+
+  tableBody.append(...employeeList);
+}
