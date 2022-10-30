@@ -2,34 +2,47 @@
 
 const tbody = document.querySelector('tbody');
 const rows = [...tbody.children];
-let sortedRows = [];
+
+const columnIndex = {
+  Name: 0,
+  Position: 1,
+  Age: 2,
+  Salary: 3,
+};
 
 document.querySelector('thead').addEventListener('click', e => {
-  sortTable(e.target.textContent);
-});
-
-function sortTable(textContent) {
-  switch (textContent) {
+  switch (e.target.textContent) {
     case 'Name':
-      sortedRows = rows.sort((a, b) =>
-        a.children[0].textContent.localeCompare(b.children[0].textContent));
+      sortTable(columnIndex.Name);
       break;
     case 'Position':
-      sortedRows = rows.sort((a, b) =>
-        a.children[1].textContent.localeCompare(b.children[1].textContent));
+      sortTable(columnIndex.Position);
       break;
     case 'Age':
-      sortedRows = rows.sort((a, b) => +a.children[2].textContent
-        - +b.children[2].textContent);
+      sortTable(columnIndex.Age);
       break;
     case 'Salary':
-      sortedRows = rows.sort((a, b) =>
-        +a.children[3].textContent.replace(/[^0-9.-]+/g, '')
-      - +b.children[3].textContent.replace(/[^0-9.-]+/g, ''));
+      sortTable(columnIndex.Salary);
       break;
     default:
       throw new Error('Unknown step');
   }
+});
 
-  tbody.append(...sortedRows);
+function sortTable(column) {
+  rows.sort(function(a, b) {
+    if (column === columnIndex.Salary) {
+      return Normalize(a.children[column].textContent)
+           - Normalize(b.children[column].textContent);
+    }
+
+    return a.children[column].textContent
+      .localeCompare(b.children[column].textContent);
+  }
+  );
+  tbody.append(...rows);
+}
+
+function Normalize(salary) {
+  return +salary.replace(/[^0-9.-]+/g, '');
 }
