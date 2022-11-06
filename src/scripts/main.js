@@ -1,6 +1,7 @@
 'use strict';
 
 const list = document.querySelector('tbody').children;
+const thead = document.querySelector('thead');
 const objList = [...list].map(item => ({
   Name: item.children[0].textContent,
   Position: item.children[1].textContent,
@@ -16,7 +17,7 @@ const sortTable = (array, data) => {
   });
 };
 
-document.addEventListener('click', (e) => {
+thead.addEventListener('click', (e) => {
   sortTable(objList, e.target.innerText);
 
   for (let i = 0; i < objList.length; i++) {
