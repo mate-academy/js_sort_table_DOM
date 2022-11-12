@@ -2,32 +2,42 @@
 
 const table = document.querySelector('table');
 const userList = document.querySelector('tbody');
-const directions = [...table.tHead.querySelectorAll('th')].map(() => '');
+let currentTarget;
+let direction;
 
 table.tHead.addEventListener('click', (e) => {
   const target = e.target.closest('th');
+
+  if (target !== currentTarget) {
+    currentTarget = target;
+    direction = 0;
+  }
 
   userList.append(...[...userList.rows]
     .sort(sortByTarget('cells', target)));
 });
 
 function sortByTarget(key, { cellIndex }) {
-  const direction = directions[cellIndex] || 'asc';
+  direction = direction ? 0 : 1;
 
   return (a, b) => {
     const x = normalize(a[key][cellIndex].textContent);
     const y = normalize(b[key][cellIndex].textContent);
 
-    directions[cellIndex] = direction === 'asc' ? 'desc' : 'asc';
+    if (typeof x !== 'number') {
+      return (direction)
+        ? x.localeCompare(y)
+        : y.localeCompare(x);
+    }
 
-    return typeof x === 'number'
-      ? (direction === 'asc') ? x - y : y - x
-      : (direction === 'asc') ? x.localeCompare(y) : y.localeCompare(x);
+    return (direction)
+      ? x - y
+      : y - x;
   };
 }
 
 function normalize(element) {
   return /[$,]/g.test(element)
-    ? Number(element.replace(/[$,]/g, ''))
+    ? parseInt(element.replace(/[$,]/g, ''))
     : element;
 }
