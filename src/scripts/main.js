@@ -7,6 +7,10 @@ function getNumber(str) {
 const info = document.querySelector('tbody');
 
 document.body.addEventListener('click', e => {
+  const cellIndex = e.target.innerText === 'Position'
+    ? 1
+    : 0;
+
   const sort = [...info.children].sort((a, b) => {
     switch (e.target.innerText) {
       case ('Salary'):
@@ -21,15 +25,9 @@ document.body.addEventListener('click', e => {
 
         return first - second;
 
-      case ('Position'):
-        first = a.children[1].innerText;
-        second = b.children[1].innerText;
-
-        return first.localeCompare(second);
-
-      case ('Name'):
-        first = a.children[0].innerText;
-        second = b.children[0].innerText;
+      default:
+        first = a.children[cellIndex].innerText;
+        second = b.children[cellIndex].innerText;
 
         return first.localeCompare(second);
     }
