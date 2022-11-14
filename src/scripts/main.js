@@ -7,21 +7,24 @@ function getNumber(str) {
 const info = document.querySelector('tbody');
 
 document.body.addEventListener('click', e => {
-  const cellIndex = e.target.innerText === 'Position'
+  let cellIndex = e.target.innerText === 'Position'
     ? 1
     : 0;
 
   const sort = [...info.children].sort((a, b) => {
     switch (e.target.innerText) {
       case ('Salary'):
-        let first = getNumber(a.children[3].innerText);
-        let second = getNumber(b.children[3].innerText);
+        cellIndex = 3;
+
+        let first = getNumber(a.children[cellIndex].innerText);
+        let second = getNumber(b.children[cellIndex].innerText);
 
         return first - second;
 
       case ('Age'):
-        first = +a.children[2].innerText;
-        second = +b.children[2].innerText;
+        cellIndex = 2;
+        first = +a.children[cellIndex].innerText;
+        second = +b.children[cellIndex].innerText;
 
         return first - second;
 
