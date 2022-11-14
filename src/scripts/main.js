@@ -1,38 +1,32 @@
 'use strict';
 
 function getNumber(str) {
-  return +str.slice(1).replaceAll(',', '');
+  return str.includes('$')
+    ? +str.slice(1).replaceAll(',', '')
+    : +str;
 }
 
 const info = document.querySelector('tbody');
 
 document.body.addEventListener('click', e => {
-  let cellIndex = e.target.innerText === 'Position'
-    ? 1
-    : 0;
-
   const sort = [...info.children].sort((a, b) => {
-    switch (e.target.innerText) {
-      case ('Salary'):
-        cellIndex = 3;
+    const isCompareAsNumber = e.target
+      .innerText === 'Salary' || e.target.innerText === 'Age';
+    const isCompareAsString = e.target
+      .innerText === 'Name' || e.target.innerText === 'Position';
 
-        let first = getNumber(a.children[cellIndex].innerText);
-        let second = getNumber(b.children[cellIndex].innerText);
+    if (isCompareAsNumber) {
+      const cellIndex = e.target.innerText === 'Salary' ? 3 : 2;
+      const first = getNumber(a.children[cellIndex].innerText);
+      const second = getNumber(b.children[cellIndex].innerText);
 
-        return first - second;
+      return first - second;
+    } else if (isCompareAsString) {
+      const cellIndex = e.target.innerText === 'Position' ? 1 : 0;
+      const first = a.children[cellIndex].innerText;
+      const second = b.children[cellIndex].innerText;
 
-      case ('Age'):
-        cellIndex = 2;
-        first = +a.children[cellIndex].innerText;
-        second = +b.children[cellIndex].innerText;
-
-        return first - second;
-
-      default:
-        first = a.children[cellIndex].innerText;
-        second = b.children[cellIndex].innerText;
-
-        return first.localeCompare(second);
+      return first.localeCompare(second);
     }
   });
 
