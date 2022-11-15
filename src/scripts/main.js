@@ -2,21 +2,21 @@
 
 const table = document.querySelector('table');
 
-table.tHead.addEventListener('click', (ev) => {
-  const item = ev.target;
+table.tHead.addEventListener('click', (happening) => {
+  const item = happening.target;
   const cell = item.cellIndex;
   const row = [];
 
   for (let i = 1; i < table.rows.length - 1; i++) {
-    const values = [];
+    const arreyOfvaluesOfCell = [];
 
     for (let j = 0; j < table.rows[0].cells.length; j++) {
-      const value = table.rows[i].cells[j].innerText;
+      const valueOfCell = table.rows[i].cells[j].innerText;
 
-      values.push(value);
+      arreyOfvaluesOfCell.push(valueOfCell);
     }
 
-    row.push(values);
+    row.push(arreyOfvaluesOfCell);
   }
 
   row.sort((a, b) => {
@@ -28,22 +28,22 @@ table.tHead.addEventListener('click', (ev) => {
   });
 
   for (let i = 1; i < table.rows.length - 1; i++) {
-    const x = table.rows[i].cells;
+    const itemCell = table.rows[i].cells;
 
-    [...x].forEach((el, a) => {
-      el.innerText = row[i - 1][a];
+    [...itemCell].forEach((el, indexOfEl) => {
+      el.innerText = row[i - 1][indexOfEl];
     });
   }
 });
 
 function convertToNumber(string) {
-  let result = '';
+  let filterResult = '';
 
   for (const char of string) {
     if (isFinite(char)) {
-      result += char;
+      filterResult += char;
     }
   }
 
-  return +result;
+  return Number(filterResult);
 };
