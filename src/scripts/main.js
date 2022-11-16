@@ -6,7 +6,8 @@ const headName = [
 
 const body = document.querySelector('tbody');
 const rows = [...body.querySelectorAll('tr')];
-const cell = (row, n) => row.children[n].textContent.replace(/[$,]/g, '');
+const getCellContent = (row, n) => row.children[n]
+  .textContent.replace(/[$,]/g, '');
 
 headList.addEventListener('click', (e) => {
   let sorted;
@@ -15,10 +16,11 @@ headList.addEventListener('click', (e) => {
 
   if (numOfColum >= 2) {
     sorted = rows.sort((a, b) =>
-      cell(a, numOfColum) - (cell(b, numOfColum)));
+      getCellContent(a, numOfColum) - (getCellContent(b, numOfColum)));
   } else {
     sorted = rows.sort((a, b) =>
-      cell(a, numOfColum).localeCompare(cell(b, numOfColum)));
+      getCellContent(a, numOfColum)
+        .localeCompare(getCellContent(b, numOfColum)));
   };
-  sorted.map(i => body.appendChild(i));
+  sorted.forEach(item => body.appendChild(item));
 });
