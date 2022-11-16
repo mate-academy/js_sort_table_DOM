@@ -15,12 +15,6 @@ function sortData(PositionCell, PositionName) {
       break;
 
     case 'Name':
-      rowsArray.sort((rowA, rowB) => {
-        return rowA.cells[PositionCell].innerHTML.localeCompare(
-          rowB.cells[PositionCell].innerHTML);
-      });
-      break;
-
     case 'Position':
       rowsArray.sort((rowA, rowB) => {
         return rowA.cells[PositionCell].innerHTML.localeCompare(
