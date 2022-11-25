@@ -8,42 +8,27 @@ for (const titleName of title) {
     const tbody = document.querySelector('tbody');
     const rows = [...tbody.querySelectorAll('tr')];
 
-    if (item.innerText === 'Age' || item.innerText === 'Salary') {
-      let i = [...title].indexOf(item);
+    switch (item.innerText) {
+      case 'Age' || 'Salary':
+        const i = [...title].indexOf(item);
 
-      if (i === 6) {
-        i = 2;
-      }
+        rows.sort((a, b) =>
+          Number(a.children[i].innerText.replace(/[, $]/g, ''))
+          - Number(b.children[i].innerText.replace(/[, $]/g, '')));
 
-      if (i === 7) {
-        i = 3;
-      }
+        for (const row of rows) {
+          tbody.append(row);
+        }
+        break;
 
-      rows.sort((a, b) => Number(a.children[i].innerText.replace(/[, $]/g, ''))
-        - Number(b.children[i].innerText.replace(/[, $]/g, '')));
+      case 'Name' || 'Position':
+        rows.sort((a, b) => (a.children[i].innerText
+          .localeCompare(b.children[i].innerText)));
 
-      for (const row of rows) {
-        tbody.append(row);
-      }
-    }
-
-    if (item.innerText === 'Name' || item.innerText === 'Position') {
-      let i = [...title].indexOf(item);
-
-      if (i === 4) {
-        i = 0;
-      }
-
-      if (i === 5) {
-        i = 1;
-      }
-
-      rows.sort((a, b) => (a.children[i].innerText
-        .localeCompare(b.children[i].innerText)));
-
-      for (const row of rows) {
-        tbody.append(row);
-      }
+        for (const row of rows) {
+          tbody.append(row);
+        }
+        break;
     }
   });
 }
