@@ -60,19 +60,20 @@ function sortArray(arr, sortString) {
     let strB = String(b[sortString]);
 
     if (sortString === 'salary') {
-      strA = +strA.slice(1).replace(/,/gi, '.');
-      strB = +strB.slice(1).replace(/,/gi, '.');
+      strA = Number(strA.slice(1).replace(/,/gi, '.'));
+      strB = Number(strB.slice(1).replace(/,/gi, '.'));
     }
 
-    if (strA > strB) {
-      return 1;
+    switch (strA > strB) {
+      case true:
+        return 1;
+      
+      case false:
+        return -1;
+      
+      default:
+        return 0;
     }
-
-    if (strA < strB) {
-      return -1;
-    }
-
-    return 0;
   });
 
   return arr;
