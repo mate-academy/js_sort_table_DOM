@@ -7,28 +7,25 @@ for (const titleName of title) {
     const item = e.target;
     const tbody = document.querySelector('tbody');
     const rows = [...tbody.querySelectorAll('tr')];
+    const i = [...title].indexOf(item);
 
     switch (item.innerText) {
-      case 'Age' || 'Salary':
-        const i = [...title].indexOf(item);
-
+      case 'Salary':
+      case 'Age':
         rows.sort((a, b) =>
           Number(a.children[i].innerText.replace(/[, $]/g, ''))
           - Number(b.children[i].innerText.replace(/[, $]/g, '')));
-
-        for (const row of rows) {
-          tbody.append(row);
-        }
         break;
 
-      case 'Name' || 'Position':
+      case 'Name':
+      case 'Position':
         rows.sort((a, b) => (a.children[i].innerText
           .localeCompare(b.children[i].innerText)));
-
-        for (const row of rows) {
-          tbody.append(row);
-        }
         break;
+    }
+
+    for (const row of rows) {
+      tbody.append(row);
     }
   });
 }
