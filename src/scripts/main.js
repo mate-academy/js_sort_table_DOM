@@ -1,55 +1,54 @@
 'use strict';
 
-const head = document.querySelector('thead');
-const body = document.querySelector('tbody');
-const bodyRows = body.querySelectorAll('tr');
+const tableHead = document.querySelector('thead');
+const tableBody = document.querySelector('tbody');
+const tableRows = tableBody.querySelectorAll('tr');
 
-head.addEventListener('click', (e) => {
-  const hader = e.target;
-  const index = hader.cellIndex;
+tableHead.addEventListener('click', (occurrent) => {
+  const indexOfColumn = occurrent.target.cellIndex;
 
-  if (!head.children) {
+  if (!tableHead.children) {
     return;
   }
 
-  switch (index) {
+  switch (indexOfColumn) {
     case 0:
     case 1:
-      sortListWords(index);
+      sortColumnWithtWords(indexOfColumn);
       break;
     case 2:
-    case 3: sortListNumbers(index);
+    case 3: sortColumnWithNumbers(indexOfColumn);
       break;
   }
 });
 
-function sortListWords(column) {
-  const sort = [...bodyRows].sort((a, b) => {
-    const arg1 = a.children[column].innerHTML;
-    const arg2 = b.children[column].innerHTML;
+function sortColumnWithtWords(indexOfColumn) {
+  const arrayWithSortedItems = [ ...tableRows ].sort((a, b) => {
+    const arg1 = a.children[indexOfColumn].innerHTML;
+    const arg2 = b.children[indexOfColumn].innerHTML;
 
     return arg1.localeCompare(arg2);
   });
 
-  for (const item of sort) {
-    body.append(item);
+  for (const item of arrayWithSortedItems) {
+    tableBody.append(item);
   }
 }
 
-function sortListNumbers(column) {
-  const sort = [...bodyRows].sort((a, b) => {
-    const arg1 = a.children[column].innerHTML;
-    const arg2 = b.children[column].innerHTML;
+function sortColumnWithNumbers(indexOfColumn) {
+  const arrayWithSortedItems = [ ...tableRows ].sort((a, b) => {
+    const arg1 = a.children[indexOfColumn].innerHTML;
+    const arg2 = b.children[indexOfColumn].innerHTML;
 
-    if (column === 3) {
+    if (indexOfColumn === 3) {
       return convertIntoNumber(arg1) - convertIntoNumber(arg2);
     }
 
     return +arg1 - (+arg2);
   });
 
-  for (const item of sort) {
-    body.append(item);
+  for (const item of arrayWithSortedItems) {
+    tableBody.append(item);
   }
 }
 
