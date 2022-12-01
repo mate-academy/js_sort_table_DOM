@@ -1,9 +1,9 @@
 'use strict';
 
 const table = document.querySelector('table');
-let isSorted = false;
+let indexCol = -1;
 
-const sortTable = function(index, type) {
+const sortTable = function(index, type, isSorted) {
   const tbody = table.querySelector('tbody');
 
   const sort = function(rowA, rowB) {
@@ -50,6 +50,6 @@ table.addEventListener('click', (e) => {
   const index = el.cellIndex;
   const type = el.innerHTML;
 
-  sortTable(index, type, isSorted);
-  isSorted = !isSorted;
+  sortTable(index, type, indexCol === index);
+  indexCol = (indexCol === index) ? -1 : index;
 });
