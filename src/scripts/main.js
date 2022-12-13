@@ -4,73 +4,39 @@ const tHead = document.querySelector('thead');
 const tBody = document.querySelector('tbody');
 const rows = [...tBody.children];
 let reverse = false;
+let value = '';
 
-function sortedBy(a, b, string, boolean) {
-  switch (string) {
-    case 'Name':
-    case 'Position':
-      return boolean
-        ? b.textContent.localeCompare(a.textContent)
-        : a.textContent.localeCompare(b.textContent);
+const handleEvent = (e) => {
+  const header = [...document.querySelectorAll('th')];
+  const num = header.findIndex(
+    item => item.textContent === e.target.textContent
+  );
 
-    case 'Age':
-    case 'Salary':
-      return !+a.textContent
-        ? boolean
-          ? +b.textContent.slice(1).split(',').join('')
-            - +a.textContent.slice(1).split(',').join('')
-          : +a.textContent.slice(1).split(',').join('')
-            - +b.textContent.slice(1).split(',').join('')
-        : boolean
-          ? +b.textContent - +a.textContent
-          : +a.textContent - +b.textContent;
-
-    default:
-      break;
+  if (value === e.target.textContent) {
+    reverse = !reverse;
+  } else {
+    reverse = false;
   }
-}
 
-function handleEvent(evnt) {
-  let newList = [...rows];
+  const newList = [...rows].sort(
+    (a, b) => {
+      const x = a.children[num].textContent;
+      const y = b.children[num].textContent;
 
-  switch (evnt.target.textContent) {
-    case 'Name':
-      newList = [...rows].sort(
-        (a, b) =>
-          sortedBy(a.children[0], b.children[0], 'Name', reverse)
-      );
-      break;
+      return isNaN(+x.replaceAll(/\W/g, ''))
+        ? reverse
+          ? y.localeCompare(x)
+          : x.localeCompare(y)
+        : reverse
+          ? +y.replaceAll(/\W/g, '') - +x.replaceAll(/\W/g, '')
+          : +x.replaceAll(/\W/g, '') - +y.replaceAll(/\W/g, '');
+    });
 
-    case 'Position':
-      newList = [...rows].sort(
-        (a, b) =>
-          sortedBy(a.children[1], b.children[1], 'Position', reverse)
-      );
-      break;
-
-    case 'Age':
-      newList = [...rows].sort(
-        (a, b) =>
-          sortedBy(a.children[2], b.children[2], 'Age', reverse)
-      );
-      break;
-
-    case 'Salary':
-      newList = [...rows].sort(
-        (a, b) =>
-          sortedBy(a.children[3], b.children[3], 'Salary', reverse)
-      );
-      break;
-
-    default:
-      break;
-  }
+  value = e.target.textContent;
 
   for (const item of newList) {
     tBody.append(item);
   }
-
-  reverse = !reverse;
-}
+};
 
 tHead.addEventListener('click', handleEvent);
