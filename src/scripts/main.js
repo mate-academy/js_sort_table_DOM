@@ -1,39 +1,44 @@
 'use strict';
 
+function convertSalary(salary) {
+  return +salary.slice(1).split(',').join('');
+};
+
 const table = document.querySelector('table');
-const tBody = document.querySelector('tbody');
-const tr = tBody.querySelectorAll('tr');
+const tableBody = document.querySelector('tbody');
+const rows = [...tableBody.querySelectorAll('tr')];
 
 table.addEventListener('click', (e) => {
   const header = e.target.closest('th');
 
   if (header) {
-    const trArr = [...tr];
+    switch (e.target.textContent) {
+      case 'Name':
+        rows.sort((a, b) =>
+          a.children[0].textContent
+            .localeCompare(b.children[0].textContent));
+        break;
 
-    if (e.target.textContent === 'Name') {
-      trArr.sort((a, b) =>
-        a.children[0].textContent
-          .localeCompare(b.children[0].textContent));
-    } else if (e.target.textContent === 'Position') {
-      trArr.sort((a, b) =>
-        a.children[1].textContent
-          .localeCompare(b.children[1].textContent));
-    } else if (e.target.textContent === 'Age') {
-      trArr.sort((a, b) => +a.children[2].textContent
-        - +b.children[2].textContent);
-    } else if (e.target.textContent === 'Salary') {
-      trArr.sort((a, b) => {
-        return convertSalary(a.children[3].textContent)
-        - convertSalary(b.children[3].textContent);
-      });
+      case 'Position':
+        rows.sort((a, b) =>
+          a.children[1].textContent
+            .localeCompare(b.children[1].textContent));
+        break;
+
+      case 'Age':
+        rows.sort((a, b) => +a.children[2].textContent
+              - +b.children[2].textContent);
+        break;
+
+      case 'Salary':
+        rows.sort((a, b) => {
+          return convertSalary(a.children[3].textContent)
+                  - convertSalary(b.children[3].textContent);
+        });
     }
 
-    for (const oneTr of trArr) {
-      tBody.append(oneTr);
+    for (const row of rows) {
+      tableBody.append(row);
     }
   }
 });
-
-function convertSalary(salary) {
-  return +salary.slice(1).split(',').join('');
-};
