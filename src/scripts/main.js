@@ -1,13 +1,14 @@
+/* eslint-disable no-shadow */
 'use strict';
 
 const tableHeader = document.querySelector('thead');
 const table = document.querySelector('tbody');
 
-const getSalaryNumber = (str) =>
-  Number(str.split(',').join('').slice(1));
+const getSalaryNumber = (salary) =>
+  Number(salary.split(',').join('').slice(1));
 
-tableHeader.addEventListener('click', (e) => {
-  const clicked = e.target;
+tableHeader.addEventListener('click', (event) => {
+  const clicked = event.target;
   const type = clicked.textContent;
   const index = [...clicked.closest('tr').children].indexOf(clicked);
 
@@ -29,5 +30,5 @@ tableHeader.addEventListener('click', (e) => {
   });
 
   table.innerHTML = '';
-  tableData.forEach(el => table.append(el));
+  tableData.forEach(element => table.append(element));
 });
