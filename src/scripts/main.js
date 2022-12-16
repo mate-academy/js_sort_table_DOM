@@ -1,56 +1,56 @@
 'use strict';
 
-const title = document.querySelector('thead');
-const table = document.querySelector('tbody');
+const tHead = document.querySelector('thead');
+const tBody = document.querySelector('tbody');
 let asc = true;
-let active;
+let checkColumn;
 
-function sortTable(collectionRows, idx) {
+function ascSort(rowCollection, targetIndex) {
   asc = true;
 
-  return Array.from(collectionRows).sort((a, b) => {
-    const v1 = a.cells[idx].innerText;
-    const v2 = b.cells[idx].innerText;
+  return Array.from(rowCollection).sort((a, b) => {
+    const cellA = a.cells[targetIndex].innerText;
+    const cellB = b.cells[targetIndex].innerText;
 
-    if (isNaN(num(v1))) {
-      return v1.localeCompare(v2);
-    } else {
-      return num(v1) - num(v2);
-    }
+    return isNaN(normalize(cellA))
+      ? cellA.localeCompare(cellB)
+      : normalize(cellA) - normalize(cellB);
   });
 }
 
-function reSortTable(value, idx) {
+function descSort(rowCollection, targetIndex) {
   asc = false;
 
-  return Array.from(value).sort((a, b) => {
-    const v1 = a.cells[idx].innerText;
-    const v2 = b.cells[idx].innerText;
+  return Array.from(rowCollection).sort((a, b) => {
+    const cellA = a.cells[targetIndex].innerText;
+    const cellB = b.cells[targetIndex].innerText;
 
-    if (isNaN(num(v1))) {
-      return v2.localeCompare(v1);
-    } else {
-      return num(v2) - num(v1);
-    }
+    return isNaN(normalize(cellA))
+      ? cellB.localeCompare(cellA)
+      : normalize(cellB) - normalize(cellA);
   });
 }
 
-function num(str) {
+function normalize(str) {
   return +str.replace(/[,$]/g, '');
 }
 
-title.addEventListener('click', (ev) => {
-  const targ = ev.target;
-  const idx = targ.cellIndex;
+function appendElement(table, el) {
+  table.append(el);
+}
 
-  if (active === idx && asc) {
-    return reSortTable(table.rows, idx).forEach(row => {
-      table.append(row);
+tHead.addEventListener('click', (evt) => {
+  const title = evt.target;
+  const idx = title.cellIndex;
+
+  if (checkColumn === idx && asc) {
+    return descSort(tBody.rows, idx).forEach(rowEl => {
+      appendElement(tBody, rowEl);
     });
   }
 
-  sortTable(table.rows, idx).forEach(row => {
-    table.append(row);
+  return ascSort(tBody.rows, idx).forEach(rowEl => {
+    appendElement(tBody, rowEl);
+    checkColumn = idx;
   });
-  active = idx;
 });
