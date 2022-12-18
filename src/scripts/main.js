@@ -6,59 +6,53 @@ const rows = tab.querySelectorAll('tr');
 const rowsArr = Array.from(rows).slice(1, rows.length - 1);
 
 thNodes.forEach(element => {
-    if (element.closest('thead')) {
-        element.addEventListener('click', e => {
-            let dataType = 'number';
-            const cell = e.target;
-            const str = ((tab.rows[1].cells[cell.cellIndex]).innerHTML);
-            const res = parseFloat(str);
+  if (element.closest('thead')) {
+    element.addEventListener('click', e => {
+      let dataType = 'number';
+      const cell = e.target;
+      const str = ((tab.rows[1].cells[cell.cellIndex]).innerHTML);
+      const res = parseFloat(str);
 
-            if (isNaN(res)) {
-                dataType = 'string';
-            }
+      if (isNaN(res)) {
+        dataType = 'string';
+      }
 
-            if (e.target.innerHTML === 'Salary') {
-                dataType = 'money';
-            }
+      if (e.target.innerHTML === 'Salary') {
+        dataType = 'money';
+      }
 
-            SortColumn(cell.cellIndex, dataType);
-        });
-    }
+      SortColumn(cell.cellIndex, dataType);
+    });
+  }
 });
 
 function SortColumn(columnNumber, dataType) {
+  rowsArr.sort(function(rowA, rowB) {
+    let cellA = rowA.cells[columnNumber].innerHTML;
+    let cellB = rowB.cells[columnNumber].innerHTML;
 
-    rowsArr.sort(function (rowA, rowB) {
-        let cellA = rowA.cells[columnNumber].innerHTML;
-        let cellB = rowB.cells[columnNumber].innerHTML;
+    if (dataType === 'string') {
+      return (cellA > cellB) ? 1 : (cellA < cellB) ? -1 : 0;
+    } else {
+      if (dataType === 'money') {
+        cellA = FormatSalary(cellA);
+        cellB = FormatSalary(cellB);
+      }
 
-        if (dataType === 'string') {
+      const firstNum = parseFloat(cellA);
+      const secondNum = parseFloat(cellB);
 
-            return (cellA > cellB) ? 1 : (cellA < cellB) ? -1 : 0;
+      return (firstNum > secondNum) ? 1 : (firstNum < secondNum) ? -1 : 0;
+    }
+  });
 
-        } else {
-
-            if (dataType === 'money') {
-
-                cellA = CellToNum(cellA);
-                cellB = CellToNum(cellB);
-
-            }
-
-            const firstNum = parseFloat(cellA);
-            const secondNum = parseFloat(cellB);
-
-            return (firstNum > secondNum) ? 1 : (firstNum < secondNum) ? -1 : 0;
-        }
-    });
-
-    rowsArr.forEach(function (newRow) {
-        tab.appendChild(newRow);
-    });
+  rowsArr.forEach(function(newRow) {
+    tab.appendChild(newRow);
+  });
 };
 
-function CellToNum(cell) {
-     const num = cell.replace(/[$,]/g, '');
-     return num;
-}
+function FormatSalary(cell) {
+  const num = cell.replace(/[$,]/g, '');
 
+  return num;
+}
