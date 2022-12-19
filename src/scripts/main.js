@@ -35,8 +35,8 @@ function SortColumn(columnNumber, dataType) {
       return (cellA > cellB) ? 1 : (cellA < cellB) ? -1 : 0;
     } else {
       if (dataType === 'money') {
-        cellA = FormatSalary(cellA);
-        cellB = FormatSalary(cellB);
+        cellA = formatSalary(cellA);
+        cellB = formatSalary(cellB);
       }
 
       const firstNum = parseFloat(cellA);
@@ -51,7 +51,7 @@ function SortColumn(columnNumber, dataType) {
   });
 };
 
-function FormatSalary(cell) {
+function formatSalary(cell) {
   const num = cell.replace(/[$,]/g, '');
 
   return num;
