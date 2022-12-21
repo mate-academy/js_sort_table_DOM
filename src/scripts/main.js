@@ -31,7 +31,7 @@ sortBy.forEach(el => {
     }
 
     if (e.target.innerText === 'Position') {
-      people.sort((a, b) => b.position.localeCompare(a.position));
+      people.sort((a, b) => a.position.localeCompare(b.position));
     }
 
     if (e.target.innerText === 'Salary') {
