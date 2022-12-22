@@ -4,7 +4,7 @@ const body = document.querySelector('tbody');
 const people = [];
 
 const getNumber = (string) => {
-  return parseFloat(string.replace('$', ''));
+  return parseFloat(string.replace('$', '').replace(',', '.'));
 };
 
 for (let i = 0; i < body.children.length; i++) {
@@ -14,19 +14,17 @@ for (let i = 0; i < body.children.length; i++) {
     name: namePerson.innerText,
     position: position.innerText,
     age: age.innerText,
-    salary: salary.innerText,
+    salary: getNumber(salary.innerText),
   });
 }
 
-const functionFoSort = (string) => {
-  if (string === 'Name' || string === 'Position') {
-    return (a, b) => a[string.toLowerCase()]
-      .localeCompare(b[[string.toLowerCase()]]);
+const functionFoSort = (sortKey) => {
+  if (sortKey === 'name' || sortKey === 'position') {
+    return (a, b) => a[sortKey].localeCompare(b[[sortKey]]);
   }
 
-  if (string === 'Age' || string === 'Salary') {
-    return (a, b) =>
-      getNumber(a[string.toLowerCase()]) - getNumber(b[string.toLowerCase()]);
+  if (sortKey === 'age' || sortKey === 'salary') {
+    return (a, b) => a[sortKey] - b[sortKey];
   }
 };
 
@@ -35,16 +33,16 @@ const sortBy = document.querySelectorAll('th');
 sortBy.forEach(el => {
   el.addEventListener('click', (e) => {
     body.innerHTML = '';
-    people.sort(functionFoSort(e.target.innerText));
+    people.sort(functionFoSort(e.target.innerText.toLowerCase()));
 
-    people.forEach(q => {
+    people.forEach(person => {
       body.insertAdjacentHTML('beforeend',
         `<tr>
-            <td>${q.name}</td>
-            <td>${q.position}</td>
-            <td>${q.age}</td>
-            <td>${q.salary}</td>
-          </tr>`);
+            <td>${person.name}</td>
+            <td>${person.position}</td>
+            <td>${person.age}</td>
+            <td>$${person.salary.toFixed(3)}</td>
+        </tr>`);
     });
   });
 });
