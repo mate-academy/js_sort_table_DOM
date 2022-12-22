@@ -19,20 +19,14 @@ for (let i = 0; i < body.children.length; i++) {
 }
 
 const functionFoSort = (string) => {
-  if (string === 'Name') {
-    return (a, b) => a.name.localeCompare(b.name);
+  if (string === 'Name' || string === 'Position') {
+    return (a, b) => a[string.toLowerCase()]
+      .localeCompare(b[[string.toLowerCase()]]);
   }
 
-  if (string === 'Age') {
-    return (a, b) => a.age - b.age;
-  }
-
-  if (string === 'Position') {
-    return (a, b) => a.position.localeCompare(b.position);
-  }
-
-  if (string === 'Salary') {
-    return (a, b) => getNumber(a.salary) - getNumber(b.salary);
+  if (string === 'Age' || string === 'Salary') {
+    return (a, b) =>
+      getNumber(a[string.toLowerCase()]) - getNumber(b[string.toLowerCase()]);
   }
 };
 
