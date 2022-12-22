@@ -18,27 +18,30 @@ for (let i = 0; i < body.children.length; i++) {
   });
 }
 
+const functionFoSort = (string) => {
+  if (string === 'Name') {
+    return (a, b) => a.name.localeCompare(b.name);
+  }
+
+  if (string === 'Age') {
+    return (a, b) => a.age - b.age;
+  }
+
+  if (string === 'Position') {
+    return (a, b) => a.position.localeCompare(b.position);
+  }
+
+  if (string === 'Salary') {
+    return (a, b) => getNumber(a.salary) - getNumber(b.salary);
+  }
+};
+
 const sortBy = document.querySelectorAll('th');
 
 sortBy.forEach(el => {
   el.addEventListener('click', (e) => {
     body.innerHTML = '';
-
-    if (e.target.innerText === 'Name') {
-      people.sort((a, b) => a.name.localeCompare(b.name));
-    }
-
-    if (e.target.innerText === 'Age') {
-      people.sort((a, b) => a.age - b.age);
-    }
-
-    if (e.target.innerText === 'Position') {
-      people.sort((a, b) => a.position.localeCompare(b.position));
-    }
-
-    if (e.target.innerText === 'Salary') {
-      people.sort((a, b) => getNumber(a.salary) - getNumber(b.salary));
-    }
+    people.sort(functionFoSort(e.target.innerText));
 
     people.forEach(q => {
       body.insertAdjacentHTML('beforeend',
