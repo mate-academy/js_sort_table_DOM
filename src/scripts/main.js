@@ -8,11 +8,13 @@ const getNumber = (string) => {
 };
 
 for (let i = 0; i < body.children.length; i++) {
+  const [ namePerson, position, age, salary ] = body.children[i].children;
+
   people.push({
-    name: body.children[i].children[0].innerText,
-    position: body.children[i].children[1].innerText,
-    age: body.children[i].children[2].innerText,
-    salary: body.children[i].children[3].innerText,
+    name: namePerson.innerText,
+    position: position.innerText,
+    age: age.innerText,
+    salary: salary.innerText,
   });
 }
 
