@@ -10,9 +10,6 @@ tableHead.addEventListener('click', action => {
 
   switch (item) {
     case 'Name':
-      rows.sort((a, b) =>
-        a.cells[index].innerHTML.localeCompare(b.cells[index].innerHTML));
-      break;
     case 'Position':
       rows.sort((a, b) =>
         a.cells[index].innerHTML.localeCompare(b.cells[index].innerHTML));
