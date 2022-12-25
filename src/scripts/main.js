@@ -19,13 +19,18 @@ for (let i = 0; i < body.children.length; i++) {
 }
 
 const functionFoSort = (sortKey) => {
-  if (sortKey === 'name' || sortKey === 'position') {
-    return (a, b) => a[sortKey].localeCompare(b[[sortKey]]);
-  }
+  return (a, b) => {
+    const firstElement = a[sortKey];
+    const secondElement = b[sortKey];
 
-  if (sortKey === 'age' || sortKey === 'salary') {
-    return (a, b) => a[sortKey] - b[sortKey];
-  }
+    if (sortKey === 'name' || sortKey === 'position') {
+      return firstElement.localeCompare(secondElement);
+    }
+
+    if (sortKey === 'age' || sortKey === 'salary') {
+      return firstElement - secondElement;
+    }
+  };
 };
 
 const sortBy = document.querySelectorAll('th');
