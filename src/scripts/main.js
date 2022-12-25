@@ -3,11 +3,11 @@
 const tabHead = document.querySelector('thead');
 const tabBody = document.querySelector('tbody');
 
-tabHead.addEventListener('click', (events) => {
-  const cellInd = events.target.cellIndex;
+tabHead.addEventListener('click', (e) => {
+  const cellInd = e.target.cellIndex;
   const copyTabBodyCh = [...tabBody.children];
 
-  const sort = copyTabBodyCh.sort((a, b) => {
+  const cellSort = copyTabBodyCh.sort((a, b) => {
     let cellA = a.cells[cellInd].innerText;
     let cellB = b.cells[cellInd].innerText;
 
@@ -21,5 +21,5 @@ tabHead.addEventListener('click', (events) => {
     return cellA.localeCompare(cellB);
   });
 
-  tabBody.append(...sort);
+  tabBody.append(...cellSort);
 });
