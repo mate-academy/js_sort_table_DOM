@@ -5,45 +5,43 @@ const thead = document.querySelector('thead');
 function sort(nameSort) {
   const tbody = document.querySelector('tbody');
   const tr = tbody.querySelectorAll('tr');
-  let n;
-
-  switch (nameSort) {
-    case 'Name':
-      n = 0;
-      break;
-    case 'Position':
-      n = 1;
-      break;
-    case 'Age':
-      n = 2;
-      break;
-    case 'Salary':
-      n = 3;
-      break;
-  }
 
   const people = [...tr].sort((a, b) => {
-    if (n === 0 || n === 1) {
-      return (a.querySelectorAll('td')[n].textContent).localeCompare(
-        b.querySelectorAll('td')[n].textContent);
-    }
+    const aTd = a.querySelectorAll('td');
+    const bTd = b.querySelectorAll('td');
 
-    return (
-      a.querySelectorAll('td')[n].textContent.replace('$', '').replace(',', ''))
-    - b.querySelectorAll('td')[n].textContent.replace('$', '').replace(',', '');
+    switch (nameSort) {
+      case 'Name':
+        return (aTd[0].textContent).localeCompare(
+          bTd[0].textContent);
+      case 'Position':
+        return (aTd[1].textContent).localeCompare(
+          bTd[1].textContent);
+      case 'Age':
+        return (
+          aTd[2].textContent.replace('$', '').replace(',', ''))
+        - bTd[2].textContent.replace('$', '').replace(',', '');
+      case 'Salary':
+        return (
+          aTd[3].textContent.replace('$', '').replace(',', ''))
+        - bTd[3].textContent.replace('$', '').replace(',', '');
+    }
   });
 
   const tbodyNew = document.createElement('tbody');
 
   tbodyNew.innerHTML = `
-    ${people.map(human => `
-    <tr>
-    <td>${human.querySelectorAll('td')[0].innerText}</td>
-    <td>${human.querySelectorAll('td')[1].innerText}</td>
-    <td>${human.querySelectorAll('td')[2].innerText}</td>
-    <td>${human.querySelectorAll('td')[3].innerText}</td>
+    ${people.map(human => {
+    const humanTd = human.querySelectorAll('td');
+
+    return `<tr>
+    <td>${humanTd[0].innerText}</td>
+    <td>${humanTd[1].innerText}</td>
+    <td>${humanTd[2].innerText}</td>
+    <td>${humanTd[3].innerText}</td>
     </tr>
-    `).join('')}
+    `;
+  }).join('')}
     `;
 
   tbody.replaceWith(tbodyNew);
