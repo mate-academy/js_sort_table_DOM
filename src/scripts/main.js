@@ -2,6 +2,10 @@
 
 const thead = document.querySelector('thead');
 
+function formatNumberFromCurrency(number) {
+  return number.textContent.replace('$', '').replace(',', '');
+}
+
 function sort(nameSort) {
   const tbody = document.querySelector('tbody');
   const tr = tbody.querySelectorAll('tr');
@@ -19,26 +23,26 @@ function sort(nameSort) {
           bTd[1].textContent);
       case 'Age':
         return (
-          aTd[2].textContent.replace('$', '').replace(',', ''))
-        - bTd[2].textContent.replace('$', '').replace(',', '');
+          aTd[2].textContent
+        - bTd[2].textContent);
       case 'Salary':
-        return (
-          aTd[3].textContent.replace('$', '').replace(',', ''))
-        - bTd[3].textContent.replace('$', '').replace(',', '');
+
+        return formatNumberFromCurrency(aTd[3])
+         - formatNumberFromCurrency(bTd[3]);
     }
   });
 
   const tbodyNew = document.createElement('tbody');
 
   tbodyNew.innerHTML = `
-    ${people.map(human => {
-    const humanTd = human.querySelectorAll('td');
+    ${people.map(person => {
+    const personTd = person.querySelectorAll('td');
 
     return `<tr>
-    <td>${humanTd[0].innerText}</td>
-    <td>${humanTd[1].innerText}</td>
-    <td>${humanTd[2].innerText}</td>
-    <td>${humanTd[3].innerText}</td>
+    <td>${personTd[0].innerText}</td>
+    <td>${personTd[1].innerText}</td>
+    <td>${personTd[2].innerText}</td>
+    <td>${personTd[3].innerText}</td>
     </tr>
     `;
   }).join('')}
