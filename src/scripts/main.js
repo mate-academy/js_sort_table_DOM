@@ -11,18 +11,25 @@ function toNumber(string) {
   return +number;
 }
 
+function stringCompare(a, b, child) {
+  const result
+  = a.children[child].textContent.localeCompare(b.children[child].textContent);
+
+  return result;
+}
+
 const func = (ev) => {
   tbody.innerHTML = '';
 
   switch (ev.target.innerText) {
     case 'Name':
       tableContent.sort((a, b) =>
-        a.children[0].textContent.localeCompare(b.children[0].textContent)
+        stringCompare(a, b, 0)
       );
       break;
     case 'Position':
       tableContent.sort((a, b) =>
-        a.children[1].textContent.localeCompare(b.children[1].textContent)
+        stringCompare(a, b, 1)
       );
       break;
     case 'Age':
