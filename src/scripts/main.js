@@ -5,8 +5,8 @@ const body = document.querySelector('tbody');
 
 const copyBodyEl = [...body.children];
 
-head.addEventListener('click', (event) => {
-  const itemId = event.target.cellIndex;
+head.addEventListener('click', (events) => {
+  const itemId = events.target.cellIndex;
 
   const sort = copyBodyEl.sort((a, b) => {
     let first = a.cells[itemId].textContent;
