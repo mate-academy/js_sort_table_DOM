@@ -11,6 +11,10 @@ const rows = tableBody.querySelectorAll('tr');
   });
 });
 
+function convertToNumber(str) {
+  return +str.slice(1).split(',').join('');
+};
+
 const sortColumn = (index) => {
   const newRows = Array.from(rows);
 
@@ -18,13 +22,14 @@ const sortColumn = (index) => {
     const cellA = rowA.querySelectorAll('td')[index].innerHTML;
     const cellB = rowB.querySelectorAll('td')[index].innerHTML;
 
-    switch (true) {
-      case cellA > cellB:
-        return 1;
-      case cellA < cellB:
-        return -1;
-      case cellA === cellB:
-        return 0;
+    if (Number.isNaN(+cellA)) {
+      if (cellA[0] === '$') {
+        return convertToNumber(cellA) - convertToNumber(cellB);
+      }
+
+      return cellA.localeCompare(cellB);
+    } else {
+      return cellA - cellB;
     }
   });
 
