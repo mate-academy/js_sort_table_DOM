@@ -11,29 +11,22 @@ thead.addEventListener('click', (ev) => {
   const copy = [...tbody.children];
   const toNum = el => el.slice(1).split(',').join('');
 
-  switch (element) {
-    case 'Name':
-    case 'Position':
-      copy.sort((a, b) => {
+  copy.sort((a, b) => {
+    switch (element) {
+      case 'Name':
+      case 'Position':
         return a.cells[indx].innerHTML.localeCompare(b.cells[indx].innerHTML);
-      });
-      break;
 
-    case 'Age':
-      copy.sort((a, b) => {
-        return b.cells[indx].innerHTML - a.cells[indx].innerHTML;
-      });
-      break;
+      case 'Age':
+        return a.cells[indx].innerHTML - b.cells[indx].innerHTML;
 
-    case 'Salary':
-      copy.sort((a, b) => {
-        return toNum(b.cells[indx].innerHTML) - toNum(a.cells[indx].innerHTML);
-      });
-      break;
+      case 'Salary':
+        return toNum(a.cells[indx].innerHTML) - toNum(b.cells[indx].innerHTML);
 
-    default:
-      return;
-  }
+      default:
+        return;
+    };
+  });
 
   tbody.append(...copy);
 });
