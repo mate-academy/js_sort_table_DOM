@@ -16,7 +16,10 @@ headings.addEventListener('click', (e) => {
      let current = a.cells[criterion].innerText;
      let next = b.cells[criterion].innerText;
 
-     if (criterion === 3 || criterion === 4) {
+     const ageCell = 3;
+     const salaryCell = 4;
+
+     if (criterion === salaryCell || criterion === ageCell) {
        current = toNumber(current);
        next = toNumber(next);
 
