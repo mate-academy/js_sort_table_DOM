@@ -21,7 +21,10 @@ header.addEventListener('click', (ev) => {
           return +innerTextX - +innerTextY;
 
         case 3:
-          return +innerTextX.slice(1) - +innerTextY.slice(1);
+          const numX = (innerTextX.replace('$', '').replace(',', ''));
+          const numY = +(innerTextY.replace('$', '').replace(',', ''));
+
+          return numX - numY;
 
         default:
           return 0;
