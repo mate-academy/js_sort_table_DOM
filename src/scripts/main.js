@@ -13,8 +13,7 @@ const getSalaryNumber = (salary) => {
 header.addEventListener('click', (e) => {
   rows.sort((a, b) => {
     const columnName = e.target.innerText;
-    const index = [...header.rows[0].cells].findIndex(
-      cell => cell.innerText === columnName);
+    const index = e.target.cellIndex;
     const comparedValueA = a.cells[index].innerText;
     const comparedValueB = b.cells[index].innerText;
 
