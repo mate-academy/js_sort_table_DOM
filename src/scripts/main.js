@@ -2,15 +2,14 @@
 
 // write code here
 const table = document.querySelector('table');
-const rows = [...table.tBodies[0].rows];
 const header = table.tHead;
-const getSalaryNumber = (salary) => {
-  return Number(salary
-    .slice(1)
-    .replace(',', ''));
-};
+const getSalaryNumber = salary => +(salary
+  .slice(1)
+  .replace(',', ''));
 
 header.addEventListener('click', (e) => {
+  const rows = [...table.tBodies[0].rows];
+
   rows.sort((a, b) => {
     const columnName = e.target.innerText;
     const index = e.target.cellIndex;
@@ -31,3 +30,4 @@ header.addEventListener('click', (e) => {
 
   rows.forEach(row => table.tBodies[0].append(row));
 });
+
