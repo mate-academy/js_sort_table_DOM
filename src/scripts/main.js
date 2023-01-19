@@ -3,44 +3,56 @@
 const head = document.querySelector('thead');
 const titles = [...head.children[0].children];
 
-function sortTable(n) {
+function sortTable(titleIndex) {
   const table = document.querySelector('tbody');
   let switching = true;
-  let rows, i, x, y, shouldSwitch;
 
   while (switching) {
     switching = false;
-    rows = table.rows;
+
+    const rows = table.rows;
+    let rowsShouldSwitch = false;
+    let i;
 
     for (i = 0; i <= rows.length - 2; i++) {
-      shouldSwitch = false;
-      x = rows[i].getElementsByTagName('td')[n];
-      y = rows[i + 1].getElementsByTagName('td')[n];
+      const firstRow = rows[i].getElementsByTagName('td')[titleIndex];
+      const secondRow = rows[i + 1].getElementsByTagName('td')[titleIndex];
 
-      if (Number(x.innerHTML)) {
-        if (Number(x.innerHTML) > Number(y.innerHTML)) {
-          shouldSwitch = true;
+      const firstRowContent = firstRow.innerHTML;
+      const secondRowContent = secondRow.innerHTML;
+
+      const isFirstRowNum = Number(firstRowContent);
+      const isSecondRowNum = Number(secondRowContent);
+
+      if (isFirstRowNum) {
+        if (isFirstRowNum > isSecondRowNum) {
+          rowsShouldSwitch = true;
           break;
         }
       } else {
-        if (x.innerHTML.indexOf('$') !== -1) {
-          const currencyX = +x.innerHTML.slice(1).split(',').join('');
-          const currencyY = +y.innerHTML.slice(1).split(',').join('');
+        const isCurrency = firstRowContent.indexOf('$');
 
-          if (currencyX > currencyY) {
-            shouldSwitch = true;
+        if (isCurrency !== -1) {
+          const firstCurrency = +firstRowContent.slice(1).split(',').join('');
+          const secondCurrency = +secondRowContent.slice(1).split(',').join('');
+
+          if (firstCurrency > secondCurrency) {
+            rowsShouldSwitch = true;
             break;
           }
         } else {
-          if (x.innerHTML.toLowerCase() > y.innerHTML.toLowerCase()) {
-            shouldSwitch = true;
+          const firstRowLowered = firstRowContent.toLowerCase();
+          const secondRowLowered = secondRowContent.toLowerCase();
+
+          if (firstRowLowered > secondRowLowered) {
+            rowsShouldSwitch = true;
             break;
           }
         }
       }
     }
 
-    if (shouldSwitch) {
+    if (rowsShouldSwitch) {
       rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
       switching = true;
     }
