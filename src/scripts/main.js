@@ -5,13 +5,13 @@ const titles = [...head.children[0].children];
 
 function sortTable(titleIndex) {
   const table = document.querySelector('tbody');
-  let switching = true;
+  let isSwitching = true;
 
-  while (switching) {
-    switching = false;
+  while (isSwitching) {
+    isSwitching = false;
 
     const rows = table.rows;
-    let rowsShouldSwitch = false;
+    let shouldRowsSwitch = false;
     let i;
 
     for (i = 0; i <= rows.length - 2; i++) {
@@ -26,7 +26,7 @@ function sortTable(titleIndex) {
 
       if (isFirstRowNum) {
         if (isFirstRowNum > isSecondRowNum) {
-          rowsShouldSwitch = true;
+          shouldRowsSwitch = true;
           break;
         }
       } else {
@@ -37,7 +37,7 @@ function sortTable(titleIndex) {
           const secondCurrency = +secondRowContent.slice(1).split(',').join('');
 
           if (firstCurrency > secondCurrency) {
-            rowsShouldSwitch = true;
+            shouldRowsSwitch = true;
             break;
           }
         } else {
@@ -45,16 +45,16 @@ function sortTable(titleIndex) {
           const secondRowLowered = secondRowContent.toLowerCase();
 
           if (firstRowLowered > secondRowLowered) {
-            rowsShouldSwitch = true;
+            shouldRowsSwitch = true;
             break;
           }
         }
       }
     }
 
-    if (rowsShouldSwitch) {
+    if (shouldRowsSwitch) {
       rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
-      switching = true;
+      isSwitching = true;
     }
   }
 }
