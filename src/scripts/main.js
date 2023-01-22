@@ -11,91 +11,49 @@ function transformationNumber(element) {
 }
 
 head.addEventListener('click', even => {
-  if (even.target.textContent === 'Age') {
-    bodychildren.sort((one, two) => {
-      return +one.children[2].textContent - +two.children[2].textContent;
-    });
+  switch (true) {
+    case even.target.textContent === 'Age' :
+      bodychildren.sort((one, two) => {
+        return +one.children[2].textContent - +two.children[2].textContent;
+      });
+      break;
 
-    if (even.target.dataset.clicked === undefined) {
-      for (const child of bodychildren) {
-        body.append(child);
-      }
-      even.target.dataset.clicked = true;
+    case even.target.textContent === 'Position' :
+      bodychildren.sort((a, b) => {
+        return a.children[1].textContent.localeCompare(
+          b.children[1].textContent
+        );
+      });
+      break;
 
-      return;
-    }
+    case even.target.textContent === 'Name' :
+      bodychildren.sort((a, b) => {
+        return a.children[0].textContent.localeCompare(
+          b.children[0].textContent
+        );
+      });
+      break;
 
-    if (even.target.dataset.clicked === 'true') {
-      for (const child of bodychildren) {
-        body.prepend(child);
-      }
-      even.target.removeAttribute('data-clicked');
-    }
+    case even.target.textContent === 'Salary' :
+      bodychildren.sort((a, b) => {
+        return transformationNumber(a) - transformationNumber(b);
+      });
+      break;
   }
 
-  if (even.target.textContent === 'Position') {
-    bodychildren.sort((a, b) => {
-      return a.children[1].textContent.localeCompare(b.children[1].textContent);
-    });
-
-    if (even.target.dataset.clicked === undefined) {
-      for (const child of bodychildren) {
-        body.append(child);
-      }
-      even.target.dataset.clicked = true;
-
-      return;
+  if (even.target.dataset.clicked === undefined) {
+    for (const child of bodychildren) {
+      body.append(child);
     }
+    even.target.dataset.clicked = true;
 
-    if (even.target.dataset.clicked === 'true') {
-      for (const x of bodychildren) {
-        body.prepend(x);
-      }
-      even.target.removeAttribute('data-clicked');
+    return;
+  };
+
+  if (even.target.dataset.clicked === 'true') {
+    for (const child of bodychildren) {
+      body.prepend(child);
     }
-  }
-
-  if (even.target.textContent === 'Name') {
-    bodychildren.sort((a, b) => {
-      return a.children[0].textContent.localeCompare(b.children[0].textContent);
-    });
-
-    if (even.target.dataset.clicked === undefined) {
-      for (const x of bodychildren) {
-        body.append(x);
-      }
-      even.target.dataset.clicked = true;
-
-      return;
-    }
-
-    if (even.target.dataset.clicked === 'true') {
-      for (const x of bodychildren) {
-        body.prepend(x);
-      }
-      even.target.removeAttribute('data-clicked');
-    }
-  }
-
-  if (even.target.textContent === 'Salary') {
-    bodychildren.sort((a, b) => {
-      return transformationNumber(a) - transformationNumber(b);
-    });
-
-    if (even.target.dataset.clicked === undefined) {
-      for (const x of bodychildren) {
-        body.append(x);
-      }
-      even.target.dataset.clicked = true;
-
-      return;
-    }
-
-    if (even.target.dataset.clicked === 'true') {
-      for (const x of bodychildren) {
-        body.prepend(x);
-      }
-      even.target.removeAttribute('data-clicked');
-    }
-  }
+    even.target.removeAttribute('data-clicked');
+  };
 });
