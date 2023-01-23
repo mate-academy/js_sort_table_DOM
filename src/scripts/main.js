@@ -10,36 +10,21 @@ function transformationNumber(element) {
   return +(array[0] + array[1]);
 }
 
+function sortArray(array, index) {
+  array.sort((one, two) => {
+    const oneElem = one.children[index].textContent;
+    const secondElem = two.children[index].textContent;
+
+    if (oneElem.includes('$')) {
+      return transformationNumber(one) - transformationNumber(two);
+    }
+
+    return oneElem.localeCompare(secondElem);
+  });
+}
+
 head.addEventListener('click', even => {
-  switch (true) {
-    case even.target.textContent === 'Age' :
-      bodychildren.sort((one, two) => {
-        return +one.children[2].textContent - +two.children[2].textContent;
-      });
-      break;
-
-    case even.target.textContent === 'Position' :
-      bodychildren.sort((a, b) => {
-        return a.children[1].textContent.localeCompare(
-          b.children[1].textContent
-        );
-      });
-      break;
-
-    case even.target.textContent === 'Name' :
-      bodychildren.sort((a, b) => {
-        return a.children[0].textContent.localeCompare(
-          b.children[0].textContent
-        );
-      });
-      break;
-
-    case even.target.textContent === 'Salary' :
-      bodychildren.sort((a, b) => {
-        return transformationNumber(a) - transformationNumber(b);
-      });
-      break;
-  }
+  sortArray(bodychildren, even.target.cellIndex);
 
   if (even.target.dataset.clicked === undefined) {
     for (const child of bodychildren) {
