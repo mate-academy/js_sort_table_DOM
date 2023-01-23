@@ -14,7 +14,7 @@ thead.addEventListener('click', e => {
 
       if (stringOne.includes('$')) {
         const numberOne = stringOne.replace(/[$,]/g, '');
-        const NumberTwo = stringTwo.replace(/[$,]/g, '');
+        const numberTwo = stringTwo.replace(/[$,]/g, '');
 
         return numberOne - NumberTwo;
       }
