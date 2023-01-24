@@ -7,6 +7,10 @@ const headers = thead.querySelector('tr');
 const tr = tbody.querySelectorAll('tr');
 let sorted = [];
 
+function removeSeparator(string) {
+  return string.split(',').join('').split('$').join('');
+}
+
 function sortStrings(data, key) {
   const dataTable = [...data];
 
@@ -16,11 +20,13 @@ function sortStrings(data, key) {
 
     if (stringA > stringB) {
       return 1;
-    } else if (stringA === stringB) {
-      return 0;
-    } else {
-      return -1;
     }
+
+    if (stringA === stringB) {
+      return 0;
+    }
+
+    return -1;
   });
 
   return newDataTable;
@@ -32,8 +38,8 @@ function sortNumbers(data, key) {
   const newDataTable = dataTable.sort((a, b) => {
     const stringA = a.children[key].textContent;
     const stringB = b.children[key].textContent;
-    const numA = parseInt(stringA.split(',').join('').split('$').join(''));
-    const numB = parseInt(stringB.split(',').join('').split('$').join(''));
+    const numA = parseInt(removeSeparator(stringA));
+    const numB = parseInt(removeSeparator(stringB));
 
     return numA - numB;
   });
