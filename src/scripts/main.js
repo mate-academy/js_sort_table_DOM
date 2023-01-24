@@ -1,10 +1,10 @@
 'use strict';
 
-const head = document.querySelector('thead');
-const body = document.querySelector('tbody');
-const bodychildren = [...body.children];
+const tableHead = document.querySelector('thead');
+const tableBody = document.querySelector('tbody');
+const tableRows = [...tableBody.children];
 
-function transformationNumber(element) {
+function tranformToNumber(element) {
   const array = element.children[3].textContent.slice(1).split(',');
 
   return +(array[0] + array[1]);
@@ -16,19 +16,19 @@ function sortArray(array, index) {
     const secondElem = two.children[index].textContent;
 
     if (oneElem.includes('$')) {
-      return transformationNumber(one) - transformationNumber(two);
+      return tranformToNumber(one) - tranformToNumber(two);
     }
 
     return oneElem.localeCompare(secondElem);
   });
 }
 
-head.addEventListener('click', even => {
-  sortArray(bodychildren, even.target.cellIndex);
+tableHead.addEventListener('click', even => {
+  sortArray(tableRows, even.target.cellIndex);
 
   if (even.target.dataset.clicked === undefined) {
-    for (const child of bodychildren) {
-      body.append(child);
+    for (const child of tableRows) {
+      tableBody.append(child);
     }
     even.target.dataset.clicked = true;
 
@@ -36,8 +36,8 @@ head.addEventListener('click', even => {
   };
 
   if (even.target.dataset.clicked === 'true') {
-    for (const child of bodychildren) {
-      body.prepend(child);
+    for (const child of tableRows) {
+      tableBody.prepend(child);
     }
     even.target.removeAttribute('data-clicked');
   };
