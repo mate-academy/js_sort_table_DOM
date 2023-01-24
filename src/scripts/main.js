@@ -7,6 +7,7 @@ const list = body.querySelectorAll('tr');
 menu.addEventListener('click', e => {
   const item = e.target.closest('th');
   const index = e.target.cellIndex;
+  const label = e.target.innerText;
 
   if (!item || !menu.contains(item)) {
     return;
@@ -17,26 +18,24 @@ menu.addEventListener('click', e => {
       const aText = a.children[index].innerText;
       const bText = b.children[index].innerText;
 
-      switch (index) {
-        case 0:
-        case 1:
+      switch (label) {
+        case 'Name':
           return aText.localeCompare(bText);
 
-        case 2:
+        case 'Position':
           return +aText - +bText;
 
-        case 3:
+        case 'Age':
+        case 'Salary':
           const aNum = +(aText.replace(/\W/g, ''));
           const bNum = +(bText.replace(/\W/g, ''));
 
           return aNum - bNum;
 
         default:
-          return 0;
+          break;
       }
     });
 
-  sortedCells.forEach(el => {
-    return body.append(el);
-  });
+  sortedCells.forEach(el => body.append(el));
 });
