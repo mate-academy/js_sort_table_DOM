@@ -1,15 +1,15 @@
-"use strict";
+'use strict';
 
-const employees = document.querySelector("table");
+const employees = document.querySelector('table');
 
 sortTable(employees);
 
 function sortTable(table) {
-  document.querySelectorAll("th").forEach((th) =>
-    th.addEventListener("click", () => {
-      const tbody = table.querySelector("tbody");
+  document.querySelectorAll('th').forEach((th) =>
+    th.addEventListener('click', () => {
+      const tbody = table.querySelector('tbody');
 
-      Array.from(tbody.querySelectorAll("tr"))
+      Array.from(tbody.querySelectorAll('tr'))
         .sort(
           getCompareFunction(
             Array.from(th.parentNode.children).indexOf(th),
@@ -21,20 +21,20 @@ function sortTable(table) {
   );
 }
 
-function getCompareFunction(headerIndex, key) {
-  return function (a, b) {
+function getCompareFunction(headerIndex, headerName) {
+  return function(a, b) {
     const aCellValue = getRowCellValue(a, headerIndex);
     const bCellValue = getRowCellValue(b, headerIndex);
 
-    switch (key) {
-      case "Name":
-      case "Position":
+    switch (headerName) {
+      case 'Name':
+      case 'Position':
         return aCellValue.toString().localeCompare(bCellValue);
 
-      case "Age":
+      case 'Age':
         return aCellValue - bCellValue;
 
-      case "Salary":
+      case 'Salary':
         return parseInt(aCellValue.slice(1)) - parseInt(bCellValue.slice(1));
     }
   };
