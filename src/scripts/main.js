@@ -3,7 +3,8 @@
 // write code here
 const table = document.querySelector('table');
 const tbody = document.querySelector('tbody');
-const row = [...tbody.children];
+const tr = tbody.querySelectorAll('tr');
+const row = [...tr];
 
 table.addEventListener('click', (e) => {
   const th = e.target.closest('th');
@@ -30,14 +31,17 @@ function sortTable(index, text) {
 
     case 'Salary':
       row.sort((a, b) =>
-        normalNumber(a.cells[index].innerHTML)
-          - normalNumber(b.cells[index].innerHTML));
+        normalizeNumber(a.cells[index].innerHTML)
+          - normalizeNumber(b.cells[index].innerHTML));
       break;
+
+    default:
+      return;
   }
 
   tbody.append(...row);
 }
 
-function normalNumber(number) {
+function normalizeNumber(number) {
   return +number.slice(1).split(',').join('');
 }
