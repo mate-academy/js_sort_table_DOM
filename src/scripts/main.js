@@ -3,6 +3,10 @@
 const table = document.querySelector('table');
 const tBody = table.querySelector('tbody');
 
+const getSalary = (salary) => {
+  return salary.innerText.slice(1).split(',').join('');
+};
+
 const sortByText = (rowsArray, index) => {
   rowsArray.sort((a, b) => a.cells[index].innerText
     .localeCompare(b.cells[index].innerText));
@@ -15,8 +19,7 @@ const sortByAge = (rowsArray, index) => {
 
 const sortBySalary = (rowsArray, index) => {
   rowsArray.sort((a, b) =>
-    +a.cells[index].innerText.slice(1).split(',').join('')
-    - +b.cells[index].innerText.slice(1).split(',').join('')
+    +getSalary(a.cells[index]) - +getSalary(b.cells[index])
   );
 };
 
@@ -35,11 +38,14 @@ const sortTable = (columnIndex, columnType) => {
     case 'age':
       sortByAge(rows, columnIndex);
       break;
+
     case 'salary':
       sortBySalary(rows, columnIndex);
       break;
+
     default:
       sortByText(rows, columnIndex);
+      break;
   }
 
   for (const row of rows) {
