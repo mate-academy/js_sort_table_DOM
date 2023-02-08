@@ -15,16 +15,19 @@ title.addEventListener('click', (e) => {
     const first = a.children[cellIndex].textContent;
     const second = b.children[cellIndex].textContent;
 
-    if (cellIndex === 3) {
-      return convertToNumber(first) - convertToNumber(second);
-    }
+    switch (cellIndex) {
+      case 3:
+        return convertToNumber(first) - convertToNumber(second);
 
-    if (cellIndex === 2) {
-      return first - second;
-    }
+      case 2:
+        return first - second;
 
-    if (cellIndex === 0 || cellIndex === 1) {
-      return first.localeCompare(second);
+      case 0:
+      case 1:
+        return first.localeCompare(second);
+
+      default:
+        return 'default';
     }
   });
 
