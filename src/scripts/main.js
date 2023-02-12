@@ -4,17 +4,23 @@ const table = document.querySelector('table');
 const headers = [...document.querySelector('thead tr').children];
 const rows = [...table.children[1].children];
 
+function normalizeSalary(salary) {
+  return salary.replace('$', '').replace(',', '');
+}
+
 function sortValues(a, b) {
   if (a[0] === '$') {
-    const cleanA = a.replace('$', '').replace(',', '');
-    const cleanB = b.replace('$', '').replace(',', '');
+    const cleanA = normalizeSalary(a);
+    const cleanB = normalizeSalary(b);
 
     return cleanA - cleanB;
-  } else if (isNaN(+a)) {
-    return a.localeCompare(b);
-  } else {
-    return a - b;
   }
+
+  if (isNaN(+a)) {
+    return a.localeCompare(b);
+  }
+
+  return a - b;
 }
 
 table.addEventListener('click', e => {
