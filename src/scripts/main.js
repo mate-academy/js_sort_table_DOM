@@ -16,17 +16,26 @@ header.addEventListener('click', e => {
 
   sorted.sort((rowA, rowB) => {
     if (cellIndex === 2) {
-      return +rowA.cells[cellIndex].innerHTML
-      - (+rowB.cells[cellIndex].innerHTML);
+      return makeComparableNumber(rowA, cellIndex)
+        - makeComparableNumber(rowB, cellIndex);
     }
 
     if (cellIndex === 3) {
-      return +rowA.cells[cellIndex].innerHTML.slice(1).replace(',', '')
-      - (+rowB.cells[cellIndex].innerHTML.slice(1).replace(',', ''));
+      return makeComparableNumber(rowA, cellIndex, true)
+        - makeComparableNumber(rowB, cellIndex, true);
     }
 
-    return rowA.cells[cellIndex].innerHTML
-      .localeCompare(rowB.cells[cellIndex].innerHTML);
+    return makeComparable(rowA, cellIndex)
+      .localeCompare(makeComparable(rowB, cellIndex));
   });
   body.append(...sorted);
 });
+
+const makeComparableNumber = (row, cellIdx, normalized) => {
+  return +makeComparable(row, cellIdx, normalized);
+};
+
+const makeComparable = (row, cellIdx, normalized) => {
+  return normalized ? row.cells[cellIdx].innerHTML.slice(1).replace(',', '')
+    : row.cells[cellIdx].innerHTML;
+};
