@@ -4,6 +4,16 @@ const header = document.querySelector('thead');
 const body = document.querySelector('tbody');
 const rows = body.rows;
 
+const makeComparableNumber = (row, cellIdx, normalized) => {
+  return +makeComparable(row, cellIdx, normalized);
+};
+
+const makeComparable = (row, cellIdx, normalized) => {
+  return normalized
+    ? row.cells[cellIdx].innerHTML.slice(1).replace(',', '')
+    : row.cells[cellIdx].innerHTML;
+};
+
 header.addEventListener('click', e => {
   const headerEl = e.target.closest('th');
   const cellIndex = e.target.cellIndex;
@@ -30,12 +40,3 @@ header.addEventListener('click', e => {
   });
   body.append(...sorted);
 });
-
-const makeComparableNumber = (row, cellIdx, normalized) => {
-  return +makeComparable(row, cellIdx, normalized);
-};
-
-const makeComparable = (row, cellIdx, normalized) => {
-  return normalized ? row.cells[cellIdx].innerHTML.slice(1).replace(',', '')
-    : row.cells[cellIdx].innerHTML;
-};
