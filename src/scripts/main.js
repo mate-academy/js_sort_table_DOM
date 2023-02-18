@@ -5,10 +5,6 @@ function numStr(string) {
 }
 
 const table = document.querySelector('table');
-const nameColumn = table.rows[0].children[0];
-const positionColumn = table.rows[0].children[1];
-const ageColumn = table.rows[0].children[2];
-const salaryColumn = table.rows[0].children[3];
 
 function tableSort(column) {
   const sortedRows = Array.from(table.rows)
@@ -29,18 +25,7 @@ function tableSort(column) {
   table.tBodies[0].append(...sortedRows);
 }
 
-nameColumn.addEventListener('click', e => {
-  tableSort(0);
-});
-
-positionColumn.addEventListener('click', e => {
-  tableSort(1);
-});
-
-ageColumn.addEventListener('click', e => {
-  tableSort(2);
-});
-
-salaryColumn.addEventListener('click', e => {
-  tableSort(3);
-});
+[...table.rows[0].children].forEach((column, index) =>
+  column.addEventListener('click', e => {
+    tableSort(index);
+  }));
