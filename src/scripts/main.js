@@ -9,23 +9,34 @@ table.addEventListener('click', (e) => {
 
   const index = e.target.cellIndex;
   const type = e.target.innerText;
-  const tBody = document.querySelector('tbody');
-  const tr = [...tBody.querySelectorAll('tr')];
+  const grid = document.querySelector('tbody');
+  const employees = [...grid.querySelectorAll('tr')];
   let compare;
 
-  switch (true) {
-    case type === 'Position' || type === 'Name':
+  switch (type) {
+    case 'Position':
+    case 'Name':
       compare = (rowA, rowB) => {
-        return rowA.cells[index].innerText > rowB.cells[index].innerText
-          ? 1 : -1;
+        const first = rowA.cells[index].innerText;
+        const second = rowB.cells[index].innerText;
+
+        if (first > second) {
+          return 1;
+        }
+
+        if (first < second) {
+          return -1;
+        }
+
+        return 0;
       };
       break;
-    case type === 'Age':
+    case 'Age':
       compare = (numA, numB) => {
         return numA.cells[index].innerText - numB.cells[index].innerText;
       };
       break;
-    case type === 'Salary':
+    case 'Salary':
       compare = (salaryA, salaryB) => {
         return (
           salaryA.cells[index].innerText.slice(1).replaceAll(',', '.')
@@ -37,7 +48,7 @@ table.addEventListener('click', (e) => {
       throw new Error("it doesn't exist");
   }
 
-  tr.sort(compare);
+  employees.sort(compare);
 
-  tBody.append(...tr);
+  grid.append(...employees);
 });
