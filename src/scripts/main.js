@@ -6,75 +6,51 @@ const table = document.getElementsByTagName('table');
 
 const people = table[0].children[1].children;
 
-table[0].children[0].children[0].children[0].addEventListener('click',
-  () => sortByName());
+const headers = [...table[0].children[0].children[0].children];
 
-table[0].children[0].children[0].children[1].addEventListener('click',
-  () => sortByPosition());
+table[0].children[0].children[0].addEventListener('click', () =>
+  sortColumn(headers.indexOf(event.target))
+);
 
-table[0].children[0].children[0].children[2].addEventListener('click',
-  () => sortByAge());
+function getClearData(data, index) {
+  let newIndex = index;
 
-table[0].children[0].children[0].children[3].addEventListener('click',
-  () => sortBySalary());
-
-function sortByName() {
-  let switching = true;
-
-  let shouldSwitch;
-
-  let x, y, i;
-
-  while (switching) {
-    switching = false;
-
-    for (i = 0; i < (people.length - 1); i++) {
-      shouldSwitch = false;
-      x = people[i].children[0].innerText.toLowerCase();
-      y = people[i + 1].children[0].innerText.toLowerCase();
-
-      if (x.localeCompare(y) === 1) {
-        shouldSwitch = true;
-        break;
-      }
-    }
-
-    if (shouldSwitch) {
-      people[i].parentNode.insertBefore(people[i + 1], people[i]);
-      switching = true;
-    }
+  if (index === 1) {
+    newIndex = 0;
   }
+
+  let clearData;
+
+  switch (newIndex) {
+    case 0:
+      clearData = data.toLowerCase();
+      break;
+
+    case 2:
+      clearData = +data;
+      break;
+
+    case 3:
+      clearData = +data.slice(1).replace(',', '');
+      break;
+  }
+
+  return clearData;
 }
 
-function sortByPosition() {
-  let switching = true;
+function getComparison(x, y) {
+  let comparisonResult;
 
-  let shouldSwitch;
-
-  let x, y, i;
-
-  while (switching) {
-    switching = false;
-
-    for (i = 0; i < (people.length - 1); i++) {
-      shouldSwitch = false;
-      x = people[i].children[1].innerText.toLowerCase();
-      y = people[i + 1].children[1].innerText.toLowerCase();
-
-      if (x.localeCompare(y) === 1) {
-        shouldSwitch = true;
-        break;
-      }
-    }
-
-    if (shouldSwitch) {
-      people[i].parentNode.insertBefore(people[i + 1], people[i]);
-      switching = true;
-    }
+  if (typeof x === 'string') {
+    comparisonResult = x.localeCompare(y);
+  } else {
+    comparisonResult = x > y ? 1 : 0;
   }
+
+  return comparisonResult;
 }
 
-function sortBySalary() {
+function sortColumn(index) {
   let switching = true;
 
   let shouldSwitch;
@@ -86,38 +62,10 @@ function sortBySalary() {
 
     for (i = 0; i < (people.length - 1); i++) {
       shouldSwitch = false;
-      x = +people[i].children[3].innerText.slice(1).replace(',', '');
-      y = +people[i + 1].children[3].innerText.slice(1).replace(',', '');
+      x = getClearData(people[i].children[index].innerText, index);
+      y = getClearData(people[i + 1].children[index].innerText, index);
 
-      if (x > y) {
-        shouldSwitch = true;
-        break;
-      }
-    }
-
-    if (shouldSwitch) {
-      people[i].parentNode.insertBefore(people[i + 1], people[i]);
-      switching = true;
-    }
-  }
-}
-
-function sortByAge() {
-  let switching = true;
-
-  let shouldSwitch;
-
-  let x, y, i;
-
-  while (switching) {
-    switching = false;
-
-    for (i = 0; i < (people.length - 1); i++) {
-      shouldSwitch = false;
-      x = +people[i].children[2].innerText;
-      y = +people[i + 1].children[2].innerText;
-
-      if (x > y) {
+      if (getComparison(x, y) === 1) {
         shouldSwitch = true;
         break;
       }
