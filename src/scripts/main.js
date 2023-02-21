@@ -6,23 +6,26 @@ const table = document.getElementsByTagName('table');
 
 const people = table[0].children[1].children;
 
+const thead = document.querySelector('thead')
+
+const columns = thead.children[0]
+
 const headers = [...table[0].children[0].children[0].children];
 
-table[0].children[0].children[0].addEventListener('click', () =>
+columns.addEventListener('click', () =>
   sortColumn(headers.indexOf(event.target))
 );
 
 function getClearData(data, index) {
-  let newIndex = index;
-
-  if (index === 1) {
-    newIndex = 0;
-  }
 
   let clearData;
 
-  switch (newIndex) {
+  switch (index) {
     case 0:
+      clearData = data.toLowerCase();
+      break;
+
+    case 1:
       clearData = data.toLowerCase();
       break;
 
