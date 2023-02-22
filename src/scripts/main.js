@@ -7,8 +7,7 @@ const headElements = document
 for (const item of headElements) {
   item.addEventListener('click', () => {
     const table
-      = [...document.querySelector('tbody')
-        .querySelectorAll('tr')]
+      = [...document.querySelector('tbody').querySelectorAll('tr')]
         .sort(compareValues);
 
     function compareValues(aInput, bInput) {
@@ -24,8 +23,7 @@ for (const item of headElements) {
     }
 
     function convert(stringNumber) {
-      return Number(stringNumber.toLocaleString()
-        .replace(/\D/g, ''));
+      return Number(stringNumber.toLocaleString().replace(/\D/g, ''));
     }
 
     document.querySelector('tbody').append(...table);
