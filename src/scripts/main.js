@@ -19,7 +19,7 @@ for (const item of headElements) {
         b = (convert(b));
       }
 
-      return a <= b ? -1 : 1;
+      return a < b ? -1 : 1;
     }
 
     function convert(stringNumber) {
