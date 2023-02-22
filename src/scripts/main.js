@@ -2,8 +2,6 @@
 
 // write code here
 
-const table = document.getElementsByTagName('table');
-
 const tbody = document.querySelectorAll('tbody');
 
 const people = tbody[0].children;
@@ -12,7 +10,7 @@ const thead = document.querySelector('thead');
 
 const columns = thead.children[0];
 
-const headers = [...columns.children]
+const headers = [...columns.children];
 
 columns.addEventListener('click', () =>
   sortColumn(headers.indexOf(event.target))
