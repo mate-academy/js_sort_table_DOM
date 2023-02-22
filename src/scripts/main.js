@@ -4,20 +4,21 @@
 
 const table = document.getElementsByTagName('table');
 
-const people = table[0].children[1].children;
+const tbody = document.querySelectorAll('tbody');
 
-const thead = document.querySelector('thead')
+const people = tbody[0].children;
 
-const columns = thead.children[0]
+const thead = document.querySelector('thead');
 
-const headers = [...table[0].children[0].children[0].children];
+const columns = thead.children[0];
+
+const headers = [...columns.children]
 
 columns.addEventListener('click', () =>
   sortColumn(headers.indexOf(event.target))
 );
 
 function getClearData(data, index) {
-
   let clearData;
 
   switch (index) {
