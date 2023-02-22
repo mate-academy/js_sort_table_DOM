@@ -1,14 +1,9 @@
 'use strict';
 
 const table = document.querySelector('table');
+const tableHead = table.querySelector('thead');
 
-table.addEventListener('click', (e) => {
-  const heading = e.target.closest('th');
-
-  if (!heading) {
-    return;
-  }
-
+tableHead.addEventListener('click', (e) => {
   const tableBody = table.querySelector('tbody');
   const headingIndex = e.target.cellIndex;
 
@@ -29,7 +24,5 @@ table.addEventListener('click', (e) => {
     }
   });
 
-  for (const element of rowsArray) {
-    tableBody.append(element);
-  }
+  tableBody.append(...rowsArray);
 });
