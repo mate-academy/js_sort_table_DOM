@@ -9,13 +9,14 @@ function convert(stringNumber) {
 }
 
 for (const item of headElements) {
-  item.addEventListener('click', () => {
+  item.addEventListener('click', (ev) => {
+    const index = ev.target.cellIndex;
     const table
       = [...document.querySelector('tbody')
         .querySelectorAll('tr')]
         .sort((aInput, bInput) => {
-          let a = aInput.children[item.cellIndex].textContent;
-          let b = bInput.children[item.cellIndex].textContent;
+          let a = aInput.children[index].textContent;
+          let b = bInput.children[index].textContent;
 
           if (convert(a) > 0) {
             a = (convert(a));
