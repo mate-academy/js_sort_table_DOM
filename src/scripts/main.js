@@ -4,6 +4,10 @@ const headElements = document
   .querySelector('thead')
   .querySelectorAll('th');
 
+function convert(stringNumber) {
+  return Number(stringNumber.toLocaleString().replace(/\D/g, ''));
+}
+
 for (const item of headElements) {
   item.addEventListener('click', () => {
     const table
@@ -21,11 +25,6 @@ for (const item of headElements) {
 
       return a < b ? -1 : 1;
     }
-
-    function convert(stringNumber) {
-      return Number(stringNumber.toLocaleString().replace(/\D/g, ''));
-    }
-
     document.querySelector('tbody').append(...table);
   });
 }
