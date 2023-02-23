@@ -18,8 +18,8 @@ function compareVariables(aa, bb, events) {
 
 document.querySelector('thead').addEventListener('click', (eventFunc) => {
   const bodyRows = document.querySelector('tbody');
-  const arrayElements = [...bodyRows.children]
-    .sort((a, b) => compareVariables(a, b, eventFunc));
 
-  bodyRows.append(...arrayElements);
+  bodyRows
+    .append(...[...bodyRows.children]
+      .sort((a, b) => compareVariables(a, b, eventFunc)));
 });
