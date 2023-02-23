@@ -11,7 +11,8 @@ function convert(stringNumber) {
 for (const item of headElements) {
   item.addEventListener('click', () => {
     const table
-      = [...document.querySelector('tbody').querySelectorAll('tr')]
+      = [...document.querySelector('tbody')
+        .querySelectorAll('tr')]
         .sort((aInput, bInput) => {
           let a = aInput.children[item.cellIndex].textContent;
           let b = bInput.children[item.cellIndex].textContent;
