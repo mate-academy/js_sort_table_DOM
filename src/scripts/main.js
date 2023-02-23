@@ -4,9 +4,10 @@ function convert(stringNumber) {
   return Number(stringNumber.toLocaleString().replace(/\D/g, ''));
 }
 
-function compareVariables(aa, bb, eventFunc) {
-  let a = aa.children[eventFunc.target.cellIndex].textContent;
-  let b = bb.children[eventFunc.target.cellIndex].textContent;
+// eslint-disable-next-line no-shadow
+function compareVariables(aa, bb, event) {
+  let a = aa.children[event.target.cellIndex].textContent;
+  let b = bb.children[event.target.cellIndex].textContent;
 
   if (convert(a) > 0) {
     a = (convert(a));
@@ -19,7 +20,7 @@ function compareVariables(aa, bb, eventFunc) {
 document.querySelector('thead').addEventListener('click', (eventFunc) => {
   const bodyRows = document.querySelector('tbody');
   const arrayElements = [...bodyRows.children]
-    .sort((aa, bb) => compareVariables(aa, bb, eventFunc));
+    .sort((a, b) => compareVariables(a, b, eventFunc));
 
   bodyRows.append(...arrayElements);
 });
