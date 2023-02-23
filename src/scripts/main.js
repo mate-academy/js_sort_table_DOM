@@ -5,7 +5,8 @@ function convert(stringNumber) {
 }
 
 document.querySelector('thead').addEventListener('click', (eventFunc) => {
-  const table = [...document.querySelector('tbody').querySelectorAll('tr')]
+  const bodyRows = document.querySelector('tbody').querySelectorAll('tr');
+  const table = [...bodyRows]
     .sort((aa, bb) => {
       let a = aa.children[eventFunc.target.cellIndex].textContent;
       let b = bb.children[eventFunc.target.cellIndex].textContent;
