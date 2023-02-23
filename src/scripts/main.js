@@ -4,10 +4,9 @@ function convert(stringNumber) {
   return Number(stringNumber.toLocaleString().replace(/\D/g, ''));
 }
 
-// eslint-disable-next-line no-shadow
-function compareVariables(aa, bb, event) {
-  let a = aa.children[event.target.cellIndex].textContent;
-  let b = bb.children[event.target.cellIndex].textContent;
+function compareVariables(aa, bb, events) {
+  let a = aa.children[events.target.cellIndex].textContent;
+  let b = bb.children[events.target.cellIndex].textContent;
 
   if (convert(a) > 0) {
     a = (convert(a));
