@@ -11,15 +11,14 @@ function sortFn(cellIndex) {
     const contentA = a.cells[cellIndex].innerHTML;
     const contentB = b.cells[cellIndex].innerHTML;
 
-    if (cellIndex === 2) {
-      return contentA - contentB;
+    switch (cellIndex) {
+      case 2:
+        return contentA - contentB;
+      case 3:
+        return getNumber(contentA) - getNumber(contentB);
+      default:
+        return contentA.localeCompare(contentB);
     }
-
-    if (cellIndex === 3) {
-      return getNumber(contentA) - getNumber(contentB);
-    }
-
-    return contentA.localeCompare(contentB);
   });
 };
 
