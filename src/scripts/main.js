@@ -5,22 +5,29 @@ const headTableRow = thead.querySelector('tr');
 const tbody = document.querySelector('tbody');
 const tr = [...tbody.querySelectorAll('tr')];
 
-headTableRow.addEventListener('click', (eve) => {
-  sortList(tr, [...headTableRow.children].indexOf(eve.target));
+headTableRow.addEventListener('click', (e) => {
+  sortList(tr, [...headTableRow.children].indexOf(e.target));
 });
 
 function sortList(list, i) {
-  if (i === 0 || i === 1) {
-    list.sort((a, b) => {
-      return a.children[i].textContent.localeCompare(b.children[i].textContent);
-    });
-  }
+  switch (i) {
+    case 0:
+    case 1:
+      list.sort((a, b) => {
+        const textA = a.children[i].textContent;
+        const textB = b.children[i].textContent;
 
-  if (i === 2 || i === 3) {
-    list.sort((a, b) => {
-      return toNum(a.children[i].textContent)
-      - toNum(b.children[i].textContent);
-    });
+        return textA.localeCompare(textB);
+      });
+      break;
+
+    case 2:
+    case 3:
+      list.sort((a, b) => {
+        return toNum(a.children[i].textContent)
+        - toNum(b.children[i].textContent);
+      });
+      break;
   }
 
   tbody.append(...list);
