@@ -4,58 +4,31 @@ const tBody = document.querySelector('tbody');
 const arraySpecialists = [...tBody.children];
 const elementsTotal = document.querySelectorAll('th');
 
-for (const element of elementsTotal) {
-  switch (element.innerText) {
-    case 'Name':
-      element.addEventListener('click', (e) => {
-        arraySpecialists.sort((a, b) => {
-          const itemA = a.cells[0].innerText;
-          const itemB = b.cells[0].innerText;
+for (let i = 0; i < elementsTotal.length; i++) {
+  elementsTotal[i].id = [i];
+}
 
-          return itemA.localeCompare(itemB);
-        });
+const SortTable = (e) => {
+  arraySpecialists.sort((a, b) => {
+    const itemA = a.cells[e.target.id].innerText;
+    const itemB = b.cells[e.target.id].innerText;
 
-        return tBody.append(...arraySpecialists);
-      });
-      break;
-    case 'Position':
-      element.addEventListener('click', (e) => {
-        arraySpecialists.sort((a, b) => {
-          const itemA = a.cells[1].innerText;
-          const itemB = b.cells[1].innerText;
-
-          return itemA.localeCompare(itemB);
-        });
-
-        return tBody.append(...arraySpecialists);
-      });
-      break;
-
-    case 'Age':
-      element.addEventListener('click', (e) => {
-        arraySpecialists.sort((a, b) => {
-          const itemA = a.cells[2].innerText;
-          const itemB = b.cells[2].innerText;
-
-          return itemA - itemB;
-        });
-
-        return tBody.append(...arraySpecialists);
-      });
-      break;
-
-    case 'Salary':
-      element.addEventListener('click', (e) => {
-        arraySpecialists.sort((a, b) => {
-          const itemA = a.cells[3].innerText;
-          const itemB = b.cells[3].innerText;
-
-          return itemA.slice(1).split(',').join('')
+    switch (e.target.innerText) {
+      case 'Name':
+        return itemA.localeCompare(itemB);
+      case 'Position':
+        return itemA.localeCompare(itemB);
+      case 'Age':
+        return itemA - itemB;
+      case 'Salary':
+        return itemA.slice(1).split(',').join('')
           - itemB.slice(1).split(',').join('');
-        });
+    }
+  });
 
-        return tBody.append(...arraySpecialists);
-      });
-      break;
-  }
+  return tBody.append(...arraySpecialists);
+};
+
+for (const element of elementsTotal) {
+  element.addEventListener('click', SortTable);
 }
