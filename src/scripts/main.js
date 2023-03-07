@@ -33,20 +33,6 @@ function sortStaff(i) {
     ? arraySort.sort((a, b) => a - b)
     : arraySort.sort();
 
-  // if (isDollars) {
-  //   staff.forEach(person => {
-  //     arraySort.push(formatItem(person.children[i].textContent));
-  //   });
-
-  //   arraySort.sort((a, b) => a - b);
-  // } else {
-  //   staff.forEach(person => {
-  //     arraySort.push(person.children[i].textContent);
-  //   });
-
-  //   arraySort.sort();
-  // }
-
   rowRender(i, isDollars);
 }
 
