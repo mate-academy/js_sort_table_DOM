@@ -8,21 +8,20 @@ for (let i = 0; i < elementsTotal.length; i++) {
   elementsTotal[i].id = [i];
 }
 
-const SortTable = (e) => {
+const sortTable = (e) => {
   arraySpecialists.sort((a, b) => {
     const itemA = a.cells[e.target.id].innerText;
     const itemB = b.cells[e.target.id].innerText;
 
     switch (e.target.innerText) {
       case 'Name':
-        return itemA.localeCompare(itemB);
       case 'Position':
         return itemA.localeCompare(itemB);
       case 'Age':
         return itemA - itemB;
       case 'Salary':
-        return itemA.slice(1).split(',').join('')
-          - itemB.slice(1).split(',').join('');
+        return parseInt(itemA.slice(1))
+        - parseInt(itemB.slice(1));
     }
   });
 
@@ -30,5 +29,5 @@ const SortTable = (e) => {
 };
 
 for (const element of elementsTotal) {
-  element.addEventListener('click', SortTable);
+  element.addEventListener('click', sortTable);
 }
