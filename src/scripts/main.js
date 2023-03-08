@@ -15,20 +15,8 @@ function sortData(colIndex, colName) {
   const rowsArr = Array.from(tableBody.rows);
 
   switch (colName) {
-    case 'Age':
-      rowsArr.sort((rowOne, rowTwo) =>
-        rowOne.cells[colIndex].innerHTML
-          - rowTwo.cells[colIndex].innerHTML
-      );
-      break;
 
     case 'Name':
-      rowsArr.sort((rowOne, rowTwo) =>
-        rowOne.cells[colIndex].innerHTML
-          .localeCompare(rowTwo.cells[colIndex].innerHTML)
-      );
-      break;
-
     case 'Position':
       rowsArr.sort((rowOne, rowTwo) =>
         rowOne.cells[colIndex].innerHTML
@@ -36,6 +24,7 @@ function sortData(colIndex, colName) {
       );
       break;
 
+    case 'Age':
     case 'Salary':
       rowsArr.sort((rowOne, rowTwo) =>
         convertSalaryToNumber(rowOne.cells[colIndex].innerHTML)
