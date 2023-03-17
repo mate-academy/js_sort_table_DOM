@@ -17,7 +17,7 @@ headlines.addEventListener('click', (e) => {
       const checkedRow = convertToNumber(row);
       const checkedNextRow = convertToNumber(nextRow);
 
-      return +checkedRow - +checkedNextRow;
+      return Number(checkedRow) - Number(checkedNextRow);
     }
 
     return row.localeCompare(nextRow);
