@@ -6,6 +6,10 @@ function toNum(element) {
   return +element.innerText.slice(1).replaceAll(',', '');
 }
 
+function toNumAge(element) {
+  return +element.innerText;
+}
+
 sortBy.addEventListener('click', e => {
   const columns = e.target.parentNode.children;
 
@@ -15,11 +19,18 @@ sortBy.addEventListener('click', e => {
       const sort = parents.querySelectorAll('tr');
       let sorted;
 
-      e.target.parentNode.children[i].innerText === 'Salary'
-        ? sorted = [...sort].sort((a, b) =>
-          toNum(a.children[i]) - toNum(b.children[i]))
-        : sorted = [...sort].sort((a, b) =>
+      if (e.target.parentNode.children[i].innerText === 'Salary') {
+        sorted = [...sort].sort((a, b) =>
+          toNum(a.children[i]) - toNum(b.children[i]));
+      }
+
+      if (e.target.parentNode.children[i].innerText === 'Age') {
+        sorted = [...sort].sort((a, b) =>
+          toNumAge(a.children[i]) - toNumAge(b.children[i]));
+      } else {
+        sorted = [...sort].sort((a, b) =>
           a.children[i].innerText.localeCompare(b.children[i].innerText));
+      }
 
       parents.append(...sorted);
     }
