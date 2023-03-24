@@ -19,17 +19,20 @@ sortBy.addEventListener('click', e => {
       const sort = parents.querySelectorAll('tr');
       let sorted;
 
-      if (e.target.parentNode.children[i].innerText === 'Salary') {
-        sorted = [...sort].sort((a, b) =>
-          toNum(a.children[i]) - toNum(b.children[i]));
-      }
+      switch (e.target.parentNode.children[i].innerText) {
+        case 'Salary':
+          sorted = [...sort].sort((a, b) =>
+            toNum(a.children[i]) - toNum(b.children[i]));
+          break;
 
-      if (e.target.parentNode.children[i].innerText === 'Age') {
-        sorted = [...sort].sort((a, b) =>
-          toNumAge(a.children[i]) - toNumAge(b.children[i]));
-      } else {
-        sorted = [...sort].sort((a, b) =>
-          a.children[i].innerText.localeCompare(b.children[i].innerText));
+        case 'Age':
+          sorted = [...sort].sort((a, b) =>
+            toNumAge(a.children[i]) - toNumAge(b.children[i]));
+          break;
+
+        default:
+          sorted = [...sort].sort((a, b) =>
+            a.children[i].innerText.localeCompare(b.children[i].innerText));
       }
 
       parents.append(...sorted);
