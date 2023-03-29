@@ -10,7 +10,8 @@ table.tHead.addEventListener('click', (e) => {
     const aText = a.cells[index].innerText.replace(/\W/g, '');
     const bText = b.cells[index].innerText.replace(/\W/g, '');
 
-    return !isNaN(parseFloat(aText)) ? +aText - +bText
+    return !isNaN(parseFloat(aText))
+      ? +aText - +bText
       : aText.localeCompare(bText);
   });
 
