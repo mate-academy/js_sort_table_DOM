@@ -8,22 +8,19 @@ head.addEventListener('click', e => {
   const coords = e.target;
 
   pers.sort((a, b) => {
+    const textA = a.children[coords.cellIndex].innerText;
+    const textB = b.children[coords.cellIndex].innerText;
+
     switch (coords.innerText) {
       case 'Name':
-        return a.children[coords.cellIndex].innerText
-          .localeCompare(b.children[coords.cellIndex].innerText);
-
       case 'Position':
-        return a.children[coords.cellIndex].innerText
-          .localeCompare(b.children[coords.cellIndex].innerText);
+        return textA.localeCompare(textB);
 
       case 'Age':
-        return +a.children[coords.cellIndex].innerText
-          - +b.children[coords.cellIndex].innerText;
+        return +textA - +textB;
 
       case 'Salary':
-        return trimmer(a.children[coords.cellIndex].innerText)
-          - trimmer(b.children[coords.cellIndex].innerText);
+        return trimmer(textA) - trimmer(textB);
     }
   });
 
