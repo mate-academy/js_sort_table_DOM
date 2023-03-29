@@ -6,11 +6,7 @@ const tbody = document.querySelector('tbody');
 const tableRows = [...tbody.rows];
 
 thead.addEventListener('click', () => {
-  const onlyNumbers = string => {
-    const result = string.replace(/[$,]/g, '');
-
-    return result.length ? +result : NaN;
-  };
+  const onlyNumbers = string => +string.replace(/[$,]/g, '');
 
   tableRows.sort((a, b) => {
     const first = a.children[event.target.cellIndex].innerText;
