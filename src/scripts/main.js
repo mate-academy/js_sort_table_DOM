@@ -1,42 +1,42 @@
 'use strict';
 
-const th = [...document.querySelectorAll('th')];
-const tr = [...document.querySelectorAll('tr')].slice(1, -1);
-const tbody = document.querySelector('tbody');
+const headerList = [...document.querySelectorAll('th')];
+const list = [...document.querySelectorAll('tr')].slice(1, -1);
+const listBody = document.querySelector('tbody');
 
 function sort(e) {
   if (e.target.tagName === 'TH') {
     const item = e.target;
-    const indexForSotr = th.indexOf(item);
+    const indexForSort = headerList.indexOf(item);
     let sortElements;
 
-    if (indexForSotr !== 3) {
-      sortElements = tr.sort((a, b) =>
-        a.cells[indexForSotr].innerHTML.localeCompare(
-          b.cells[indexForSotr].innerHTML));
+    if (indexForSort !== 3) {
+      sortElements = list.sort((a, b) =>
+        a.cells[indexForSort].innerHTML
+          .localeCompare(b.cells[indexForSort].innerHTML));
     } else {
-      sortElements = tr.sort((a, b) =>
-        corectSalary(a.cells[indexForSotr].innerHTML) - corectSalary(
-          b.cells[indexForSotr].innerHTML));
+      sortElements = list.sort((a, b) =>
+        getCorrectSalary(a.cells[indexForSort].innerHTML) - getCorrectSalary(
+          b.cells[indexForSort].innerHTML));
     }
 
-    tbody.innerHTML = '';
+    listBody.innerHTML = '';
 
-    for (let i = 0; i < tr.length; i++) {
-      tbody.appendChild(sortElements[i]);
+    for (let i = 0; i < list.length; i++) {
+      listBody.appendChild(sortElements[i]);
     }
   }
 }
 document.addEventListener('click', sort);
 
-function corectSalary(string) {
-  let result = '';
+function getCorrectSalary(string) {
+  let salary = '';
 
   for (let i = 0; i < string.length; i++) {
     if (string[i] !== '$' && string[i] !== ',') {
-      result += string[i];
+      salary += string[i];
     }
   }
 
-  return +result;
+  return +salary;
 }
