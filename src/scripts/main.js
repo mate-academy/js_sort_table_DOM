@@ -4,7 +4,7 @@ const tableBody = document.querySelector('tbody');
 const tableHead = document.querySelector('thead');
 const rows = [...tableBody.rows];
 
-function sortTableText(index, array) {
+function sortTable(index, array) {
   const text = rows[0].cells[index].innerText;
 
   const sortedRow = array.sort((rowA, rowB) => {
@@ -27,7 +27,7 @@ function sortTableText(index, array) {
 tableHead.addEventListener('click', (e) => {
   const index = [...tableHead.rows[0].cells].indexOf(e.target);
 
-  sortTableText(index, rows);
+  sortTable(index, rows);
 });
 
 function convertToNumber(string) {
