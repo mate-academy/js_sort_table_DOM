@@ -1,7 +1,7 @@
 'use strict';
 
 const table = document.querySelector('table');
-const tBodyRows = document.querySelectorAll('tbody > tr');
+const tBody = document.querySelector('tbody');
 
 table.addEventListener('click', function(e) {
   const header = e.target.closest('th');
@@ -12,35 +12,26 @@ table.addEventListener('click', function(e) {
 
   const cellIndex = header.cellIndex;
 
-  const sortedColumn = sortColumnData(tBodyRows, cellIndex);
+  const sortedRows = sortRows(tBody.children, cellIndex);
 
-  sortedColumn.map((data, rowIndex) => {
-    const td = document.createElement('td');
-
-    td.innerText = data;
-
-    tBodyRows[rowIndex].cells[cellIndex].replaceWith(td);
-  });
+  tBody.append(...sortedRows);
 });
 
-function sortColumnData(rows, index) {
-  const result = [];
+function sortRows([...rows], index) {
   const bySalary = index === 3;
 
-  for (const row of rows) {
-    result.push(row.cells[index].innerText);
-  }
+  rows.sort((a, b) => {
+    const dataA = a.cells[index].innerText;
+    const dataB = b.cells[index].innerText;
 
-  result.sort((a, b) => {
     if (bySalary) {
-      const numA = a.slice(1).replace(',', '');
-      const numB = b.slice(1).replace(',', '');
+      const normalize = (data) => data.slice(1).replace(',', '');
 
-      return numA - numB;
+      return normalize(dataA) - normalize(dataB);
     }
 
-    return a.localeCompare(b);
+    return dataA.localeCompare(dataB);
   });
 
-  return result;
+  return rows;
 }
