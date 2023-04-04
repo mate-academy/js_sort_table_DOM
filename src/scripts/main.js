@@ -2,20 +2,18 @@
 
 const table = document.querySelector('table');
 
-const tableRows = Array.from(table.rows).slice(1, table.rows.length - 1);
+function sortTable(tab, row) {
+  const rowsArray = Array.from(tab.rows).slice(1, tab.rows.length - 1);
 
-function sortTable(task, row) {
-  const result = task.sort((a, b) => {
-    if (row === 3) {
-      return a.cells[row].innerText.slice(1).replace(',', '')
-      - b.cells[row].innerText.slice(1).replace(',', '');
+  const result = rowsArray.sort((a, b) => {
+    const one = a.cells[row].innerText.replace(/\W/g, '');
+    const two = b.cells[row].innerText.replace(/\W/g, '');
+
+    if (!isNaN(one)) {
+      return one - two;
     }
 
-    if (row === 0 || row === 1) {
-      return a.cells[row].innerText.localeCompare(b.cells[row].innerText);
-    }
-
-    return a.cells[row].innerText - b.cells[row].innerText;
+    return one.localeCompare(two);
   });
 
   table.tBodies[0].append(...result);
@@ -26,23 +24,5 @@ table.addEventListener('click', (e) => {
     return false;
   }
 
-  switch (true) {
-    case e.target.innerText === 'Age':
-      sortTable(tableRows, e.target.cellIndex);
-      break;
-
-    case e.target.innerText === 'Salary':
-      sortTable(tableRows, e.target.cellIndex);
-      break;
-
-    case e.target.innerText === 'Position':
-      sortTable(tableRows, e.target.cellIndex);
-      break;
-
-    case e.target.innerText === 'Name':
-      sortTable(tableRows, e.target.cellIndex);
-      break;
-
-    default: return false;
-  }
+  sortTable(table, e.target.cellIndex);
 });
