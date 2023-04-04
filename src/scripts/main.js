@@ -14,8 +14,8 @@ header.addEventListener('click', (e) => {
     const cellB = b.querySelectorAll('td')[index].innerText;
 
     if (index === 3) {
-      const numA = parseFloat(cellA.replace(/[^0-9.-]+/g, ''));
-      const numB = parseFloat(cellB.replace(/[^0-9.-]+/g, ''));
+      const numA = parseFloat(cellA.replace(/[$,]/g, ''));
+      const numB = parseFloat(cellB.replace(/[$,]/g, ''));
 
       return numA - numB;
     } else {
