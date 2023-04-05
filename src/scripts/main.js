@@ -8,10 +8,38 @@ function toNumber(Str) {
   return numb;
 }
 
-function newTable(array) {
+const sortAll = (e) => {
+  const arraySort = [...listElements].sort((a, b) => {
+    if (e.target === document.querySelectorAll('th')[0]) {
+      const strA = a.firstElementChild.textContent;
+      const strB = b.firstElementChild.textContent;
+
+      return strA.localeCompare(strB);
+    }
+
+    if (e.target === document.querySelectorAll('th')[1]) {
+      const strA = a.firstElementChild.nextElementSibling.textContent;
+      const strB = b.firstElementChild.nextElementSibling.textContent;
+
+      return strA.localeCompare(strB);
+    }
+
+    if (e.target === document.querySelectorAll('th')[2]) {
+      return a.lastElementChild.previousElementSibling.textContent
+      - b.lastElementChild.previousElementSibling.textContent;
+    }
+
+    if (e.target === document.querySelectorAll('th')[3]) {
+      const salaryA = toNumber(a.lastElementChild.textContent);
+      const salaryB = toNumber(b.lastElementChild.textContent);
+
+      return salaryA - salaryB;
+    }
+  });
+
   document.querySelector('tbody').innerHTML = '';
 
-  for (const item of array) {
+  for (const item of arraySort) {
     document.querySelector('tbody').innerHTML += `
       <tr>
       <td>${item.firstElementChild.textContent}</td>
@@ -21,63 +49,14 @@ function newTable(array) {
       </tr>
     `;
   }
-}
-
-const sortName = () => {
-  const arraySort = [...listElements].sort((a, b) => {
-    const strA = a.firstElementChild.textContent;
-    const strB = b.firstElementChild.textContent;
-
-    return strA.localeCompare(strB);
-  });
-
-  newTable(arraySort);
-};
-
-const sortPosition = () => {
-  const arraySort = [...listElements].sort((a, b) => {
-    const strA = a.firstElementChild.nextElementSibling.textContent;
-    const strB = b.firstElementChild.nextElementSibling.textContent;
-
-    return strA.localeCompare(strB);
-  });
-
-  newTable(arraySort);
-};
-
-const sortAge = () => {
-  const arraySort = [...listElements].sort((a, b) =>
-    a.lastElementChild.previousElementSibling.textContent
-    - b.lastElementChild.previousElementSibling.textContent);
-
-  newTable(arraySort);
-};
-
-const sortSalary = () => {
-  const arraySort = [...listElements].sort((a, b) => {
-    const salaryA = toNumber(a.lastElementChild.textContent);
-    const salaryB = toNumber(b.lastElementChild.textContent);
-
-    return salaryA - salaryB;
-  });
-
-  newTable(arraySort);
 };
 
 const listElements = document.querySelector('tbody').children;
 
-const title1 = document.querySelectorAll('th')[0];
+document.querySelectorAll('th')[0].addEventListener('click', sortAll);
 
-const title2 = document.querySelectorAll('th')[1];
+document.querySelectorAll('th')[1].addEventListener('click', sortAll);
 
-const title3 = document.querySelectorAll('th')[2];
+document.querySelectorAll('th')[2].addEventListener('click', sortAll);
 
-const title4 = document.querySelectorAll('th')[3];
-
-title1.addEventListener('click', sortName);
-
-title2.addEventListener('click', sortPosition);
-
-title3.addEventListener('click', sortAge);
-
-title4.addEventListener('click', sortSalary);
+document.querySelectorAll('th')[3].addEventListener('click', sortAll);
