@@ -5,7 +5,7 @@ const tableBody = document.querySelector('tbody');
 const tableRows = tableBody.rows;
 
 function getSalaryValue(str) {
-  return +str.replace('$', '').replace(',', '');
+  return +str.replace(/[,$]/g, '');
 };
 
 tableHead.addEventListener('click', e => {
@@ -17,10 +17,6 @@ tableHead.addEventListener('click', e => {
 
     if (cellA.includes('$')) {
       return (getSalaryValue(cellA) - getSalaryValue(cellB));
-    }
-
-    if (isFinite(cellA)) {
-      return cellA - cellB;
     }
 
     return cellA.localeCompare(cellB);
