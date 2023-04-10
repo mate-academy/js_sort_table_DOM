@@ -17,15 +17,11 @@ headlines.addEventListener('click', (e) => {
       const checkedRow = convertToNumber(row);
       const checkedNextRow = convertToNumber(nextRow);
 
-      return Number(checkedRow) - Number(checkedNextRow);
+      return checkedRow - checkedNextRow;
     }
 
     return row.localeCompare(nextRow);
   }).forEach(row => list.appendChild(row));
 });
 
-function convertToNumber(string) {
-  const number = Number(string.replace(/[$,]/g, ''));
-
-  return `${number}`;
-}
+const convertToNumber = (string) => Number(string.replace(/[$,]/g, ''));
