@@ -15,12 +15,14 @@ function sortTable(column) {
   rows.sort((a, b) => {
     const aValue = a.cells[column.cellIndex].textContent;
     const bValue = b.cells[column.cellIndex].textContent;
+    const aNumber = convertToNumber(aValue);
+    const bNumber = convertToNumber(bValue);
 
-    if (!convertToNumber(aValue)) {
+    if (!aNumber) {
       return aValue.localeCompare(bValue);
     }
 
-    return convertToNumber(aValue) - convertToNumber(bValue);
+    return aNumber - bNumber;
   });
 
   table.tBodies[0].append(...rows);
