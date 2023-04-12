@@ -18,7 +18,7 @@ function sortTable(column) {
     const aNumber = convertToNumber(aValue);
     const bNumber = convertToNumber(bValue);
 
-    if (!aNumber) {
+    if (isNaN(aNumber)) {
       return aValue.localeCompare(bValue);
     }
 
