@@ -11,8 +11,8 @@ thead.addEventListener('click', (e) => {
     const cell2 = b.cells[e.target.cellIndex].textContent;
 
     if (e.target.textContent === 'Salary') {
-      const num1 = cell1.replace('$', '').replace(',', '');
-      const num2 = cell2.replace('$', '').replace(',', '');
+      const num1 = cell1.replace(/[$,]/g, '');
+      const num2 = cell2.replace(/[$,]/g, '');
 
       return num1 - num2;
     }
