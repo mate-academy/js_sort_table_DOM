@@ -6,16 +6,18 @@ const rawRows = [...table.children[1].children];
 
 const sortRows = (arr, index) => {
   return arr.sort((a, b) => {
-    const compareValueA = a.children[index].textContent;
-    const compareValueB = b.children[index].textContent;
+    const valueA = a.children[index].textContent;
+    const valueB = b.children[index].textContent;
 
-    return index === 2
-      ? compareValueA - compareValueB
-      : index === 3
-        ? Number.parseInt(compareValueA.slice(1))
-        - Number.parseInt(compareValueB.slice(1))
-        : compareValueA > compareValueB
-          ? 1 : compareValueA < compareValueB ? -1 : 0;
+    switch (index) {
+      case 2:
+        return valueA - valueB;
+      case 3:
+        return Number.parseInt(valueA.slice(1))
+        - Number.parseInt(valueB.slice(1));
+      default:
+        return valueA > valueB ? 1 : valueA < valueB ? -1 : 0;
+    }
   });
 };
 
