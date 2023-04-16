@@ -7,7 +7,6 @@ const th = header.getElementsByTagName('th');
 const tr = tbody.getElementsByTagName('tr');
 const headers = [];
 const data = [];
-let sort = 'name|desc';
 const formatter = new Intl.NumberFormat('en-US', {
   style: 'currency',
   currency: 'USD',
@@ -23,6 +22,7 @@ const formatter = new Intl.NumberFormat('en-US', {
   const td = el.getElementsByTagName('td');
 
   const row = {};
+
   data.push(row);
 
   [...td].forEach((cell, index) => {
@@ -43,30 +43,25 @@ const formatter = new Intl.NumberFormat('en-US', {
 
 header.addEventListener('click', el => {
   const item = el.target.textContent.toLowerCase();
-  const [, condition] = sort.split('|');
-  let f;
+  let sortFunc;
 
   switch (item) {
     default:
     case 'name':
     case 'position':
-      f = (a, b) => {
-        return condition === 'asc'
-          ? a[item].localeCompare(b[item])
-          : b[item].localeCompare(a[item]);
+      sortFunc = (a, b) => {
+        return a[item].localeCompare(b[item]);
       };
       break;
     case 'age':
     case 'salary':
-      f = (a, b) => {
-        return condition === 'asc' ? a[item] - b[item] : b[item] - a[item];
+      sortFunc = (a, b) => {
+        return a[item] - b[item];
       };
       break;
   }
 
-  data.sort(f);
-
-  sort = `${item}|${condition === 'asc' ? 'desc' : 'asc'}`;
+  data.sort(sortFunc);
 
   [...tr].forEach((row, i) => {
     const td = row.getElementsByTagName('td');
