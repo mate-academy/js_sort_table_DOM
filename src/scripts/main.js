@@ -9,8 +9,8 @@ tableHead.addEventListener('click', e => {
   const element = e.target;
 
   if (element.tagName === 'TH') {
-    sortTable(users, element.innerText);
-    createTable(users);
+    sortUsers(users, element.innerText);
+    renderTable(users);
   }
 });
 
@@ -25,7 +25,7 @@ elements.forEach(tr => {
   );
 });
 
-const sortTable = (table, value) => {
+const sortUsers = (table, value) => {
   table.sort((a, b) => {
     if (typeof a[value] === 'number') {
       return a[value] - b[value];
@@ -37,7 +37,7 @@ const sortTable = (table, value) => {
   });
 };
 
-const createTable = (table) => {
+const renderTable = (table) => {
   tableBody.innerHTML = '';
 
   table.forEach(element => {
