@@ -6,8 +6,11 @@ const sortTable1 = function(table, column) {
     let bItem = b.children[column].innerHTML;
 
     if (column === 3) {
-      aItem = Number(a.children[3].innerHTML.slice(1, 10).split(',').join(''));
-      bItem = Number(b.children[3].innerHTML.slice(1, 10).split(',').join(''));
+      aItem
+      = Number(a.children[3].innerHTML.replace(/\D/g, ''));
+
+      bItem
+      = Number(b.children[3].innerHTML.replace(/\D/g, ''));
     }
 
     if (aItem > bItem) {
@@ -32,29 +35,9 @@ document.addEventListener('click', (e) => {
     return;
   }
 
-  let column;
-
-  switch (e.target.innerHTML) {
-    case 'Name': {
-      column = 0;
-      break;
-    }
-
-    case 'Position': {
-      column = 1;
-      break;
-    }
-
-    case 'Age': {
-      column = 2;
-      break;
-    }
-
-    case 'Salary': {
-      column = 3;
-      break;
-    }
-  }
+  const parentRow = e.target.parentNode;
+  const arr = [...parentRow.children];
+  const column = arr.indexOf(e.target);
 
   sortTable1(rows, column);
   tbody.append(...rows);
