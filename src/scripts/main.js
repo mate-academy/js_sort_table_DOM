@@ -23,6 +23,8 @@ document.querySelector('thead').addEventListener(
       sortedTables.forEach(elem => {
         document.querySelector('tbody').appendChild(elem);
       });
+
+      tBody.prepend(trList[trList.length - 1]);
     }
   },
 );
