@@ -12,22 +12,22 @@ thead.addEventListener('click', even => {
   if (even.target.innerHTML === 'Salary') {
     Array.from(rows)
       .sort((a, b) => {
-        const aValue = number(a.children[headerIndex].textContent);
-        const bValue = number(b.children[headerIndex].textContent);
+        const aValue = +number(a.children[headerIndex].textContent);
+        const bValue = +number(b.children[headerIndex].textContent);
 
         return aValue - bValue;
       }).forEach(row => {
         tbody.appendChild(row);
       });
+  } else {
+    Array.from(rows)
+      .sort((a, b) => {
+        const aValue = a.children[headerIndex].textContent;
+        const bValue = b.children[headerIndex].textContent;
+
+        return aValue.localeCompare(bValue);
+      }).forEach(row => {
+        tbody.appendChild(row);
+      });
   }
-
-  Array.from(rows)
-    .sort((a, b) => {
-      const aValue = a.children[headerIndex].textContent;
-      const bValue = b.children[headerIndex].textContent;
-
-      return aValue.localeCompare(bValue);
-    }).forEach(row => {
-      tbody.appendChild(row);
-    });
 });
