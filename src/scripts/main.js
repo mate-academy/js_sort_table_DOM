@@ -8,7 +8,7 @@ thead.addEventListener('click', (e) => {
   const target = e.target;
 
   if (target.tagName === 'TH') {
-    sortBy = target.dataset.sortby;
+    sortBy = target.id;
 
     let sortedTbody = '';
     const tbodyChildren = [...tbody.children];
