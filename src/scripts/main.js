@@ -1,34 +1,40 @@
-'use strict';
+"use strict";
 
-const thead = document.querySelector('thead');
-const tbody = document.querySelector('tbody');
-let sortBy = '';
+const thead = document.querySelector("thead");
+const theadChildren = thead.children[0];
+const tbody = document.querySelector("tbody");
+let sortBy = "";
 
-thead.addEventListener('click', (e) => {
+theadChildren.children[0].setAttribute("data-sortBy", "name");
+theadChildren.children[1].setAttribute("data-sortBy", "position");
+theadChildren.children[2].setAttribute("data-sortBy", "age");
+theadChildren.children[3].setAttribute("data-sortBy", "salary");
+
+thead.addEventListener("click", (e) => {
   const target = e.target;
 
-  if (target.tagName === 'TH') {
-    sortBy = target.id;
+  if (target.tagName === "TH") {
+    sortBy = target.dataset.sortby;
 
-    let sortedTbody = '';
+    let sortedTbody = "";
     const tbodyChildren = [...tbody.children];
 
     switch (sortBy) {
-      case 'name':
+      case "name":
         sortedTbody = sortBodyString(tbodyChildren, 0);
         break;
 
-      case 'position':
+      case "position":
         sortedTbody = sortBodyString(tbodyChildren, 1);
         break;
 
-      case 'age':
+      case "age":
         sortedTbody = sortBodyNumber(tbodyChildren, 2, (num) => parseInt(num));
         break;
 
-      case 'salary':
+      case "salary":
         sortedTbody = sortBodyNumber(tbodyChildren, 3, (num) =>
-          parseInt(num.replace(/\$|,/g, ''))
+          parseInt(num.replace(/\$|,/g, ""))
         );
         break;
 
@@ -37,7 +43,7 @@ thead.addEventListener('click', (e) => {
     }
 
     if (sortedTbody) {
-      tbody.innerHTML = '';
+      tbody.innerHTML = "";
 
       for (const child of sortedTbody) {
         tbody.append(child);
@@ -47,17 +53,16 @@ thead.addEventListener('click', (e) => {
 });
 
 function sortBodyString(arr, childNumber) {
-  return arr.sort((childA, childB) =>
+  return arr.sort((childA, childB) => (
     childA.children[childNumber].innerText.localeCompare(
-      childB.children[childNumber].innerText
+    childB.children[childNumber].innerText
     )
-  );
+  ));
 }
 
 function sortBodyNumber(arr, childNumber, parsePattern) {
-  return arr.sort(
-    (childA, childB) =>
-      parsePattern(childA.children[childNumber].innerText)
-      - parsePattern(childB.children[childNumber].innerText)
-  );
+  return arr.sort((childA, childB) => (
+    parsePattern(childA.children[childNumber].innerText) -
+    parsePattern(childB.children[childNumber].innerText)
+  ));
 }
