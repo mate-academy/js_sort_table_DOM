@@ -28,7 +28,7 @@ head.addEventListener('click', e => {
         return valueAInt - valueBInt;
 
       default:
-        return `ERORR`;
+        return `ERROR`;
     }
   });
 
