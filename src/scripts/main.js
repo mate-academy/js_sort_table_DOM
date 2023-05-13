@@ -4,30 +4,24 @@ const table = document.querySelector('table');
 const thead = table.querySelector('thead tr');
 const tbody = table.querySelector('tbody');
 const rows = tbody.querySelectorAll('tr');
-const number = string => string.replace(/[$,]/g, '');
+const formatSalary = string => string.replace(/[$,]/g, '');
 
 thead.addEventListener('click', even => {
   const headerIndex = Array.from(thead.children).indexOf(even.target);
+  const sortRows = Array.from(rows);
 
-  if (even.target.innerHTML === 'Salary') {
-    Array.from(rows)
-      .sort((a, b) => {
-        const aValue = +number(a.children[headerIndex].textContent);
-        const bValue = +number(b.children[headerIndex].textContent);
+  sortRows.sort((a, b) => {
+    const aTextConten = a.children[headerIndex].textContent;
+    const bTextConten = b.children[headerIndex].textContent;
 
-        return aValue - bValue;
-      }).forEach(row => {
-        tbody.appendChild(row);
-      });
-  } else {
-    Array.from(rows)
-      .sort((a, b) => {
-        const aValue = a.children[headerIndex].textContent;
-        const bValue = b.children[headerIndex].textContent;
+    if (even.target.innerHTML === 'Salary') {
+      return +formatSalary(aTextConten) - +formatSalary(bTextConten);
+    }
 
-        return aValue.localeCompare(bValue);
-      }).forEach(row => {
-        tbody.appendChild(row);
-      });
-  }
+    return aTextConten.localeCompare(bTextConten);
+  });
+
+  sortRows.forEach(row => {
+    tbody.appendChild(row);
+  });
 });
