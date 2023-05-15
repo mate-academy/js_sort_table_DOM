@@ -19,7 +19,7 @@ headTable.addEventListener('click', e => {
     const rowOne = numberOptimizer(a.cells[targetIndex].textContent);
     const rowTwo = numberOptimizer(b.cells[targetIndex].textContent);
 
-    if (typeof elementOne === 'number') {
+    if (typeof rowOne === 'number') {
       return rowOne - rowTwo;
     };
 
