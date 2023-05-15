@@ -19,7 +19,7 @@ headTable.addEventListener('click', e => {
     const rowOne = numberOptimizer(a.cells[targetIndex].textContent);
     const rowTwo = numberOptimizer(b.cells[targetIndex].textContent);
 
-    if (typeof rowOne === 'number') {
+    if (!isNaN(rowOne)) {
       return rowOne - rowTwo;
     };
 
