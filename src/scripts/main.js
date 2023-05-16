@@ -1,28 +1,22 @@
 'use strict';
 
 const tableBody = document.querySelector('tbody');
-const tableHead = document.querySelectorAll('thead tr th');
-const table = document.querySelector('table');
+const tableHeadArr = [...document.querySelectorAll('thead tr th')];
+const tableHeader = document.querySelector('table').firstElementChild;
 
-table.addEventListener('click', e => {
-  const item = e.target;
+tableHeader.addEventListener('click', e => {
+  const indexToSort = tableHeadArr.findIndex(el => el === e.target);
 
-  if (![...tableHead].some(el => el === item)) {
-    return;
-  }
-
-  const index = [...tableHead].findIndex(el => el === item);
-
-  sortTable(index);
+  sortTable(indexToSort);
 });
 
-function sortTable(i) {
+function sortTable(index) {
   [...tableBody.rows]
     .sort((a, b) => {
-      const valueA = a.children[i].innerText;
-      const valueB = b.children[i].innerText;
+      const valueA = a.cells[index].innerText;
+      const valueB = b.cells[index].innerText;
 
-      return isNaN(toFormat(valueA))
+      return (typeof toFormat(valueA) === 'string')
         ? toFormat(valueA).localeCompare(toFormat(valueB))
         : toFormat(valueA) - toFormat(valueB);
     })
@@ -30,7 +24,7 @@ function sortTable(i) {
 }
 
 function toFormat(text) {
-  const result = parseInt(text.replace(/[$,]/g, ''));
+  const result = parseFloat(text.replace(/[$,]/g, ''));
 
   return isNaN(result) ? text : result;
 }
