@@ -13,6 +13,11 @@ header.addEventListener('click', (e) => {
         a.children[0].innerText.localeCompare(b.children[0].innerText));
       break;
 
+    case 'Position':
+      sorted = [...rowsArray].sort((a, b) =>
+        a.children[1].innerText.localeCompare(b.children[1].innerText));
+      break;
+
     case 'Age':
       sorted = [...rowsArray].sort((a, b) =>
         a.children[2].innerText - b.children[2].innerText);
@@ -22,6 +27,9 @@ header.addEventListener('click', (e) => {
       sorted = [...rowsArray].sort((a, b) =>
         toNumber(a.children[3]) - toNumber(b.children[3]));
       break;
+
+    default:
+      sorted = [...rowsArray];
   }
 
   tbody.prepend(...sorted);
