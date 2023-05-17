@@ -7,19 +7,21 @@ const rowsArray = tbody.children;
 header.addEventListener('click', (e) => {
   let sorted;
 
-  if (e.target.innerText === 'Name') {
-    sorted = [...rowsArray].sort((a, b) =>
-      a.children[0].innerText.localeCompare(b.children[0].innerText));
-  }
+  switch (e.target.innerText) {
+    case 'Name':
+      sorted = [...rowsArray].sort((a, b) =>
+        a.children[0].innerText.localeCompare(b.children[0].innerText));
+      break;
 
-  if (e.target.innerText === 'Age') {
-    sorted = [...rowsArray].sort((a, b) =>
-      a.children[2].innerText - b.children[2].innerText);
-  }
+    case 'Age':
+      sorted = [...rowsArray].sort((a, b) =>
+        a.children[2].innerText - b.children[2].innerText);
+      break;
 
-  if (e.target.innerText === 'Salary') {
-    sorted = [...rowsArray].sort((a, b) =>
-      toNumber(a.children[3]) - toNumber(b.children[3]));
+    case 'Salary':
+      sorted = [...rowsArray].sort((a, b) =>
+        toNumber(a.children[3]) - toNumber(b.children[3]));
+      break;
   }
 
   tbody.prepend(...sorted);
