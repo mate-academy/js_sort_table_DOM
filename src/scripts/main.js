@@ -2,9 +2,10 @@
 
 const table = document.querySelector('table');
 const tbody = document.querySelector('tbody');
-const rowsForSort = [...tbody.querySelectorAll('tr')];
 
 table.addEventListener('click', (e) => {
+  const rowsForSort = [...tbody.querySelectorAll('tr')];
+
   if (e.target.tagName === 'TH') {
     const place = e.target.closest('thead') ? 0 : table.rows.length - 1;
     const index = [...table.rows[place].children].indexOf(e.target);
@@ -25,7 +26,5 @@ table.addEventListener('click', (e) => {
     });
   }
 
-  for (let i = 0; i < rowsForSort.length; i++) {
-    tbody.append(rowsForSort[i]);
-  }
+  rowsForSort.forEach(row => tbody.append(row));
 });
