@@ -18,13 +18,13 @@ function sortTable(element, table) {
   const rows = [...table.querySelectorAll('tbody > tr')];
 
   rows.sort((a, b) => {
-    // If sorting values is numbers
+    // If sorting values are numbers
     if (getNumber(a.children[index].innerText)) {
       return getNumber(a.children[index].innerText)
         - getNumber(b.children[index].innerText);
     }
 
-    // If sorting values is strings
+    // If sorting values are strings
     if (a.children[index].innerText < b.children[index].innerText) {
       return -1;
     }
