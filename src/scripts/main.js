@@ -1,12 +1,10 @@
 'use strict';
 
-const headers = [...document.querySelector('thead').children[0].children];
+const headers = [...document.querySelectorAll('th')];
 const tbody = document.querySelector('tbody');
-const peopleRows = [...document.querySelector('tbody').children];
+const peopleRows = [...tbody.querySelectorAll('tr')];
 
-headers.forEach(head => {
-  const index = headers.indexOf(head);
-
+headers.forEach((head, index) => {
   head.addEventListener('click', () => {
     peopleRows.sort((person1, person2) => {
       let per1 = person1.children[index].innerHTML;
@@ -22,11 +20,7 @@ headers.forEach(head => {
       return per1.localeCompare(per2);
     });
 
-    const copyRows = [...peopleRows];
-
-    peopleRows.forEach(person => person.remove());
-
-    copyRows.forEach(person => tbody
+    peopleRows.forEach(person => tbody
       .insertAdjacentElement('beforeend', person));
   });
 });
