@@ -7,7 +7,7 @@ const tbodyRows = [...tbody.querySelectorAll('tr')];
 theadList.addEventListener('click', (e) => {
   const index = e.target.cellIndex;
 
-  tbodyRows.sort((a,b) => {
+  tbodyRows.sort((a, b) => {
     const aContent = a.cells[index].textContent;
     const bContent = b.cells[index].textContent;
 
@@ -19,7 +19,7 @@ theadList.addEventListener('click', (e) => {
         return aContent - bContent;
       case 3:
         const toNumber = (item) =>
-item.slice(1).split(',').join('');
+          item.slice(1).split(',').join('');
 
         return toNumber(aContent) - toNumber(bContent);
       default:
