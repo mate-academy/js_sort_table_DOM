@@ -8,25 +8,20 @@ headers.addEventListener('click', e => {
   const target = e.target;
   const headerList = headers.firstElementChild.children;
   const index = [...headerList].findIndex(tag => tag === target);
-  let sort;
 
-  if (e.target.innerText === 'Salary') {
-    sort = [...rows].sort((a, b) => {
-      const start = a.children[index].innerText.slice(1).replace(',', '.');
-      const end = b.children[index].innerText.slice(1).replace(',', '.');
+  const sort = [...rows].sort((a, b) => {
+    const start = a.children[index].innerText;
+    const end = b.children[index].innerText;
 
-      return end - start;
-    });
-  } else {
-    sort = [...rows].sort((a, b) => {
-      const start = a.children[index].innerText;
-      const end = b.children[index].innerText;
+    if (target.innerText === 'Salary') {
+      const parseSalary = salary =>
+        parseFloat(salary.slice(1).replace(',', '.'));
 
+      return parseSalary(end) - parseSalary(start);
+    } else {
       return end.localeCompare(start);
-    });
-  }
+    }
+  });
 
-  for (const element of sort) {
-    tbody.prepend(element);
-  }
+  sort.forEach(el => tbody.prepend(el));
 });
