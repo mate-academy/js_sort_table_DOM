@@ -1,40 +1,39 @@
 'use strict';
 
-function conversion(value) {
-  return +value
-    .split('').slice(1).join('').split(',').join('');
+function convertCurrencyToNumber(value) {
+  return +value.slice(1).split(',').join('');
+}
+
+function sortList(list, index) {
+  const result = [...list.children].sort((a, b) => {
+    if (index === 3) {
+      const valueA = convertCurrencyToNumber(a.children[index].innerText);
+      const valueB = convertCurrencyToNumber(b.children[index].innerText);
+
+      return valueA - valueB;
+    }
+
+    const value1 = a.children[index].innerText;
+    const value2 = b.children[index].innerText;
+
+    return value1.localeCompare(value2);
+  });
+
+  list.append(...result);
 }
 
 addEventListener('click', e => {
-  const sort = document.querySelector('thead').children[0].children;
-  const cheak = document.querySelector('tfoot');
-  const i = [...sort].findIndex(
+  const tableHeaders = document.querySelector('thead').children[0].children;
+  const tableFooter = document.querySelector('tfoot');
+  const i = [...tableHeaders].findIndex(
     element => element.innerText === e.target.innerText
-    && !cheak.contains(e.target));
+    && !tableFooter.contains(e.target));
 
   if (i === -1) {
     return;
   }
 
-  const listValue = document.querySelector('tbody');
+  const tableBody = document.querySelector('tbody');
 
-  function sortList(list) {
-    const result = [...list.children].sort((a, b) => {
-      if (i === 3) {
-        const valueA = conversion(a.children[i].innerText);
-        const valueB = conversion(b.children[i].innerText);
-
-        return valueA - valueB;
-      }
-
-      const value1 = a.children[i].innerText;
-      const value2 = b.children[i].innerText;
-
-      return value1.localeCompare(value2);
-    });
-
-    listValue.append(...result);
-  }
-
-  sortList(listValue);
+  sortList(tableBody, i);
 });
