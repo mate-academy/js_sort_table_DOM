@@ -5,16 +5,17 @@
 const body = document.querySelector('tbody');
 const rows = body.querySelectorAll('tr');
 const title = document.querySelector('thead');
+const titleCells = title.querySelectorAll('th');
 
 title.addEventListener('click', (e) => {
   const index = e.target.cellIndex;
-  const sorted = Array.from(rows).sort((A, B) => {
-    const cellA = A.children[index].textContent;
-    const cellB = B.children[index].textContent;
+  const sortedColumn = [...rows].sort((rowA, rowB) => {
+    const cellA = rowA.children[index].textContent.toUpperCase();
+    const cellB = rowB.children[index].textContent.toUpperCase();
 
-    if (index === 3) {
-      const numA = A.children[index].textContent.slice(1).replace(',', '');
-      const numB = B.children[index].textContent.slice(1).replace(',', '');
+    if (index === titleCells.length - 1) {
+      const numA = rowA.children[index].textContent.slice(1).replace(',', '');
+      const numB = rowB.children[index].textContent.slice(1).replace(',', '');
 
       return numA - numB;
     } else {
@@ -22,5 +23,5 @@ title.addEventListener('click', (e) => {
     }
   });
 
-  body.append(...sorted);
+  body.append(...sortedColumn);
 });
