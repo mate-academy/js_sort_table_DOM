@@ -1,31 +1,5 @@
 'use strict';
 
-// document.addEventListener('DOMContentLoaded', function() {
-//   const table = document.querySelector('table');
-//   const headers = table.querySelectorAll('th');
-
-//   headers.forEach(function(header) {
-//     header.addEventListener('click', function() {
-//       const column = this.cellIndex;
-//       const rows = Array.from(table.querySelectorAll('tbody tr'));
-
-//       rows.sort(function(rowA, rowB) {
-//         const cellA = rowA.cells[column].textContent.trim();
-//         const cellB = rowB.cells[column].textContent.trim();
-
-//         if (cellA < cellB) {
-//           return -1;
-//         } else if (cellA > cellB) {
-//           return 1;
-//         } else {
-//           return 0;
-//         }
-//       });
-
-//       table.querySelector('tbody').append(...rows);
-//     });
-//   });
-// });
 document.addEventListener('DOMContentLoaded', function() {
   const table = document.querySelector('table');
   const headers = table.querySelectorAll('th');
