@@ -11,7 +11,7 @@ headers.forEach((header, columnIndex) => {
       const aValue = a.cells[columnIndex].textContent.trim();
       const bValue = b.cells[columnIndex].textContent.trim();
 
-      if (sortingOrder[columnIndex] === 0) {
+      if (!sortingOrder[columnIndex]) {
         return aValue.localeCompare(bValue, undefined, { numeric: true });
       } else {
         return bValue.localeCompare(aValue, undefined, { numeric: true });
