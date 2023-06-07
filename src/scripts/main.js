@@ -7,8 +7,8 @@ function convNumber(text) {
   return Number(text.replace(/[^0-9.-]+/g, ''));
 }
 
-thead.addEventListener('click', (e) => {
-  const item = e.target;
+thead.addEventListener('click', (elem) => {
+  const item = elem.target;
 
   switch (item.cellIndex) {
     case 0:
