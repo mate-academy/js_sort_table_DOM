@@ -2,21 +2,17 @@
 
 const table = document.querySelector('table');
 const thead = document.querySelector('thead');
-const tfoot = document.querySelector('tfoot');
 const theadThs = thead.querySelectorAll('th');
-const tfootThs = tfoot.querySelectorAll('th');
 
 function convNumber(text) {
   return Number(text.replace(/[^0-9.-]+/g, ''));
 }
 
-table.addEventListener('click', (e) => {
+thead.addEventListener('click', (e) => {
   const item = e.target;
 
-  for (const th of tfootThs) {
-    if (item === th) {
-      return;
-    }
+  switch (item.cellIndex) {
+
   }
 
   if (item === theadThs[0]) {
