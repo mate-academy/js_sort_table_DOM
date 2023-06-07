@@ -3,13 +3,23 @@
 const table = document.querySelector('table');
 const thead = document.querySelector('thead');
 
-function convNumber(text) {
+/*function convNumber(text) {
   return Number(text.replace(/[^0-9.-]+/g, ''));
-}
+}*/
 
 thead.addEventListener('click', (elem) => {
   const item = elem.target;
+  const sortedRows = Array.from(table.rows)
+    .slice(1, -1).sort((a, b) => {
+      switch (item.cellIndex) {
+        case 0:
+        case 1:
+          return a.cells[item.cellIndex] > b.cells[item.cellIndex] ? 1 : -1;
+      }
+    });
 
+  table.tBodies[0].append(...sortedRows);
+/*
   switch (item.cellIndex) {
     case 0:
     case 1:
@@ -38,5 +48,5 @@ thead.addEventListener('click', (elem) => {
         - convNumber(rowB.cells[item.cellIndex].innerHTML));
 
       table.tBodies[0].append(...sortedRows3);
-  }
+  } */
 });
