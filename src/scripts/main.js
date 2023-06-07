@@ -23,10 +23,8 @@ function sortTable(columnIndex) {
     return valueA.localeCompare(valueB, undefined, { numeric: true });
   });
 
-  // Очищаем tbody от существующих строк
   tbody.innerHTML = '';
 
-  // Добавляем отсортированные строки в tbody
   rows.forEach(row => {
     tbody.appendChild(row);
   });
