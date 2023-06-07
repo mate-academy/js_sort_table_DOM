@@ -4,6 +4,9 @@ const thead = document.querySelector('thead');
 const tbody = document.querySelector('tbody');
 const rows = [...tbody.rows];
 
+const ageNumberCell = 2;
+const salaryNumberCell = 3;
+
 thead.addEventListener('click', (e) => {
   if (e.target.tagName !== 'TH') {
     return;
@@ -12,14 +15,10 @@ thead.addEventListener('click', (e) => {
   const targetIndex = e.target.closest('th').cellIndex;
 
   const result = rows.sort((a, b) => {
-    const firstCell = a
-      .querySelectorAll('td')[targetIndex]
-      .innerText.replace(/[$,]/g, '');
-    const secondCell = b
-      .querySelectorAll('td')[targetIndex]
-      .innerText.replace(/[$,]/g, '');
+    const firstCell = getProcessedCellValue(a, targetIndex);
+    const secondCell = getProcessedCellValue(b, targetIndex);
 
-    if (targetIndex === 2 || targetIndex === 3) {
+    if (targetIndex === ageNumberCell || targetIndex === salaryNumberCell) {
       return firstCell - secondCell;
     }
 
@@ -28,3 +27,9 @@ thead.addEventListener('click', (e) => {
 
   tbody.prepend(...result);
 });
+
+function getProcessedCellValue(row, targetIndex) {
+  const cell = row.querySelectorAll('td')[targetIndex];
+
+  return cell.innerText.replace(/[$,]/g, '');
+}
