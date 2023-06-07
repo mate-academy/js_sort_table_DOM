@@ -3,9 +3,9 @@
 const table = document.querySelector('table');
 const thead = document.querySelector('thead');
 
-/*function convNumber(text) {
+/* function convNumber(text) {
   return Number(text.replace(/[^0-9.-]+/g, ''));
-}*/
+} */
 
 thead.addEventListener('click', (elem) => {
   const item = elem.target;
