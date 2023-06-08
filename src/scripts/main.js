@@ -17,11 +17,11 @@ thead.addEventListener('click', (elem) => {
           return a.cells[item.cellIndex].innerHTML
           > b.cells[item.cellIndex].innerHTML ? 1 : -1;
         case 2:
-          return Number(a.cells[item.cellIndex].innerHTML)
-          - Number(b.cells[item.cellIndex].innerHTML);
         case 3:
           return convNumber(a.cells[item.cellIndex].innerHTML)
           - convNumber(b.cells[item.cellIndex].innerHTML);
+        default:
+          return 0;
       }
     });
 
