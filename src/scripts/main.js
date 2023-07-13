@@ -1,6 +1,5 @@
 'use strict';
 
-// write code here
 const tableThead = document.querySelector('thead');
 const tableTbody = document.querySelector('tbody');
 
@@ -16,19 +15,12 @@ const sortTable = (index) => {
       return (
         +columnAText.replace(/[$,]/g, '') - +columnBText.replace(/[$,]/g, '')
       );
-    } else {
-      return columnAText.localeCompare(columnBText);
     }
+
+    return columnAText.localeCompare(columnBText);
   });
 
   sortedRows.forEach((row) => tableTbody.appendChild(row));
 };
 
-tableThead.addEventListener('click', (e) => {
-  const theadChildren = e.target.closest('tr').children;
-  const columnIndex = [...theadChildren].findIndex(
-    (th) => th.innerText === e.target.innerText
-  );
-
-  sortTable(columnIndex);
-});
+tableThead.addEventListener('click', (e) => sortTable(e.target.cellIndex));
