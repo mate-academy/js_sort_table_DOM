@@ -1,50 +1,25 @@
 'use strict';
 
-const mainRow = document.querySelector('tr');
-const cells = mainRow.querySelectorAll('th');
-const tableBody = document.querySelector('tbody');
-const tableRow = tableBody.querySelectorAll('tr');
-const rowArray = Array.from(tableRow);
+const thead = document.querySelector('thead');
+const tbody = document.querySelector('tbody');
+const rows = [...tbody.querySelectorAll('tr')];
 
-cells.forEach(cell => {
-  cell.addEventListener('click', function() {
-    if (cell.textContent === 'Name') {
-      rowArray.sort((a, b) => {
-        const firstElement = a.children[0].textContent;
-        const secondElement = b.children[0].textContent;
+thead.addEventListener('click', e => {
+  const columnIndex = e.target.cellIndex;
 
-        return firstElement.localeCompare(secondElement);
-      });
+  rows.sort((a, b) => {
+    const current = a.cells[columnIndex].innerHTML;
+    const next = b.cells[columnIndex].innerHTML;
 
-      rowArray.forEach(x => tableBody.appendChild(x));
-    } else if (cell.textContent === 'Position') {
-      rowArray.sort((a, b) => {
-        const firstElement = a.children[1].textContent;
-        const secondElement = b.children[1].textContent;
-
-        return firstElement.localeCompare(secondElement);
-      });
-
-      rowArray.forEach(x => tableBody.appendChild(x));
-    } else if (cell.textContent === 'Age') {
-      rowArray.sort((a, b) => {
-        const firstElement = Number(a.children[2].textContent);
-        const secondElement = Number(b.children[2].textContent);
-
-        return firstElement - secondElement;
-      });
-
-      rowArray.forEach(x => tableBody.appendChild(x));
-    } else if (cell.textContent === 'Salary') {
-      rowArray.sort((a, b) => {
-        const firstElement = salaryToNumber(a.children[3].textContent);
-        const secondElement = salaryToNumber(b.children[3].textContent);
-
-        return firstElement - secondElement;
-      });
-      rowArray.forEach(x => tableBody.appendChild(x));
+    if (e.target.cellIndex === 0 || e.target.cellIndex === 1) {
+      return current.localeCompare(next);
+    } else if (e.target.cellIndex === 2) {
+      return Number(current) - Number(next);
+    } else if (e.target.cellIndex === 3) {
+      return salaryToNumber(current) - salaryToNumber(next);
     }
   });
+  rows.forEach(x => tbody.appendChild(x));
 });
 
 function salaryToNumber(string) {
