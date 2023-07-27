@@ -13,9 +13,13 @@ thead.addEventListener('click', e => {
 
     if (e.target.cellIndex === 0 || e.target.cellIndex === 1) {
       return current.localeCompare(next);
-    } else if (e.target.cellIndex === 2) {
+    }
+
+    if (e.target.cellIndex === 2) {
       return Number(current) - Number(next);
-    } else if (e.target.cellIndex === 3) {
+    }
+
+    if (e.target.cellIndex === 3) {
       return salaryToNumber(current) - salaryToNumber(next);
     }
   });
