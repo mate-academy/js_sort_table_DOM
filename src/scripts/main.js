@@ -15,9 +15,15 @@ thead.addEventListener('click', (ev) => {
 
   tBodyRows.sort((a, b) => {
     const aIn = a.cells[sortByIndex].innerText;
-    const bIn = b.cells[sortByIndex].innerText;
+    const bIn = b.cells[sortByIndex].innerText;  
+    const numA = usdNum(aIn);
+    const numB = usdNum(bIn);
 
-    return usdNum(aIn) - usdNum(bIn) || aIn.localeCompare(bIn);
+    if (numA !== numB) {
+      return numA - numB;
+    } else {
+      return aIn.localeCompare(bIn);
+    }
   });
 
   tbody.append(...tBodyRows);
