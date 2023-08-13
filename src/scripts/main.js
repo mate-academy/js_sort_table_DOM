@@ -1,5 +1,8 @@
 'use strict';
 
+const getSalary = salaryElement =>
+  parseInt(salaryElement.innerText.slice(1).replace(',', ''));
+
 const thead = document.querySelector('thead').children[0];
 
 thead.addEventListener('click', e => {
@@ -12,26 +15,33 @@ thead.addEventListener('click', e => {
   const sortType = target.innerText;
   const data = Array.from(document.querySelectorAll('tbody tr'));
 
+  const CASES = {
+    name: 'Name',
+    position: 'Position',
+    age: 'Age',
+    salary: 'Salary',
+  };
+
   data.sort((a, b) => {
     switch (sortType) {
-      case 'Name':
-        return a.children[0].innerText.localeCompare(b.children[0].innerText);
-      case 'Position':
-        return a.children[1].innerText.localeCompare(b.children[1].innerText);
-      case 'Age':
-        return parseInt(a.children[2].innerText) - parseInt(
-          b.children[2].innerText
-        );
-      case 'Salary':
-        const aSalary = parseInt(
-          a.children[3].innerText.slice(1).replace(',', '')
+      case CASES.name:
+      case CASES.position:
+        const idxCases = {
+          [CASES.name]: 0,
+          [CASES.position]: 1,
+        };
+        const idx = idxCases[sortType];
+
+        return a.children[idx].innerText.localeCompare(
+          b.children[idx].innerText
         );
 
-        const bSalary = parseInt(
-          b.children[3].innerText.slice(1).replace(',', '')
-        );
+      case CASES.age:
+        return a.children[2].innerText - b.children[2].innerText;
 
-        return aSalary - bSalary;
+      case CASES.salary:
+        return getSalary(a.children[3]) - getSalary(b.children[3]);
+
       default:
         return 0;
     }
