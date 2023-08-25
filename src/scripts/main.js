@@ -9,32 +9,23 @@ function toNumbers(string) {
   return +string.replace(/[$,]/g, '');
 }
 
-function sortBy(filter) {
+function sortBy(filter, index) {
   switch (filter) {
     case 'Name':
-      rows.sort(
-        (a, b) => a.children[0].innerHTML.localeCompare(b.children[0].innerHTML)
-      );
-      break;
     case 'Position':
       rows.sort(
-        (a, b) => a.children[1].innerHTML.localeCompare(b.children[1].innerHTML)
+        (a, b) => a.children[index].innerHTML
+          .localeCompare(b.children[index].innerHTML)
       );
       break;
     case 'Age':
-      rows.sort((a, b) => +a.children[2].innerHTML - +b.children[2].innerHTML);
-      break;
     case 'Salary':
       rows.sort(
-        (a, b) => toNumbers(a.children[3].innerHTML)
-          - toNumbers(b.children[3].innerHTML)
+        (a, b) => toNumbers(a.children[index].innerHTML)
+          - toNumbers(b.children[index].innerHTML)
       );
       break;
   }
-
-  rows.forEach(row => {
-    tableBody.append(row);
-  });
 }
 
 tableHead.addEventListener('click', e => {
@@ -42,5 +33,9 @@ tableHead.addEventListener('click', e => {
     return;
   }
 
-  sortBy(e.target.innerHTML);
+  sortBy(e.target.innerHTML, e.target.cellIndex);
+
+  rows.forEach(row => {
+    tableBody.append(row);
+  });
 });
