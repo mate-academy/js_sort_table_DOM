@@ -40,5 +40,9 @@ function sortBy(filter) {
 }
 
 tableHead.addEventListener('click', e => {
+  if (e.target.tagName !== 'TH') {
+    return;
+  }
+
   sortBy(e.target.innerHTML);
 });
