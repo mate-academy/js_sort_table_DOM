@@ -18,6 +18,8 @@ tableHeadRow.addEventListener('click', (e) => {
   const cases = {
     name: 'Name',
     position: 'Position',
+    age: 'Age',
+    salary: 'Salary',
   };
 
   switch (title) {
@@ -32,18 +34,19 @@ tableHeadRow.addEventListener('click', (e) => {
       });
       break;
 
-    case 'Age':
+    case cases.age:
       rows.sort((row1, row2) => (
         +row1.children[2].textContent - +row2.children[2].textContent
       ));
       break;
 
-    case 'Salary':
+    case cases.salary:
       rows.sort((row1, row2) => getNumber(row1) - getNumber(row2));
       break;
 
     default:
       break;
   }
+
   rows.forEach(row => tableBody.append(row));
 });
