@@ -23,11 +23,13 @@ tableHeadRow.addEventListener('click', (e) => {
   switch (title) {
     case cases.name:
     case cases.position:
-      rows.sort((row1, row2) => (
-        row1.children[title === cases.name ? 0 : 1].textContent.localeCompare(
-          row2.firstElementChild.textContent
-        )
-      ));
+      rows.sort((row1, row2) => {
+        const columnNumber = title === cases.name ? 0 : 1;
+
+        return row1.children[columnNumber].textContent.localeCompare(
+          row2.children[columnNumber].textContent
+        );
+      });
       break;
 
     case 'Age':
