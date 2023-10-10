@@ -11,12 +11,10 @@ function sort(item) {
     const textRowA = rowA.children[itemIndex].innerText;
     const textRowB = rowB.children[itemIndex].innerText;
 
-    if (textRowA[0] === '$' || !isNaN(+textRowA)) {
-      return parseInt(textRowA.replace(/\D/g, ''))
-      - parseInt(textRowB.replace(/\D/g, ''));
-    }
+    const numberRowA = parseFloat(textRowA.replace(/[^0-9.-]+/g, ''));
+    const numberRowB = parseFloat(textRowB.replace(/[^0-9.-]+/g, ''));
 
-    return textRowA.localeCompare(textRowB);
+    return numberRowA - numberRowB;
   });
 
   table.append(...sortedTable);
