@@ -1,13 +1,19 @@
 'use strict';
 
-document.addEventListener('click', e => {
+const SORT_BY_NAME = 'Name';
+const SORT_BY_POSITION = 'Position';
+const SORT_BY_AGE = 'Age';
+const SORT_BY_SALARY = 'Salary';
+
+document.querySelector('table').addEventListener('click', e => {
   if (e.target.nodeName !== 'TH') {
     return;
   };
 
-  const theadElements = [...document
-    .querySelector('thead').firstElementChild.children];
-    
+  const theadElements = [
+    ...document.querySelector('thead').firstElementChild.children
+  ];
+
   const tbody = document.querySelector('tbody');
   const tbodyElements = [...tbody.children];
   const value = e.target.textContent;
@@ -34,15 +40,15 @@ function sortBy(tbEl, thEl, value) {
 
     tbEl.sort((a, b) => {
       switch (value) {
-        case 'Name':
-        case 'Position':
+        case SORT_BY_NAME:
+        case SORT_BY_POSITION:
           return a.children[i].textContent
             .localeCompare(b.children[i].textContent);
 
-        case 'Age':
+        case SORT_BY_AGE:
           return +a.children[i].textContent - +b.children[i].textContent;
 
-        case 'Salary':
+        case SORT_BY_SALARY:
           return salaryToNumber(a.children[i].textContent)
             - salaryToNumber(b.children[i].textContent);
       }
