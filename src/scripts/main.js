@@ -1,5 +1,12 @@
 'use strict';
 
+const HEADERS = {
+  name: 'Name',
+  position: 'Position',
+  age: 'Age',
+  salary: 'Salary',
+};
+
 const tbody = document.querySelector('tbody');
 const list = document.querySelector('tbody').children;
 const head = document.querySelector('thead').children[0];
@@ -14,14 +21,14 @@ function sort(header) {
     const rowB = b.children[index].innerText;
 
     switch (header.target.innerText) {
-      case 'Name':
-      case 'Position':
+      case HEADERS.name:
+      case HEADERS.position:
         return rowA.localeCompare(rowB);
 
-      case 'Age':
+      case HEADERS.age:
         return +rowA - +rowB;
 
-      case 'Salary':
+      case HEADERS.salary:
         return toNum(rowA) - toNum(rowB);
 
       default:
