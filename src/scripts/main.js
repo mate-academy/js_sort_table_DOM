@@ -7,6 +7,7 @@ for (const header of headers) {
   header.addEventListener('click', (e) => {
     const rowsArr = Array.from(body.children);
 
+    // for salary colum sorting
     if (rowsArr[0].cells[e.target.cellIndex].textContent[0] === '$') {
       rowsArr.sort((el, el2) =>
         parseFloat(el.cells[e.target.cellIndex]
