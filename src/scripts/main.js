@@ -3,6 +3,7 @@
 document.addEventListener('DOMContentLoaded', function() {
   const table = document.querySelector('table');
   const headers = table.querySelectorAll('thead th');
+  const sortOrders = {};
 
   headers.forEach(function(header, index) {
     header.addEventListener('click', function() {
@@ -13,6 +14,7 @@ document.addEventListener('DOMContentLoaded', function() {
   function sortTable(columnIndex) {
     const rows = Array.from(table.querySelectorAll('tbody tr'));
     const clickedHeader = headers[columnIndex];
+    const sortOrder = sortOrders[columnIndex] || 'asc';
 
     rows.sort(function(rowA, rowB) {
       let cellA = rowA.querySelectorAll('td')[columnIndex].textContent.trim();
@@ -23,7 +25,10 @@ document.addEventListener('DOMContentLoaded', function() {
         cellB = parseFloat(cellB.replace(/\$/g, '').replace(/,/g, ''));
       }
 
-      return columnIndex === 3 ? cellA - cellB : cellA.localeCompare(cellB);
+      const comparison
+        = columnIndex === 3 ? cellA - cellB : cellA.localeCompare(cellB);
+
+      return sortOrder === 'asc' ? comparison : -comparison;
     });
 
     rows.forEach(function(row) {
@@ -33,5 +38,7 @@ document.addEventListener('DOMContentLoaded', function() {
     rows.forEach(function(row) {
       table.querySelector('tbody').appendChild(row);
     });
+
+    sortOrders[columnIndex] = sortOrder === 'asc' ? 'desc' : 'asc';
   }
 });
