@@ -42,16 +42,11 @@ function sortArray(array, markerName) {
 }
 
 function sortingSelective(type) {
-  switch (true) {
-    case (type === 'Name' || type === 'Position'):
-      return function(a, b) {
-        return a[type.toLowerCase()].localeCompare(b[type.toLowerCase()]);
-      };
-
-    case (type === 'Age'):
+  switch (type) {
+    case ('Age'):
       return (a, b) => a.age - b.age;
 
-    case (type === 'Salary'):
+    case ('Salary'):
       return function(a, b) {
         const formated = (rare) => rare.slice(1).replace(',', '');
 
@@ -59,6 +54,8 @@ function sortingSelective(type) {
       };
 
     default:
-      break;
+      return function(a, b) {
+        return a[type.toLowerCase()].localeCompare(b[type.toLowerCase()]);
+      };
   }
 }
