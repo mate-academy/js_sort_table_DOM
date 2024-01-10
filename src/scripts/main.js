@@ -22,7 +22,7 @@ const initiPeople = () => {
 
     for (const key of Object.keys(person)) {
       if (key === 'salary') {
-        person[key] = values[i].replace(';', '').slice(1).replaceAll(',', '');
+        person[key] = values[i].slice(1).replaceAll(',', '');
 
         continue;
       }
