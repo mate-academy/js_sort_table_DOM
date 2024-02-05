@@ -2,6 +2,8 @@
 
 const table = document.querySelector('table');
 const tableContent = document.querySelector('tbody');
+let lastSortedIndex = null;
+let isAscending = true;
 
 table.addEventListener('click', function(e) {
   const header = e.target.closest('th');
@@ -11,6 +13,13 @@ table.addEventListener('click', function(e) {
   }
 
   const cellIndex = header.cellIndex;
+
+  if (cellIndex === lastSortedIndex) {
+    isAscending = !isAscending;
+  } else {
+    isAscending = true;
+    lastSortedIndex = cellIndex;
+  }
 
   const sortedRows = sortRows(tableContent.children, cellIndex);
 
@@ -27,10 +36,18 @@ function sortRows([...rows], index) {
     if (bySalary) {
       const normalize = (data) => data.slice(1).replace(',', '');
 
-      return normalize(dataA) - normalize(dataB);
+      if (isAscending) {
+        return normalize(dataA) - normalize(dataB);
+      } else {
+        return normalize(dataB) - normalize(dataA);
+      }
     }
 
-    return dataA.localeCompare(dataB);
+    if (isAscending) {
+      return dataA.localeCompare(dataB);
+    } else {
+      return dataB.localeCompare(dataA);
+    }
   });
 
   return rows;
