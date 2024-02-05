@@ -27,13 +27,13 @@ table.addEventListener('click', function(e) {
 });
 
 function sortRows([...rows], index) {
-  const bySalary = index === 3;
+  const isSortingBySalary = index === 3;
 
   rows.sort((a, b) => {
     const dataA = a.cells[index].innerText;
     const dataB = b.cells[index].innerText;
 
-    if (bySalary) {
+    if (isSortingBySalary) {
       const normalize = (data) => data.slice(1).replace(',', '');
 
       if (isAscending) {
