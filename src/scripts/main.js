@@ -11,39 +11,41 @@ function convertToNumber(str) {
 };
 
 table.addEventListener('click', (e) => {
-  const rowsArr = [...rows];
-  const sortBy = e.target.textContent;
+  if (e.target.tagName === 'TH') {
+    const rowsArr = [...rows];
 
-  switch (sortBy) {
-    case 'Name':
-      rowsArr.sort((a, b) =>
-        a.cells[0].textContent.localeCompare(b.cells[0].textContent));
-      break;
+    const sortBy = e.target.textContent;
 
-    case 'Position':
-      rowsArr.sort((a, b) =>
-        a.cells[1].textContent.localeCompare(b.cells[1].textContent));
-      break;
+    switch (sortBy) {
+      case 'Name':
+        rowsArr.sort((a, b) =>
+          a.cells[0].textContent.localeCompare(b.cells[0].textContent));
+        break;
 
-    case 'Age':
-      rowsArr.sort((a, b) =>
-        +a.cells[2].textContent - +b.cells[2].textContent);
-      break;
+      case 'Position':
+        rowsArr.sort((a, b) =>
+          a.cells[1].textContent.localeCompare(b.cells[1].textContent));
+        break;
 
-    case 'Salary':
-      rowsArr.sort((a, b) => {
-        const numA = convertToNumber(a.cells[3].textContent);
-        const numB = convertToNumber(b.cells[3].textContent);
+      case 'Age':
+        rowsArr.sort((a, b) =>
+          +a.cells[2].textContent - +b.cells[2].textContent);
+        break;
 
-        return numA - numB;
-      });
+      case 'Salary':
+        rowsArr.sort((a, b) => {
+          const numA = convertToNumber(a.cells[3].textContent);
+          const numB = convertToNumber(b.cells[3].textContent);
 
-      break;
+          return numA - numB;
+        });
+        break;
 
-    default:
-      break;
+      default:
+        break;
+    }
+
+    body.innerHTML = '';
+    rowsArr.forEach(row => body.append(row));
   }
-
-  body.innerHTML = '';
-  rowsArr.forEach(row => body.append(row));
 });
