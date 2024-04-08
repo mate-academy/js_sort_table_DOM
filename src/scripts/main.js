@@ -1,11 +1,20 @@
 'use strict';
 
-function addCommasEveryThreeChars(text) {
-  if (text.length <= 3) {
-    return text;
-  }
-
-  return addCommasEveryThreeChars(text.slice(0, -3)) + ',' + text.slice(-3);
+function salaryToText(text) {
+  return (
+    '$' +
+    text
+      .toString()
+      .split('')
+      .reduce(
+        (modifiedText, char, index) =>
+          modifiedText +
+          char +
+          ((text.toString().length - index - 1) % 3 === 0 ? ',' : ''),
+        '',
+      )
+      .slice(0, -1)
+  );
 }
 
 function refreshTable() {
@@ -21,7 +30,7 @@ function refreshTable() {
     cells[0].textContent = personName;
     cells[1].textContent = position;
     cells[2].textContent = age;
-    cells[3].textContent = '$' + addCommasEveryThreeChars(salary.toString());
+    cells[3].textContent = salaryToText(salary);
 
     cells.forEach((cell) => {
       row.append(cell);
@@ -41,22 +50,26 @@ function sortTable(tableEvent) {
       comparator = (firstPerson, secondPerson) => {
         if (firstPerson.name > secondPerson.name) {
           return 1;
-        } else if (firstPerson.name < secondPerson.name) {
-          return -1;
-        } else {
-          return 0;
         }
+
+        if (firstPerson.name < secondPerson.name) {
+          return -1;
+        }
+
+        return 0;
       };
       break;
     case 'Position':
       comparator = (firstPerson, secondPerson) => {
         if (firstPerson.position > secondPerson.position) {
           return 1;
-        } else if (firstPerson.position < secondPerson.position) {
-          return -1;
-        } else {
-          return 0;
         }
+
+        if (firstPerson.position < secondPerson.position) {
+          return -1;
+        }
+
+        return 0;
       };
       break;
     case 'Age':
