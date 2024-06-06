@@ -18,9 +18,9 @@ document.querySelector('tr').addEventListener('click', (e) => {
       case 'Position':
         return localeCompare(a, b, 1);
       case 'Age':
-        return +a.children[2].textContent - +b.children[2].textContent;
+        return +b.children[2].textContent - +a.children[2].textContent;
       default:
-        return getSalary(a) - getSalary(b);
+        return getSalary(b) - getSalary(a);
     }
   });
 
