@@ -18,5 +18,5 @@ const sortTable = (columnIndex) => {
 };
 
 theadCells.forEach((cell, index) => {
-  cell.onclick = () => sortTable(index);
+  cell.addEventListener('click', () => sortTable(index));
 });
