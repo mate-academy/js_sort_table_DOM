@@ -8,7 +8,7 @@ const tbodyRows = [...tbody.rows];
 const sortTable = (columnIndex) => {
   tbodyRows
     .sort((a, b) => {
-      a.cells[columnIndex].textContent
+      return a.cells[columnIndex].textContent
         .trim()
         .localeCompare(b.cells[columnIndex].textContent.trim(), 'en', {
           numeric: true,
