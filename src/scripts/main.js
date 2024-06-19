@@ -2,21 +2,26 @@
 
 const headers = [...document.querySelectorAll('table thead th')];
 const tbody = document.querySelector('tbody');
-let isAscending = true;
+
+const sortOrder = {};
 
 headers.forEach((item, index) => {
+  sortOrder[index] = true;
+
   item.addEventListener('click', () => {
-    sortColomn(index);
-    isAscending = !isAscending;
+    const isAscending = sortOrder[index];
+
+    sortColomn(index, isAscending);
+    sortOrder[index] = !sortOrder[index];
   });
 });
 
-const sortColomn = (indexOfColomn) => {
+const sortColomn = (indexOfColumn, isAscending) => {
   const rows = [...tbody.querySelectorAll('tr')];
 
   rows.sort((a, b) => {
-    const cellA = a.children[indexOfColomn].textContent.trim();
-    const cellB = b.children[indexOfColomn].textContent.trim();
+    const cellA = a.children[indexOfColumn].textContent.trim();
+    const cellB = b.children[indexOfColumn].textContent.trim();
 
     const valueA = parseFloat(cellA.replace(/[$,]/g, '')) || cellA;
     const valueB = parseFloat(cellB.replace(/[$,]/g, '')) || cellB;
