@@ -2,12 +2,14 @@
 
 const tableHeaders = document.querySelectorAll('thead tr th');
 const tableBody = document.querySelector('tbody');
-let isAscending = true;
+
+const sortDirections = Array.from(tableHeaders).map(() => true);
 
 tableHeaders.forEach((header, index) => {
   header.addEventListener('click', () => {
-    sortField(index, isAscending);
-    isAscending = !isAscending;
+    sortField(index, sortDirections[index]);
+
+    sortDirections[index] = !sortDirections[index];
   });
 });
 
@@ -15,12 +17,12 @@ const sortField = (indexOfColumn, ascending) => {
   const rows = Array.from(tableBody.querySelectorAll('tr'));
 
   rows.sort((a, b) => {
-    const aContent = a.children[indexOfColumn].textContent;
-    const bContent = b.children[indexOfColumn].textContent;
+    const aContent = a.children[indexOfColumn].textContent.trim();
+    const bContent = b.children[indexOfColumn].textContent.trim();
 
     let result = 0;
 
-    if (!isNaN(aContent)) {
+    if (!isNaN(aContent) && !isNaN(bContent)) {
       result = parseFloat(aContent) - parseFloat(bContent);
     } else if (indexOfColumn === 3) {
       const salaryA = parseFloat(aContent.replace(/[$,]/g, ''));
@@ -31,7 +33,7 @@ const sortField = (indexOfColumn, ascending) => {
       result = aContent.localeCompare(bContent);
     }
 
-    return ascending ? result : -result;
+    return result;
   });
 
   rows.forEach((row) => {
