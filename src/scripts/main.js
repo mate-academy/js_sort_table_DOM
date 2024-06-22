@@ -1,38 +1,42 @@
 'use strict';
 
-const tableHeader = document.querySelector('tr');
+const tableHeader = document.querySelector('thead');
+const tableHeaderCells = tableHeader.querySelector('tr');
 const tableBody = document.querySelector('tbody');
 const toNumber = (string) => {
-  if (typeof string === 'string') {
+  if (typeof string === 'string' && string.length !== 0) {
     const clearNum = string.replace(/[$, ]/g, '');
 
-    return parseInt(clearNum);
+    return parseInt(clearNum, 10);
   }
 };
 
-tableHeader.addEventListener('click', (e) => {
-  const headerChildren = [...tableHeader.children];
+tableHeaderCells.addEventListener('click', (e) => {
+  const headerChildren = [...tableHeaderCells.children];
   const columnName = e.target.closest('th');
-  const sortedColumn = headerChildren.indexOf(columnName);
-  const columnsToSort = [...tableBody.children];
 
-  const columnsSorted = columnsToSort.sort((a, b) => {
-    const elemA = a.children[sortedColumn].innerHTML;
-    const elemb = b.children[sortedColumn].innerHTML;
+  if (columnName !== null) {
+    const sortedColumn = headerChildren.indexOf(columnName);
+    const columnsToSort = [...tableBody.children];
 
-    const aToNum = toNumber(elemA);
-    const bToNum = toNumber(elemb);
+    const columnsSorted = columnsToSort.sort((a, b) => {
+      const elemA = a.children[sortedColumn].innerHTML;
+      const elemB = b.children[sortedColumn].innerHTML;
 
-    if (isNaN(aToNum)) {
-      return elemA.localeCompare(elemb);
-    }
+      const aToNum = toNumber(elemA);
+      const bToNum = toNumber(elemB);
 
-    return aToNum - bToNum;
-  });
+      if (Number.isNaN(aToNum)) {
+        return elemA.localeCompare(elemB);
+      }
 
-  tableBody.innerHTML = '';
+      return aToNum - bToNum;
+    });
 
-  columnsSorted.forEach((el) => {
-    tableBody.appendChild(el);
-  });
+    tableBody.innerHTML = '';
+
+    columnsSorted.forEach((el) => {
+      tableBody.appendChild(el);
+    });
+  }
 });
