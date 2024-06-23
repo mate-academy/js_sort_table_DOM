@@ -24,8 +24,6 @@ titlesList.forEach((title, index) => {
       default:
         break;
     }
-
-    // tbody.innerHTML = '';
     rows.forEach((row) => tbody.append(row));
   });
 });
