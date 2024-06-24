@@ -22,16 +22,15 @@ const sortTable = (rows, column, isNumber = false) => {
   });
 };
 
-thList.forEach((trElement, index) => {
+thList.forEach((trElement) => {
   trElement.addEventListener('click', (ev) => {
+    const columnIndex = ev.target.cellIndex;
     let sortedRows;
 
-    if (index === 2) {
-      sortedRows = sortTable(trList, index, true);
-    } else if (index === 3) {
-      sortedRows = sortTable(trList, index, true);
+    if (columnIndex === 2 || columnIndex === 3) {
+      sortedRows = sortTable(trList, columnIndex, true);
     } else {
-      sortedRows = sortTable(trList, index);
+      sortedRows = sortTable(trList, columnIndex);
     }
 
     tbodyElem.innerHTML = '';
