@@ -12,12 +12,14 @@ function sortBy(sortField, array) {
 
   switch (sortField) {
     case 'Name':
-      return copyArr.sort((a1, a2) =>
-        a1[0].textContent.localeCompare(a2[0].textContent));
+      return copyArr.sort((a1, a2) => {
+        return a1[0].textContent.localeCompare(a2[0].textContent);
+      });
 
     case 'Position':
-      return copyArr.sort((a1, a2) =>
-        a1[1].textContent.localeCompare(a2[1].textContent));
+      return copyArr.sort((a1, a2) => {
+        return a1[1].textContent.localeCompare(a2[1].textContent);
+      });
 
     case 'Age':
       return copyArr.sort(
@@ -28,7 +30,8 @@ function sortBy(sortField, array) {
     case 'Salary':
       return copyArr.sort(
         (a1, a2) =>
-          parseInt(a1[3].textContent) - parseInt(a2[3].textContent),
+          parseInt(a1[3].textContent.slice(1)) -
+          parseInt(a2[3].textContent.slice(1)),
       );
 
     default:
