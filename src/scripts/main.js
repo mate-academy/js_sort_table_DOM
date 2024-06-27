@@ -6,10 +6,10 @@ const tBody = table.querySelector('tbody');
 const rows = Array.from(table.querySelectorAll('tbody tr'));
 
 headers.forEach((header, index) => {
-  header.addEventListener('click', function() {
+  header.addEventListener('click', function () {
     sortTable(index);
   });
-})
+});
 
 function sortTable(index) {
   rows.sort((a, b) => {
@@ -27,7 +27,7 @@ function sortTable(index) {
   });
 
   tBody.innerHTML = '';
-  rows.forEach(row => tBody.appendChild(row));
+  rows.forEach((row) => tBody.appendChild(row));
 }
 
 function numValue(str) {
@@ -39,6 +39,5 @@ function numValue(str) {
     }
   }
 
-  console.log(filteredStr);
   return parseFloat(filteredStr);
 }
