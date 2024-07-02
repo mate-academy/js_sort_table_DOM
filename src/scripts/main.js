@@ -2,16 +2,16 @@
 
 const table = document.querySelector('table');
 const tbody = table.querySelector('tbody');
-const thead = [...table.querySelectorAll('thead')];
-const rows = [...tbody.querySelectorAll('trows')];
+const thead = table.querySelector('thead');
+const rows = [...tbody.querySelectorAll('tr')];
 
 thead.addEventListener('click', (e) => {
-  const index = e.target.index;
   const title = e.target.closest('th').textContent.toLowerCase();
+  const cellIndex = e.target.cellIndex;
   const columns = [];
 
   tbody.querySelectorAll('tr').forEach((row) => {
-    const column = row.cells[index];
+    const column = row.cells[cellIndex];
 
     if (column) {
       columns.push(column.textContent);
@@ -19,8 +19,8 @@ thead.addEventListener('click', (e) => {
   });
 
   rows.sort((a, b) => {
-    const colA = a.cells[index].textContent;
-    const colB = b.cells[index].textContent;
+    const colA = a.cells[cellIndex].textContent;
+    const colB = b.cells[cellIndex].textContent;
 
     switch (title) {
       case 'name':
