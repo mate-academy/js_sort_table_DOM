@@ -3,12 +3,12 @@
 document.addEventListener('DOMContentLoaded', function () {
   const table = document.querySelector('table');
   const tbody = table.querySelector('tbody');
-  const headers = Array.from(table.querySelectorAll('th'));
-  const rows = Array.from(tbody.querySelectorAll('tr'));
 
-  headers.forEach((header, columnIndex) => {
-    header.addEventListener('click', () => {
-      const sortedRows = [...rows].sort((rowA, rowB) => {
+  table.addEventListener('click', (e) => {
+    if (e.target.tagName === 'TH') {
+      const headerCells = Array.from(e.target.parentNode.children);
+      const columnIndex = headerCells.indexOf(e.target);
+      const sortRows = [...tbody.querySelectorAll('tr')].sort((rowA, rowB) => {
         const cellA = rowA.cells[columnIndex].textContent.trim();
         const cellB = rowB.cells[columnIndex].textContent.trim();
 
@@ -26,7 +26,7 @@ document.addEventListener('DOMContentLoaded', function () {
         tbody.removeChild(tbody.firstChild);
       }
 
-      tbody.append(...sortedRows);
-    });
+      tbody.append(...sortRows);
+    }
   });
 });
