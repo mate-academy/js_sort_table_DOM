@@ -28,13 +28,6 @@ function mapData(rows, headers) {
     });
 
     return rowData;
-
-    // return {
-    //   Name: row.cells[0].textContent,
-    //   Position: row.cells[1].textContent,
-    //   Age: row.cells[2].textContent,
-    //   Salary: row.cells[3].textContent,
-    // };
   });
 }
 
