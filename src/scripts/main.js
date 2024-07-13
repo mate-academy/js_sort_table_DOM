@@ -6,12 +6,12 @@ table.addEventListener('click', (e) => {
   const bodies = document.querySelector('tbody');
   const bodyRows = [...bodies.rows];
 
-  const data = bodyRows.map((el) => {
+  const data = bodyRows.map((row) => {
     const newObject = {
-      name: el.cells[0].textContent,
-      position: el.cells[1].textContent,
-      age: el.cells[2].textContent,
-      salary: el.cells[3].textContent,
+      name: row.cells[0].textContent,
+      position: row.cells[1].textContent,
+      age: row.cells[2].textContent,
+      salary: row.cells[3].textContent,
     };
 
     return newObject;
@@ -23,58 +23,40 @@ table.addEventListener('click', (e) => {
 
   table.tHead.after(newBodies);
 
-  let sortedData = [];
-
-  switch (e.target.textContent) {
-    case 'Name': {
-      sortedData = [...data].sort((el1, el2) => {
-        return el1.name.toLowerCase().localeCompare(el2.name.toLowerCase());
-      });
-      break;
-    }
-
-    case 'Position': {
-      sortedData = [...data].sort((el1, el2) => {
-        return el1.position
+  const sortedData = [...data].sort((row1, row2) => {
+    switch (e.target.textContent) {
+      case 'Name':
+        return row1.name.toLowerCase().localeCompare(row2.name.toLowerCase());
+      case 'Position':
+        return row1.position
           .toLowerCase()
-          .localeCompare(el2.position.toLowerCase());
-      });
-      break;
+          .localeCompare(row2.position.toLowerCase());
+      case 'Age':
+        return +row1.age - +row2.age;
+      case 'Salary':
+        return (
+          +row1.salary.slice(1).split(',').join('') -
+          +row2.salary.slice(1).split(',').join('')
+        );
+      default:
+        return 0;
     }
+  });
 
-    case 'Age': {
-      sortedData = [...data].sort((el1, el2) => +el1.age - +el2.age);
-      break;
-    }
-
-    case 'Salary': {
-      sortedData = [...data].sort(
-        (el1, el2) =>
-          +el1.salary.slice(1).split(',').join('') -
-          +el2.salary.slice(1).split(',').join(''),
-      );
-      break;
-    }
-
-    default: {
-      sortedData = [...data];
-    }
-  }
-
-  const newElements = sortedData.map((el) => {
+  const newRows = sortedData.map((row) => {
     const trElement = document.createElement('tr');
 
-    for (const property in el) {
-      const thElement = document.createElement('td');
+    for (const property in row) {
+      const tdElement = document.createElement('td');
 
-      thElement.textContent = el[property];
-      trElement.append(thElement);
+      tdElement.textContent = row[property];
+      trElement.append(tdElement);
     }
 
     return trElement;
   });
 
-  newElements.forEach((corEl) => {
-    newBodies.append(corEl);
+  newRows.forEach((row) => {
+    newBodies.append(row);
   });
 });
