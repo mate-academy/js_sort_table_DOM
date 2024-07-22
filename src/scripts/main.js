@@ -17,10 +17,12 @@ header.addEventListener('click', (e) => {
 const compareRows = new Map();
 
 compareRows.set('name', (r1, r2) =>
-  r1.cells[0].textContent.trim().localeCompare(r2.cells[0].textContent.trim()));
+  r1.cells[0].textContent.trim().localeCompare(r2.cells[0].textContent.trim()),
+);
 
 compareRows.set('position', (r1, r2) =>
-  r1.cells[1].textContent.trim().localeCompare(r2.cells[1].textContent.trim()));
+  r1.cells[1].textContent.trim().localeCompare(r2.cells[1].textContent.trim()),
+);
 
 compareRows.set(
   'age',
