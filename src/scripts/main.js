@@ -10,28 +10,31 @@ header.addEventListener('click', (e) => {
   body.innerHTML = '';
 
   employees
-    .sort((r1, r2) => compareRows.get(columnName)(r1, r2))
+    .sort((r1, r2) => compareRows[columnName](r1, r2))
     .forEach((row) => body.appendChild(row));
 });
 
-const compareRows = new Map();
+class compareRows {
+  static name(r1, r2) {
+    return r1.cells[0].textContent
+      .trim()
+      .localeCompare(r2.cells[0].textContent.trim());
+  }
 
-compareRows.set('name', (r1, r2) =>
-  r1.cells[0].textContent.trim().localeCompare(r2.cells[0].textContent.trim()),
-);
+  static position(r1, r2) {
+    return r1.cells[1].textContent
+      .trim()
+      .localeCompare(r2.cells[1].textContent.trim());
+  }
 
-compareRows.set('position', (r1, r2) =>
-  r1.cells[1].textContent.trim().localeCompare(r2.cells[1].textContent.trim()),
-);
+  static age(r1, r2) {
+    return +r1.cells[2].textContent - +r2.cells[2].textContent;
+  }
 
-compareRows.set(
-  'age',
-  (r1, r2) => +r1.cells[2].textContent - +r2.cells[2].textContent,
-);
-
-compareRows.set(
-  'salary',
-  (r1, r2) =>
-    +r1.cells[3].textContent.replace('$', '').replace(',', '') -
-    +r2.cells[3].textContent.replace('$', '').replace(',', ''),
-);
+  static salary(r1, r2) {
+    return (
+      +r1.cells[3].textContent.replace('$', '').replace(',', '') -
+      +r2.cells[3].textContent.replace('$', '').replace(',', '')
+    );
+  }
+}
