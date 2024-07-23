@@ -23,10 +23,7 @@ const compareFunctions = new Map([
     'position',
     (r1, r2) => r1.cells[1].textContent.localeCompare(r2.cells[1].textContent),
   ],
-  [
-    'age',
-    (r1, r2) => r1.cells[2].textContent.localeCompare(r2.cells[2].textContent),
-  ],
+  ['age', (r1, r2) => +r1.cells[2].textContent - +r2.cells[2].textContent],
   [
     'salary',
     (r1, r2) =>
