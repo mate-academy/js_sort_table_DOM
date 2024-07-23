@@ -1,7 +1,6 @@
 'use strict';
 
 const tableHeader = document.querySelector('thead');
-const tableBody = document.querySelector('tbody');
 const allRawData = document.querySelectorAll('td');
 const readyData = [];
 
@@ -43,6 +42,7 @@ function sort(sortBy) {
   });
 
   let i = 0;
+
   for (const person of newData) {
     allRawData[i++].textContent = person.name;
     allRawData[i++].textContent = person.position;
