@@ -6,18 +6,18 @@ const tBody = table.querySelector('tbody');
 
 allTh.forEach((headerItem, index) => {
   headerItem.addEventListener('click', function () {
-    const rows = [...tBody.rows];
-    const sortedRows = rows.sort((a, b) => {
-      const aText = a.cells[index].textContent.trim();
-      const bText = b.cells[index].textContent.trim();
+    const allRows = [...tBody.rows];
+    const sortedRows = allRows.sort((a, b) => {
+      const aValueText = a.cells[index].textContent.trim();
+      const bValueText = b.cells[index].textContent.trim();
 
-      if (aText.includes('$')) {
-        const aValue = parseFloat(aText.replace(/[$,]/g, ''));
-        const bValue = parseFloat(bText.replace(/[$,]/g, ''));
+      if (aValueText.includes('$')) {
+        const aValueNumber = parseFloat(aValueText.replace(/[$,]/g, ''));
+        const bValueNumber = parseFloat(bValueText.replace(/[$,]/g, ''));
 
-        return aValue - bValue;
+        return aValueNumber - bValueNumber;
       } else {
-        return aText > bText ? 1 : aText < bText ? -1 : 0;
+        return aValueText > bValueText ? 1 : aValueText < bValueText ? -1 : 0;
       }
     });
 
