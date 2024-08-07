@@ -7,9 +7,9 @@ const sortedList = (i) => {
   const rows = Array.from(tbody.querySelectorAll('tr'));
 
   if (i < 2) {
-    rows.sort((a, b) =>
-      a.children[i].textContent.localeCompare(b.children[i].textContent)
-    );
+    rows.sort((a, b) => {
+      return a.children[i].textContent.localeCompare(b.children[i].textContent);
+    });
   } else {
     rows.sort(
       (a, b) =>
