@@ -8,7 +8,8 @@ const sortedList = (i) => {
 
   if (i < 2) {
     rows.sort((a, b) =>
-      a.children[i].textContent.localeCompare(b.children[i].textContent),);
+      a.children[i].textContent.localeCompare(b.children[i].textContent),
+    );
   } else {
     rows.sort(
       (a, b) =>
