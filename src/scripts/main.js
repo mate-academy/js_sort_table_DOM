@@ -10,14 +10,19 @@ for (let i = 0; i < td.length / 4; i++) {
 }
 
 document.addEventListener('click', (e) => {
-  if (e.target.textContent === 'Name') {
-    sortTable(0);
-  } else if (e.target.textContent === 'Position') {
-    sortTable(1);
-  } else if (e.target.textContent === 'Age') {
-    sortTable(2);
-  } else if (e.target.textContent === 'Salary') {
-    sortTable(3);
+  switch (e.target.textContent) {
+    case 'Name':
+      sortTable(0);
+      break;
+    case 'Position':
+      sortTable(1);
+      break;
+    case 'Age':
+      sortTable(2);
+      break;
+    case 'Salary':
+      sortTable(3);
+      break;
   }
 });
 
