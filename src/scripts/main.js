@@ -8,16 +8,20 @@ headers.forEach((header, index) => {
   header.addEventListener('click', () => {
     const rows = Array.from(tbody.querySelectorAll('tr'));
     const sortedRows = rows.sort((a, b) => {
-      const aText = a.querySelectorAll('td')[index].textContent.trim();
-      const bText = b.querySelectorAll('td')[index].textContent.trim();
-      const aValue = aText.replace(/[$,]/g, '');
-      const bValue = bText.replace(/[$,]/g, '');
+      const aText = a
+        .querySelectorAll('td')
+        [index].textContent.trim()
+        .replace(/[$,]/g, '');
+      const bText = b
+        .querySelectorAll('td')
+        [index].textContent.trim()
+        .replace(/[$,]/g, '');
 
-      if (!isNaN(parseFloat(aValue)) && !isNaN(parseFloat(bValue))) {
-        return parseFloat(aValue) - parseFloat(bValue);
+      if (!isNaN(parseFloat(aText)) && !isNaN(parseFloat(bText))) {
+        return parseFloat(aText) - parseFloat(bText);
         // parseFloat()- convert text values into num;
       } else {
-        return aValue.localeCompare(bValue);
+        return aText.localeCompare(bText);
       }
     });
 
