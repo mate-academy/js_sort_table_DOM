@@ -8,8 +8,12 @@ function sortTable(index) {
   const rowsArray = Array.from(tbody.rows);
 
   const sortedRows = rowsArray.sort((rowA, rowB) => {
-    const cellA = rowA.cells[index].textContent;
-    const cellB = rowB.cells[index].textContent;
+    const cellA = rowA.cells[index].textContent.trim();
+    const cellB = rowB.cells[index].textContent.trim();
+
+    if (cellA.includes('$') && cellB.includes('$')) {
+      return parseInt(cellA.slice(1)) - parseInt(cellB.slice(1));
+    }
 
     if (!isNaN(cellA) && !isNaN(cellB)) {
       return cellA - cellB;
@@ -23,5 +27,7 @@ function sortTable(index) {
 }
 
 headers.forEach((header, index) => {
-  header.addEventListener('click', sortTable(index));
+  header.addEventListener('click', () => {
+    sortTable(index);
+  });
 });
