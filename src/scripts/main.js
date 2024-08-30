@@ -31,8 +31,8 @@ function sortList(colect, indx) {
   const out = Array.from(colect).sort((a, b) => {
     if (!isNaN(cleanCurrency(a.children[indx].textContent))) {
       return (
-        cleanCurrency(b.children[indx].textContent) -
-        cleanCurrency(a.children[indx].textContent)
+        cleanCurrency(a.children[indx].textContent) -
+        cleanCurrency(b.children[indx].textContent)
       );
     }
 
