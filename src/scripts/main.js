@@ -20,36 +20,3 @@ headers.forEach((header, index) => {
     sortedList.forEach((row) => tBody.appendChild(row));
   });
 });
-
-// document
-//   .querySelector('thead')
-//   .firstElementChild.children[0].addEventListener('click', () => {
-//     const sortedList = sortFn(trList, 0);
-
-//     sortedList.forEach((i) => tBody.appendChild(i));
-//   });
-
-// document
-//   .querySelector('thead')
-//   .firstElementChild.children[1].addEventListener('click', () => {
-//     const sortedList = sortFn(trList, 1);
-
-//     sortedList.forEach((i) => tBody.appendChild(i));
-//   });
-
-// document
-//   .querySelector('thead')
-//   .firstElementChild.children[2].addEventListener('click', () => {
-//     const sortedList = sortFn(trList, 2);
-
-//     sortedList.forEach((i) => tBody.appendChild(i));
-//   });
-
-// document
-//   .querySelector('thead')
-//   .firstElementChild.children[3].addEventListener('click', () => {
-//     const sortedList = sortFn(trList, 3);
-
-//     sortedList.forEach((i) => tBody.appendChild(i));
-//     tBody.prepend(trList[trList.length - 1]);
-//   });
