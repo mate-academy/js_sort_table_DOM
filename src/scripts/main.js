@@ -13,7 +13,7 @@ thead.addEventListener('click', (e) => {
 });
 
 function sortTable(indexColumn) {
-  const column = indexColumn; // [3]
+  const column = indexColumn;
   const tbody = document.querySelector('tbody');
   const rows = Array.from(tbody.querySelectorAll('tr'));
 
