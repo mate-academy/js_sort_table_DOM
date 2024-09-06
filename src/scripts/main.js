@@ -5,7 +5,7 @@ const thead = document.querySelector('thead');
 thead.addEventListener('click', (e) => {
   const target = e.target;
 
-  if (target.tagName === 'th') {
+  if (target.tagName === 'TH') {
     const index = target.cellIndex;
 
     sortTable(index);
@@ -26,13 +26,13 @@ function sortTable(indexColumn) {
     }
 
     if (column === 2) {
-      return a - b;
+      return a.cells[column].innerText - b.cells[column].innerText;
     }
 
-    a.cells[column].toLowerCase();
-    b.cells[column].toLowerCase();
+    const aText = a.cells[column].innerText.toLowerCase();
+    const bText = b.cells[column].innerText.toLowerCase();
 
-    return a.localeCompare(b);
+    return aText.localeCompare(bText);
   });
 
   rows.forEach((row) => tbody.appendChild(row));
