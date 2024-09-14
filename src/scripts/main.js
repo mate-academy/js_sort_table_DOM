@@ -12,37 +12,43 @@ document.addEventListener('click', (e) => {
   }
 
   const indexColumn = thText.indexOf(th.firstChild);
-  let column = [];
+  let rows = [];
 
   for (const row of table.rows) {
-    column.push(row.cells[indexColumn].innerHTML);
+    rows.push([...row.cells].map((element) => element.innerHTML));
   }
 
-  column = column
+  rows = rows
     .slice(1, -1)
-    .map((element) => {
-      if (element.includes('$')) {
-        return Number(element.slice(1).replace(',', ''));
-      }
+    .map((row) => {
+      return row.map((element) => {
+        if (element.includes('$')) {
+          return Number(element.slice(1).replace(',', ''));
+        }
 
-      return +element ? +element : element;
+        return +element ? +element : element;
+      });
     })
     .sort((a, b) => {
-      if (typeof a === 'number') {
-        return a - b;
+      if (typeof a[indexColumn] === 'number') {
+        return a[indexColumn] - b[indexColumn];
       }
 
-      return a.localeCompare(b);
+      return a[indexColumn].localeCompare(b[indexColumn]);
     })
-    .map((element) => {
-      if (indexColumn === 3) {
-        return '$' + element.toLocaleString();
-      }
+    .map((row) => {
+      return row.map((element) => {
+        if (row.indexOf(element) === 3) {
+          return '$' + element.toLocaleString();
+        }
 
-      return element;
+        return String(element);
+      });
     });
 
-  for (let i = 0; i < table.rows.length - 2; i++) {
-    table.rows[i + 1].cells[indexColumn].innerHTML = column[i];
+  for (let i = 0; i < rows.length; i++) {
+    for (let cell = 0; cell < table.rows[i + 1].cells.length; cell++) {
+      table.rows[i + 1].cells[cell].innerHTML = rows[i][cell];
+    }
   }
 });
