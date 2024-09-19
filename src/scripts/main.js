@@ -30,8 +30,6 @@ const table = document.querySelector('table');
 const headers = [...table.tHead.rows[0].cells];
 const body = table.tBodies[0];
 
-console.log(body);
-
 headers.forEach((header, index) => {
   header.addEventListener('click', () => {
     sortTable(body, index);
