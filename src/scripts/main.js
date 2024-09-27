@@ -7,16 +7,16 @@ const tfood = tbody.pop();
 thead.addEventListener('click', (e) => {
   const sorted = sort([...tbody], e.target.closest('th'));
 
-  tbody.forEach((column, index) => {
-    column.replaceWith(sorted[index].cloneNode(true));
+  sorted.forEach((row) => {
+    row.parentNode.appendChild(row);
   });
 });
 
 tfood.addEventListener('click', (e) => {
   const sorted = sort([...tbody], e.target.closest('th'));
 
-  tbody.forEach((column, index) => {
-    column.replaceWith(sorted[index].cloneNode(true));
+  sorted.forEach((row) => {
+    row.parentNode.appendChild(row);
   });
 });
 
@@ -36,6 +36,5 @@ function sort(table, selector) {
       colb = parseInt(colb.replace(/[$,]/g, ''));
     }
 
-    return cola > colb;
+    return cola > colb ? 1 : -1;
   });
-}
