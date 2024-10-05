@@ -10,9 +10,12 @@ document.querySelectorAll('th').forEach((header, index) => {
       const cellA = rowA.cells[index].innerText;
       const cellB = rowB.cells[index].innerText;
 
-      return isNaN(cellA) || isNaN(cellB)
-        ? cellA.localeCompare(cellB)
-        : cellA - cellB;
+      const valueA = cellA.startsWith('$') ? parseFloat(cellA.slice(1)) : cellA;
+      const valueB = cellB.startsWith('$') ? parseFloat(cellB.slice(1)) : cellB;
+
+      return isNaN(valueA) || isNaN(valueB)
+        ? valueA.localeCompare(valueB)
+        : valueA - valueB;
     });
 
     rows.forEach((row) => tbody.appendChild(row));
