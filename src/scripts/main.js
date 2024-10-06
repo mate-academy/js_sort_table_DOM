@@ -56,6 +56,5 @@ function sortTable(columnIndex) {
     return value1.toString().localeCompare(value2.toString()) * sortDirection;
   });
 
-  tbody.innerHTML = '';
-  rows.forEach((row) => tbody.appendChild(row));
+  table.tBodies[0].append(...rows);
 }
