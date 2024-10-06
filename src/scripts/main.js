@@ -2,6 +2,7 @@
 
 function convertToNumber(string) {
   let result = string.replace('$', '');
+
   result = result.replace(',', '');
 
   return +result;
@@ -11,8 +12,6 @@ const tableBody = document.querySelector('tbody');
 const rows = [...tableBody.rows];
 
 document.querySelectorAll('th').forEach((rowHead, index) => {
-  const sortBy = rowHead.textContent.toLowerCase();
-
   rowHead.addEventListener('click', () => {
     rows.sort((row1, row2) => {
       const value1 = row1.children[index].textContent;
@@ -26,6 +25,6 @@ document.querySelectorAll('th').forEach((rowHead, index) => {
     });
 
     tableBody.innerHTML = '';
-    rows.forEach(row => tableBody.append(row));
+    rows.forEach((row) => tableBody.append(row));
   });
 });
