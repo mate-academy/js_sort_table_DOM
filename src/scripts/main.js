@@ -6,8 +6,7 @@ const tbody = table.querySelector('tbody');
 
 const rows = [...tbody.querySelectorAll('tr')];
 
-const numberFormat = (n) =>
-  Number(n.replace(/[^0-9.-]+/g, '').replaceAll(',', ''));
+const numberFormat = (n) => Number(n.replace(/[^0-9.-]+/g, ''));
 
 headers.forEach((header, i) => {
   header.addEventListener('click', () => {
