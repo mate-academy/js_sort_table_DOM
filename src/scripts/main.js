@@ -18,10 +18,18 @@ const employees = list.map((item) => {
 
 const tableHead = document.querySelector('thead');
 
+const headerToPropertyMap = {
+  name: 'name',
+  position: 'position',
+  age: 'age',
+  salary: 'salary',
+};
+
 const currentSort = { column: '', direction: 'asc' };
 
 tableHead.addEventListener('click', function (e) {
-  const column = e.target.textContent.toLowerCase();
+  const column = headerToPropertyMap[e.target.textContent.trim().toLowerCase()];
+
   let data;
 
   if (e.target.tagName !== 'TH') {
