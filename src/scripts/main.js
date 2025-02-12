@@ -24,6 +24,10 @@ tableHead.addEventListener('click', function (e) {
   const column = e.target.textContent.toLowerCase();
   let data;
 
+  if (e.target.tagName !== 'TH') {
+    return;
+  }
+
   if (currentSort.column === column) {
     currentSort.direction = currentSort.direction === 'asc' ? 'desc' : 'asc';
   } else {
