@@ -19,7 +19,7 @@ document.addEventListener('click', function (e) {
       break;
     case 'number':
       sortCol = (a, b) => {
-        return +a.textContent - parseInt(b.textContent);
+        return parseFloat(a.textContent) - parseFloat(b.textContent);
       };
       break;
     case 'money':
