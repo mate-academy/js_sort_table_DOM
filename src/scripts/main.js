@@ -1,6 +1,7 @@
 'use strict';
 
 const table = document.querySelector('table');
+let isAsc = true;
 
 table.querySelector('thead tr').addEventListener('click', (e) => {
   const tBody = table.querySelector('tbody');
@@ -17,23 +18,8 @@ table.querySelector('thead tr').addEventListener('click', (e) => {
   const titleIndex = titles.indexOf(title);
 
   rows.sort((a, b) => {
-    if (title === 'Name') {
-      return a.children[titleIndex].textContent
-        .trim()
-        .localeCompare(b.children[titleIndex].textContent.trim());
-    }
-
-    if (title === 'Position') {
-      return a.children[titleIndex].textContent
-        .trim()
-        .localeCompare(b.children[titleIndex].textContent.trim());
-    }
-
-    if (title === 'Age') {
-      return a.children[titleIndex].textContent
-        .trim()
-        .localeCompare(b.children[titleIndex].textContent.trim());
-    }
+    const aElement = a.children[titleIndex].textContent.trim();
+    const bElement = b.children[titleIndex].textContent.trim();
 
     if (title === 'Salary') {
       const aSalary = parseFloat(
@@ -43,11 +29,17 @@ table.querySelector('thead tr').addEventListener('click', (e) => {
         b.children[titleIndex].textContent.split('$')[1],
       );
 
-      return aSalary - bSalary;
+      return isAsc ? aSalary - bSalary : bSalary - aSalary;
     }
+
+    return isAsc
+      ? aElement.localeCompare(bElement)
+      : bElement.localeCompare(aElement);
   });
 
   rows.forEach((row) => {
     tBody.appendChild(row);
   });
+
+  isAsc = !isAsc;
 });
