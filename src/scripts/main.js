@@ -2,7 +2,6 @@
 
 const tableHead = document.querySelector('thead');
 const tableBody = document.querySelector('tbody');
-const tableRowsArray = Array.from(document.querySelectorAll('tbody tr'));
 
 tableHead.addEventListener('click', (e) => {
   if (e.target.tagName === 'TH') {
@@ -13,6 +12,8 @@ tableHead.addEventListener('click', (e) => {
 });
 
 function sortTable(columnIndex) {
+  const tableRowsArray = Array.from(document.querySelectorAll('tbody tr'));
+
   tableRowsArray.sort((firstRow, secondRow) => {
     const firstValue = getCellValue(firstRow, columnIndex);
     const secondValue = getCellValue(secondRow, columnIndex);
