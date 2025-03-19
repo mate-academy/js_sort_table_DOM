@@ -4,6 +4,7 @@
 const table = document.querySelector('table');
 const headers = table.querySelectorAll('thead th');
 const tbody = table.querySelector('tbody');
+let asc = true;
 
 headers.forEach((header, index) => {
   header.addEventListener('click', () => {
@@ -19,11 +20,13 @@ headers.forEach((header, index) => {
         const numA = parseFloat(cellA.replace(/[$,]/g, ''));
         const numB = parseFloat(cellB.replace(/[$,]/g, ''));
 
-        return numA - numB;
+        return asc ? numA - numB : numB - numA;
       } else {
-        return cellA.localeCompare(cellB);
+        return asc ? cellA.localeCompare(cellB) : cellB.localeCompare(cellA);
       }
     });
+
+    asc = !asc;
 
     tbody.innerHTML = '';
     rows.forEach((row) => tbody.appendChild(row));
