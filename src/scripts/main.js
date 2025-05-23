@@ -8,7 +8,7 @@ document.querySelectorAll('tbody tr').forEach((employeeRow) => {
   const employee = {};
 
   sortCategorys.forEach((category, index) => {
-    const key = category.innerText;
+    const key = category.innerText.replace(/[^a-zA-Z0-9_]/g, '');
     const value = cells[index].innerText;
 
     employee[key] = value;
