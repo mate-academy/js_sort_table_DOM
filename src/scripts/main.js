@@ -6,7 +6,7 @@ const rows = Array.from(table.querySelectorAll('tr')).slice(1, -1);
 
 headers.forEach((header, columnIndex) => {
   header.addEventListener('click', () => {
-    const sortedRows = rows.sort((rowA, rowB) => {
+    const sortedRows = [...rows].sort((rowA, rowB) => {
       const cellA = rowA.children[columnIndex].textContent.trim();
       const cellB = rowB.children[columnIndex].textContent.trim();
 
