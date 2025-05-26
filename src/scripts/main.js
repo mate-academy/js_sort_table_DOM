@@ -3,15 +3,11 @@
 const headers = document.querySelectorAll('table thead th');
 const tbody = document.querySelector('table tbody');
 
-const sortDirection = {};
-
 headers.forEach((header, index) => {
   header.addEventListener('click', () => {
     const rows = Array.from(tbody.querySelectorAll('tr'));
-    // eslint-disable-next-line max-len
-    const isCurrencyOrNumber = (text) => /^\$?\d/.test(text);
 
-    sortDirection[index] = !sortDirection[index];
+    const isCurrencyOrNumber = (text) => /^\$?\d/.test(text);
 
     const sortedRows = rows.sort((a, b) => {
       const aText = a.children[index].textContent.trim();
@@ -25,11 +21,11 @@ headers.forEach((header, index) => {
         : bText.toLowerCase();
 
       if (aVal < bVal) {
-        return sortDirection[index] ? -1 : 1;
+        return -1;
       }
 
       if (aVal > bVal) {
-        return sortDirection[index] ? 1 : -1;
+        return 1;
       }
 
       return 0;
