@@ -10,9 +10,17 @@ function sortTable(index) {
   const sortedRows = rowsArray.sort((rowA, rowB) => {
     const cellA = rowA.cells[index].textContent;
     const cellB = rowB.cells[index].textContent;
+    const isNumericA = !isNaN(cellA) && !isNaN(parseFloat(cellA));
+    const isNumericB = !isNaN(cellB) && !isNaN(parseFloat(cellB));
+    const isDateA = !isNaN(Date.parse(cellA));
+    const isDateB = !isNaN(Date.parse(cellB));
 
-    if (!isNaN(cellA) && !isNaN(cellB)) {
-      return cellA - cellB;
+    if (isNumericA && isNumericB) {
+      return parseFloat(cellA) - parseFloat(cellB);
+    }
+
+    if (isDateA && isDateB) {
+      return new Date(cellA) - new Date(cellB);
     }
 
     return cellA.localeCompare(cellB);
