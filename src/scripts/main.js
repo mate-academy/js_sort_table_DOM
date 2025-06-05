@@ -1,6 +1,7 @@
 'use strict';
 
 const tableHaders = document.querySelectorAll('th');
+
 const tbody = document.querySelector('tbody');
 
 tableHaders.forEach((header, columIndex) => {
