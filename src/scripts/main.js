@@ -4,7 +4,6 @@ const thead = document.querySelector('thead');
 const thElements = thead.querySelectorAll('th');
 
 const tbody = document.querySelector('tbody');
-const bodyRows = tbody.querySelectorAll('tr');
 
 const sort = (container, elements, column, sortType, sortBy = 'asc') => {
   container.innerHTML = '';
@@ -35,6 +34,8 @@ const sort = (container, elements, column, sortType, sortBy = 'asc') => {
 
 thElements.forEach((th) => {
   th.addEventListener('click', (e) => {
+    const bodyRows = tbody.querySelectorAll('tr');
+
     const element = e.target;
     const siblings = Array.from(element.parentNode.children);
     const index = siblings.indexOf(element);
