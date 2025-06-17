@@ -15,10 +15,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
         const isNumeric = index === 2 || index === 3;
         const valA = isNumeric
-          ? parseFloat(cellA.replace(/[^0-9]/g, ''))
+          ? parseFloat(cellA.replace(/[^0-9.]/g, ''))
           : cellA.toLowerCase();
         const valB = isNumeric
-          ? parseFloat(cellB.replace(/[^0-9]/g, ''))
+          ? parseFloat(cellB.replace(/[^0-9.]/g, ''))
           : cellB.toLowerCase();
 
         return valA > valB ? 1 : valA < valB ? -1 : 0;
