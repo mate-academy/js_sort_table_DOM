@@ -12,8 +12,11 @@ headers.forEach((header, idx) => {
       const cellA = rowA.children[idx].textContent;
       const cellB = rowB.children[idx].textContent;
 
-      const a = parseFloat(cellA.replace(/[$,]/g, '')) || cellA;
-      const b = parseFloat(cellB.replace(/[$,]/g, '')) || cellB;
+      const numA = parseFloat(cellA.replace(/[$,]/g, ''));
+      const numB = parseFloat(cellB.replace(/[$,]/g, ''));
+
+      const a = !isNaN(numA) ? numA : cellA;
+      const b = !isNaN(numB) ? numB : cellB;
 
       if (typeof a === 'number' && typeof b === 'number') {
         return a - b;
