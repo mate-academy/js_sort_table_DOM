@@ -3,13 +3,14 @@
 // write code here
 const tBody = document.querySelector('tbody');
 const allHeaders = document.querySelectorAll('thead th');
-const allRows = document.querySelectorAll('tbody tr');
 
 for (let i = 0; i < allHeaders.length; i++) {
   const header = allHeaders[i];
   const rowsToSort = [];
 
   header.addEventListener('click', () => {
+    const allRows = document.querySelectorAll('tbody tr');
+
     for (let j = 0; j < allRows.length; j++) {
       const tr = allRows[j];
 
