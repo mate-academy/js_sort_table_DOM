@@ -13,7 +13,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
-  const sortTableByColumn = (columnIndex) => {
+  function sortTableByColumn(columnIndex) {
     const rows = [...tbody.querySelectorAll('tr')];
 
     const getCellValue = (row) => {
@@ -43,5 +43,5 @@ document.addEventListener('DOMContentLoaded', () => {
 
     tbody.innerHTML = '';
     rows.forEach((row) => tbody.appendChild(row));
-  };
+  }
 });
