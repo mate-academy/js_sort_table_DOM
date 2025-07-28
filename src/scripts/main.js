@@ -71,13 +71,20 @@ headerItems.forEach((item) => {
 
     tbody.innerHTML = '';
 
-    employeesArr.forEach((itemArr) => {
+    employeesArr.forEach((ArrEl) => {
       const tr = document.createElement('tr');
 
-      tr.appendChild(itemArr.nameEmployee);
-      tr.appendChild(itemArr.position);
-      tr.appendChild(itemArr.age);
-      tr.appendChild(itemArr.salary);
+      for (const key in ArrEl) {
+        const el = document.createElement('td');
+
+        el.textContent = key.textContent;
+        tr.appendChild(el);
+      }
+
+      // tr.appendChild(itemArr.nameEmployee);
+      // tr.appendChild(itemArr.position);
+      // tr.appendChild(itemArr.age);
+      // tr.appendChild(itemArr.salary);
 
       tbody.appendChild(tr);
     });
