@@ -1,27 +1,39 @@
 'use strict';
 
-const headers = document.querySelectorAll('th');
-const tbody = document.querySelector('tbody');
+const table = document.querySelector('table');
+let currentSortColumn = null;
+let isAscending = true;
 
-headers.forEach((header, columnIndex) => {
-  header.addEventListener('click', () => {
-    const rowsArray = Array.from(tbody.querySelectorAll('tr'));
+table.addEventListener('click', (e) => {
+  if (e.target.tagName !== 'TH') return;
 
-    const sortedRows = rowsArray.sort((a, b) => {
-      const cellA = a.cells[columnIndex].textContent.trim();
-      const cellB = b.cells[columnIndex].textContent.trim();
+  const header = e.target;
+  const columnIndex = header.cellIndex;
+  const tbody = table.querySelector('tbody');
+  const rows = Array.from(tbody.rows);
 
-      const numA = parseFloat(cellA);
-      const numB = parseFloat(cellB);
+  // Проверка: если клик по той же колонке — поменяй порядок
+  if (currentSortColumn === columnIndex) {
+    isAscending = !isAscending;
+  } else {
+    currentSortColumn = columnIndex;
+    isAscending = true;
+  }
 
-      if (!isNaN(numA) && !isNaN(numB)) {
-        return numA - numB;
-      } else {
-        return cellA.localeCompare(cellB);
-      }
-    });
+  rows.sort((rowA, rowB) => {
+    const a = rowA.cells[columnIndex].textContent.trim();
+    const b = rowB.cells[columnIndex].textContent.trim();
 
-    tbody.innerHTML = '';
-    sortedRows.forEach((row) => tbody.appendChild(row));
+    // Числа сортируем как числа, остальное как строки
+    const valA = isNaN(a) ? a : parseFloat(a);
+    const valB = isNaN(b) ? b : parseFloat(b);
+
+    if (valA > valB) return isAscending ? 1 : -1;
+    if (valA < valB) return isAscending ? -1 : 1;
+    return 0;
   });
+
+  // Очищаем тело таблицы и добавляем отсортированные строки
+  tbody.innerHTML = '';
+  rows.forEach(row => tbody.appendChild(row));
 });
