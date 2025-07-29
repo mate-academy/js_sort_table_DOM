@@ -1,9 +1,9 @@
 'use strict';
 
-const employers = document.querySelectorAll('tbody > tr');
 const tableBody = document.querySelector('tbody');
 
 const sortByName = () => {
+  const employers = document.querySelectorAll('tbody > tr');
   const sorted = Array.from(employers).sort((employer1, employer2) => {
     const name1 = employer1.children[0].textContent.trim();
     const name2 = employer2.children[0].textContent.trim();
@@ -19,6 +19,7 @@ const sortByName = () => {
 };
 
 const sortByPosition = () => {
+  const employers = document.querySelectorAll('tbody > tr');
   const sorted = Array.from(employers).sort((employer1, employer2) => {
     const position1 = employer1.children[1].textContent.trim();
     const position2 = employer2.children[1].textContent.trim();
@@ -34,6 +35,7 @@ const sortByPosition = () => {
 };
 
 const sortByAge = () => {
+  const employers = document.querySelectorAll('tbody > tr');
   const sorted = Array.from(employers).sort((employer1, employer2) => {
     const position1 = Number(employer1.children[2].textContent);
     const position2 = Number(employer2.children[2].textContent);
@@ -49,6 +51,7 @@ const sortByAge = () => {
 };
 
 const sortBySalary = () => {
+  const employers = document.querySelectorAll('tbody > tr');
   const sorted = Array.from(employers).sort((employer1, employer2) => {
     const position1 = employer1.children[3].textContent
       .replace('$', '')
