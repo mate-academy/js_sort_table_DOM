@@ -12,14 +12,17 @@ document.addEventListener('DOMContentLoaded', () => {
       rowsArray.sort((rowA, rowB) => {
         let cellA = rowA.children[index].textContent.trim();
         let cellB = rowB.children[index].textContent.trim();
+        const cleanA = cellA.replace(/[^0-9.-]+/g, '');
+        const numA = parseFloat(cleanA);
+        const cleanB = cellB.replace(/[^0-9.-]+/g, '');
+        const numB = parseFloat(cleanB);
 
         const isNumeric =
-          !isNaN(cellA.replace(/[^0-9.-]+/g, '')) &&
-          !isNaN(cellB.replace(/[^0-9.-]+/g, ''));
+          cleanA !== '' && !isNaN(numA) && cleanB !== '' && !isNaN(numB);
 
         if (isNumeric) {
-          cellA = parseFloat(cellA.replace(/[^0-9.-]+/g, ''));
-          cellB = parseFloat(cellB.replace(/[^0-9.-]+/g, ''));
+          cellA = numA;
+          cellB = numB;
 
           return cellA - cellB;
         } else {
@@ -27,7 +30,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
       });
 
-      rowsArray.forEach((row) => tbody.appendChild(row));
+      tbody.append(...rowsArray);
     });
   });
 });
