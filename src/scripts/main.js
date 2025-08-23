@@ -2,48 +2,26 @@
 
 const thead = document.querySelector('thead');
 const tbody = document.querySelector('tbody');
-const tableTitles = thead.querySelectorAll('th');
-
 const allRows = tbody.querySelectorAll('tr');
-console.log(allRows);
-// console.log(firsttr.children);
 const arrb = Array.from(allRows);
-console.log(arrb);
 
 thead.addEventListener('click', (e) => {
   if (e.target.tagName !== 'TH') return;
-  const th = e.target.textContent;
-  console.log(e.target.textContent);
+  // const th = e.target.textContent;
 
   if (e.target.textContent === 'Name') {
     arrb.sort((a, b) => {
-      if (
-        a.children[0].textContent.toUpperCase() >
-        b.children[0].textContent.toUpperCase()
-      )
-        return 1;
-      if (
-        a.children[0].textContent.toUpperCase() <
-        b.children[0].textContent.toUpperCase()
-      )
-        return -1;
-      return 0;
+      return a.children[0].textContent
+        .toUpperCase()
+        .localeCompare(b.children[0].textContent.toUpperCase());
     });
   }
 
   if (e.target.textContent === 'Position') {
     arrb.sort((a, b) => {
-      if (
-        a.children[1].textContent.toUpperCase() >
-        b.children[1].textContent.toUpperCase()
-      )
-        return 1;
-      if (
-        a.children[1].textContent.toUpperCase() <
-        b.children[1].textContent.toUpperCase()
-      )
-        return -1;
-      return 0;
+      return a.children[1].textContent
+        .toUpperCase()
+        .localeCompare(b.children[1].textContent.toUpperCase());
     });
   }
 
@@ -61,5 +39,4 @@ thead.addEventListener('click', (e) => {
   }
   tbody.innerHTML = '';
   tbody.append(...arrb);
-  // console.log(arrb);
 });
