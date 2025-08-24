@@ -47,24 +47,9 @@ headerList.addEventListener('click', (ev) => {
     }
   });
 
-  // create new DOM elements to append to the tbody
-  function createPesonInfoRow(people) {
-    tbody.innerText = '';
+  tbody.innerText = '';
 
-    for (const person of people) {
-      const row = document.createElement('tr');
-
-      for (const param of person.children) {
-        const value = document.createElement('td');
-
-        value.textContent = param.textContent;
-        row.appendChild(value);
-      }
-
-      tbody.appendChild(row);
-    }
+  for (const item of tbodyList) {
+    tbody.appendChild(item);
   }
-
-  // call upper function
-  createPesonInfoRow(tbodyList);
 });
