@@ -1,16 +1,18 @@
 'use strict';
 
-const table = document.querySelector('table');
-const header = document.querySelector('thead');
 const headerList = document.querySelector('thead tr');
 
 // hanlder "sorter" which sort page's list by direct parameter
 headerList.addEventListener('click', (ev) => {
   ev.preventDefault();
 
-  // table DOM elements
-  const tbodyEl = document.querySelector('tbody');
-  const tbodyList = Array.from(document.querySelectorAll('tbody tr'));
+  if (!ev.target.closest('tr')) {
+    return;
+  }
+
+  // create tbody's DOM elements
+  const tbody = document.querySelector('tbody');
+  const tbodyList = Array.from(tbody.querySelectorAll('tr'));
 
   const sortParameter = ev.target.closest('th');
   let count = 0;
@@ -45,9 +47,9 @@ headerList.addEventListener('click', (ev) => {
     }
   });
 
-  // create new tbody to add it into page's table
+  // create new DOM elements to append to the tbody
   function createPesonInfoRow(people) {
-    const tbody = document.createElement('tbody');
+    tbody.innerText = '';
 
     for (const person of people) {
       const row = document.createElement('tr');
@@ -61,14 +63,8 @@ headerList.addEventListener('click', (ev) => {
 
       tbody.appendChild(row);
     }
-
-    return tbody;
   }
 
-  const result = createPesonInfoRow(tbodyList);
-
-  // removes unsorted table
-  table.removeChild(tbodyEl);
-  // add sorted table
-  header.after(result);
+  // call upper function
+  createPesonInfoRow(tbodyList);
 });
