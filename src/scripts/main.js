@@ -14,19 +14,32 @@ tHead.addEventListener('click', (e) => {
     const allTrBody = tBody.querySelectorAll('tr');
     const allTrArray = [...allTrBody];
 
-    allTrArray.sort((a, b) => {
-      const elA = a.querySelectorAll('td')[thPosition].textContent;
-      const elB = b.querySelectorAll('td')[thPosition].textContent;
-      const clearA = elA.replace(/[$,]/g, '');
-      const clearB = elB.replace(/[$,]/g, '');
-
-      if (!isNaN(Number(clearA)) && !isNaN(Number(clearB))) {
-        return Number(clearA) - Number(clearB);
-      } else {
-        return elA.localeCompare(elB);
-      }
+    const readyTrArray = allTrArray.map((tr, index) => {
+      return {
+        row: tr,
+        value: tr.querySelectorAll('td')[thPosition].textContent.trim(),
+        index: index,
+      };
     });
 
-    tBody.append(...allTrArray);
+    readyTrArray.sort((a, b) => {
+      const valueA = a.value.replace(/[$,]/g, '');
+      const valueB = b.value.replace(/[$,]/g, '');
+
+      const numA = Number(valueA);
+      const numB = Number(valueB);
+
+      if (!isNaN(numA) && !isNaN(numB)) {
+        if (numA === numB) {
+          return a.index - b.index;
+        } else {
+          return numA - numB;
+        }
+      }
+
+      return valueA.localeCompare(valueB);
+    });
+
+    tBody.append(...readyTrArray.map((obj) => obj.row));
   }
 });
