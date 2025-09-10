@@ -46,6 +46,13 @@ thead th:hover {
   cursor: pointer;
 }
 
+thead th.sorted {
+  color: #00fdc2;
+  &:hover {
+    color: #00fdc2;
+  }
+}
+
 thead tr th:first-child {
   border-top-left-radius: 10px;
 }
