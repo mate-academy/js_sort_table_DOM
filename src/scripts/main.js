@@ -68,7 +68,7 @@ class TableSorter {
    * @param {function[]} customComparators
    * @return void
    */
-  constructor(tableDomSelector, customComparators) {
+  constructor(tableDomSelector, customComparators = []) {
     if (typeof tableDomSelector !== 'string') {
       throw new Error('Table DOM selector must be a string');
     }
@@ -108,30 +108,64 @@ class TableSorter {
 
   /**
    * Simple default value comparator for sort
-   * @param a
-   * @param b
-   * @param sortType (-1 / 0 / 1)
+   * @param {string} a
+   * @param {string} b
+   * @param {number} sortType (-1 / 0 / 1)
    * @private
    */
   _defaultComparator(a, b, sortType) {
-    // Numeric sort for numbers
-    if (!isNaN(a) && !isNaN(b)) {
-      return (parseFloat(a) - parseFloat(b)) * sortType;
+    // normalize strings
+    const normA = (a ?? '').trim();
+    const normB = (b ?? '').trim();
+
+    /**
+     * Empty strings are always lower
+     */
+    if (normA === '' && normB === '') {
+      return 0;
     }
 
-    // Sort like strings
-    return a.localeCompare(b) * sortType;
+    if (normA === '') {
+      return -1 * sortType;
+    }
+
+    if (normB === '') {
+      return 1 * sortType;
+    }
+
+    // parse numbers - removes spaces and commas etc
+    const numA = parseFloat(normA.replace(/\s|,/g, ''));
+    const numB = parseFloat(normB.replace(/\s|,/g, ''));
+
+    // check if both values are numeric to compare
+    const bothNumeric =
+      Number.isFinite(numA) &&
+      Number.isFinite(numB) &&
+      normA.match(/^-?\d+([.,]\d+)?$/) &&
+      normB.match(/^-?\d+([.,]\d+)?$/);
+
+    //compare as numberic
+    if (bothNumeric) {
+      return (numA - numB) * sortType;
+    }
+
+    // compare string case-insensetive
+    return normA.localeCompare(
+      normB,
+      undefined,
+      { sensitivity: 'base' },
+    ) * sortType;
   }
 
   /**
    * Extract text value from cell
-   * @param row
-   * @param colIndex
+   * @param {HTMLTableRowElement} row
+   * @param {number} colIndex
    */
   _extractCellValue(row, colIndex) {
     const cell = row.children[colIndex];
 
-    return (cell?.textContent || '').trim();
+    return (cell?.textContent ?? '').trim();
   }
 
   /**
@@ -141,14 +175,14 @@ class TableSorter {
    * @private
    */
   _sortColumn(colIndex) {
-    if (this._sorterState.COLUMN_INDEX === colIndex) {
+    /**if (this._sorterState.COLUMN_INDEX === colIndex) {
       // reverse sort asc-desc
       this._sorterState.SORT *= -1;
-    } else {
+    } else {*/
       // init sort
       this._sorterState.COLUMN_INDEX = colIndex;
       this._sorterState.SORT = TableSorter.STATE.ASC;
-    }
+    /**}*/
 
     // prepare header row
     this._tableElement
@@ -208,5 +242,8 @@ const ourComparators = [
   },
 ];
 
-// eslint-disable-next-line no-unused-vars
-const tableSorter = new TableSorter(TableSorter.TABLE_SEL, ourComparators);
+// Ensure instantiation occurs after the table exists
+document.addEventListener('DOMContentLoaded', function() {
+  // eslint-disable-next-line no-unused-vars
+  const tableSorter = new TableSorter(TableSorter.TABLE_SEL, ourComparators);
+});
