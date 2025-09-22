@@ -9,16 +9,10 @@ function cellValue(tr, colIndex) {
   return tr.children[colIndex].textContent.trim();
 }
 
-function normalize(val, colIndex) {
-  if (colIndex === 2) {
-    return Number(val);
-  }
+function normalize(val) {
+  const num = Number(val.replace(/[$,\s]/g, ''));
 
-  if (colIndex === 3) {
-    return Number(val.replace(/[$,]/g, ''));
-  }
-
-  return val.toLowerCase();
+  return Number.isNaN(num) ? val.toLowerCase() : num;
 }
 
 headers.forEach((th, colIndex) => {
