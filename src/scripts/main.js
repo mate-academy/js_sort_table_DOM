@@ -11,13 +11,7 @@ function sortTable() {
 
   for (const th of headers) {
     th.addEventListener('click', (e) => {
-      const thEl = e.target.closest('th');
-
-      if (!thEl) {
-        return;
-      }
-
-      const index = thEl.cellIndex;
+      const index = e.currentTarget.cellIndex;
       const tbody = table.querySelector('tbody');
 
       if (!tbody) {
@@ -25,23 +19,25 @@ function sortTable() {
       }
 
       const rows = Array.from(tbody.rows);
-      const numericPattern = /^-?[\d.,]+$/;
 
       rows.sort((a, b) => {
-        const valA = a.cells[index].textContent.trim();
-        const valB = b.cells[index].textContent.trim();
+        const valA = (a.cells[index]?.textContent || '').trim();
+        const valB = (b.cells[index]?.textContent || '').trim();
 
-        const isNumA = numericPattern.test(valA);
-        const isNumB = numericPattern.test(valB);
+        const cleanedA = valA.replace(/[ ,$₴£]/g, '');
+        const cleanedB = valB.replace(/[ ,$₴£]/g, '');
+
+        const isNumA = /^-?\d+(\.\d+)?$/.test(cleanedA);
+        const isNumB = /^-?\d+(\.\d+)?$/.test(cleanedB);
 
         if (isNumA && isNumB) {
-          const numA = parseFloat(valA.replace(/[^\d.-]/g, ''));
-          const numB = parseFloat(valB.replace(/[^\d.-]/g, ''));
+          const numA = parseFloat(cleanedA);
+          const numB = parseFloat(cleanedB);
 
           return numA - numB;
         }
 
-        return valA.toLowerCase().localeCompare(valB.toLowerCase());
+        return valA.localeCompare(valB, undefined, { sensitivity: 'base' });
       });
 
       tbody.append(...rows);
