@@ -3,7 +3,7 @@
 document.addEventListener('DOMContentLoaded', () => {
   const table = document.querySelector('table');
   const tBody = document.querySelector('tbody');
-  const rowsArray = Array.from(tBody.rows);
+  const rowsArray = Array.from(tBody?.rows ?? []);
 
   if (!table || !tBody || !rowsArray.length) {
     return;
@@ -30,14 +30,14 @@ document.addEventListener('DOMContentLoaded', () => {
       case 'number':
         copmareFun = function (trA, trB) {
           if (checkTD(trA.cells[index], trB.cells[index])) {
-            return;
+            return 0;
           }
 
           const numberA = convertToNumber(trA.cells[index].textContent);
           const numberB = convertToNumber(trB.cells[index].textContent);
 
           if (checkNumber(numberA, numberB)) {
-            return;
+            return 0;
           }
 
           return numberA - numberB;
@@ -46,7 +46,7 @@ document.addEventListener('DOMContentLoaded', () => {
       case 'string':
         copmareFun = function (trA, trB) {
           if (checkTD(trA.cells[index], trB.cells[index])) {
-            return;
+            return 0;
           }
 
           const stringA = trA.cells[index].textContent.trim();
@@ -72,14 +72,20 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   function checkTD(tdA, tdB) {
-    if (!tdA || !tdB || !tdA.textContent || !tdB.textContent) {
-      return true;
-    }
+    const invalid =
+      !tdA ||
+      !tdB ||
+      tdA.textContent == null ||
+      tdB.textContent == null ||
+      tdA.textContent.trim() === '' ||
+      tdB.textContent.trim() === '';
+
+    return invalid;
   }
 
   function checkNumber(tdA, tdB) {
-    if (isNaN(tdA) || isNaN(tdB)) {
-      return true;
-    }
+    const invalid = Number.isNaN(tdA) || Number.isNaN(tdB);
+
+    return invalid;
   }
 });
