@@ -3,38 +3,55 @@
 // write code here
 document.addEventListener('DOMContentLoaded', () => {
   const table = document.querySelector('table');
+
+  if (!table) {
+    return;
+  } // запобігає помилці, якщо таблиці немає
+
   const headers = table.querySelectorAll('th');
   const tbody = table.querySelector('tbody');
 
   headers.forEach((header, index) => {
     header.addEventListener('click', () => {
-      // Отримуємо всі рядки з tbody
-      const rows = Array.from(tbody.querySelectorAll('tr'));
+      const rows = Array.from(tbody.querySelectorAll('tr')).map((row, i) => ({
+        element: row,
+        index: i, // зберігаємо початковий індекс для стабільного сортування
+      }));
 
-      // Визначаємо тип колонки
-      const isNumeric =
-        header.textContent === 'Age' || header.textContent === 'Salary';
+      // Визначаємо тип колонки (краще через trim)
+      const headerText = header.textContent.trim();
+      const isNumeric = headerText === 'Age' || headerText === 'Salary';
 
-      // Сортуємо рядки
+      // Сортування
       rows.sort((a, b) => {
-        const cellA = a.children[index].textContent.trim();
-        const cellB = b.children[index].textContent.trim();
+        const cellA = a.element.children[index].textContent.trim();
+        const cellB = b.element.children[index].textContent.trim();
 
         if (isNumeric) {
-          // Для Salary прибираємо $, коми тощо
-          const numA = parseFloat(cellA.replace(/[^0-9.]/g, ''));
-          const numB = parseFloat(cellB.replace(/[^0-9.]/g, ''));
+          // ✅ очищаємо і конвертуємо в число, додаємо fallback 0
+          const numA = parseFloat(cellA.replace(/[^0-9.]/g, '')) || 0;
+          const numB = parseFloat(cellB.replace(/[^0-9.]/g, '')) || 0;
 
-          return numB - numA; // від більшого до меншого
+          // ✅ ASC (від меншого до більшого, як вимагає завдання)
+          if (numA !== numB) {
+            return numA - numB;
+          }
         } else {
-          // Алфавітне сортування (A-Z)
-          return cellA.localeCompare(cellB);
+          // Алфавітне сортування
+          const cmp = cellA.localeCompare(cellB);
+
+          if (cmp !== 0) {
+            return cmp;
+          }
         }
+
+        // Tie-breaker: зберігаємо початковий порядок
+        return a.index - b.index;
       });
 
-      // Перезаписуємо відсортовані рядки в таблицю
+      // Оновлюємо DOM
       tbody.innerHTML = '';
-      rows.forEach((row) => tbody.appendChild(row));
+      rows.forEach((r) => tbody.appendChild(r.element));
     });
   });
 });
