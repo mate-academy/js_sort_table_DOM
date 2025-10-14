@@ -1,26 +1,45 @@
 'use strict';
 
 document.addEventListener('DOMContentLoaded', () => {
-  const table = document.querySelector('table');
-  const tBody = document.querySelector('tbody');
-  const rowsArray = Array.from(tBody?.rows ?? []);
-
-  if (!table || !tBody || !rowsArray.length) {
-    return;
-  }
-
   const tableFieldsType = ['string', 'string', 'number', 'number'];
 
-  table.addEventListener('click', (e) => {
+  document.addEventListener('click', (e) => {
     const th = e.target.closest('th');
 
     if (!th) {
       return;
     }
 
-    const columnIndex = th.cellIndex;
+    const table = th.closest('table');
 
-    sortColumn(columnIndex, tableFieldsType[columnIndex]);
+    if (!table) {
+      return;
+    }
+
+    const tBody = table.querySelector('tbody');
+
+    if (!tBody) {
+      return;
+    }
+
+    const rowsArray = Array.from(tBody?.rows ?? []);
+
+    if (!rowsArray.length) {
+      return;
+    }
+
+    const columnIndex = th.cellIndex ?? -1;
+
+    if (columnIndex < 0 || columnIndex >= th.parentElement.cells.length) {
+      return;
+    }
+
+    if (!tableFieldsType[columnIndex]) {
+      return;
+    }
+
+    rowsArray.sort(sortColumn(columnIndex, tableFieldsType[columnIndex]));
+    tBody.append(...rowsArray);
   });
 
   function sortColumn(index, type) {
@@ -56,10 +75,20 @@ document.addEventListener('DOMContentLoaded', () => {
         };
         break;
       default:
-        return;
+        copmareFun = function (trA, trB) {
+          if (checkTD(trA.cells[index], trB.cells[index])) {
+            return 0;
+          }
+
+          const stringA = trA.cells[index].textContent.trim();
+          const stringB = trB.cells[index].textContent.trim();
+
+          return stringA.localeCompare(stringB);
+        };
+        break;
     }
-    rowsArray.sort(copmareFun);
-    tBody.append(...rowsArray);
+
+    return copmareFun;
   }
 
   function convertToNumber(currency) {
