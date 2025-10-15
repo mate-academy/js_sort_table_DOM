@@ -1,35 +1,57 @@
 'use strict';
 
 // write code here
+document.addEventListener('DOMContentLoaded', () => {
+  const thead = document.querySelector('thead');
+  const tbody = document.querySelector('tbody');
 
-const thead = document.querySelector('thead');
-const tbody = document.querySelector('tbody');
-
-const numericCols = [2, 3];
-
-thead.addEventListener('click', (e) => {
-  if (e.target.tagName !== 'TH') {
+  if (!thead || !tbody) {
     return;
   }
 
-  const th = e.target;
-  const colIndex = Array.from(th.parentElement.children).indexOf(th);
-  const rows = Array.from(tbody.querySelectorAll('tr'));
+  const numericCols = [2, 3];
 
-  const sortedRows = rows.sort((a, b) => {
-    const aText = a.cells[colIndex].textContent.trim();
-    const bText = b.cells[colIndex].textContent.trim();
+  thead.addEventListener('click', (e) => {
+    const th = e.target.closest('th');
 
-    if (numericCols.includes(colIndex)) {
-      const aNum = parseFloat(aText.replace(/[^0-9.]/g, ''));
-      const bNum = parseFloat(bText.replace(/[^0-9.]/g, ''));
-
-      return aNum - bNum;
+    if (!th || !thead.contains(th)) {
+      return;
     }
 
-    return aText.localeCompare(bText);
-  });
+    const colIndex = Array.from(th.parentElement.children).indexOf(th);
 
-  tbody.innerHTML = '';
-  sortedRows.forEach((row) => tbody.appendChild(row));
+    if (colIndex === -1) {
+      return;
+    }
+
+    const rows = Array.from(tbody.rows);
+
+    const sortedRows = rows.sort((a, b) => {
+      if (!a.cells[colIndex] || !b.cells[colIndex]) {
+        return 0;
+      }
+
+      const aText = a.cells[colIndex].textContent.trim();
+      const bText = b.cells[colIndex].textContent.trim();
+
+      if (numericCols.includes(colIndex)) {
+        const parseNumeric = (text) => {
+          const clean = text.replace(/,/g, '');
+          const num = parseFloat(clean.replace(/[^\d.-]/g, ''));
+
+          return Number.isNaN(num) ? 0 : num;
+        };
+
+        const aNum = parseNumeric(aText);
+        const bNum = parseNumeric(bText);
+
+        return aNum - bNum;
+      }
+
+      return aText.localeCompare(bText, undefined, { sensitivity: 'base' });
+    });
+
+    tbody.textContent = '';
+    sortedRows.forEach((row) => tbody.appendChild(row));
+  });
 });
