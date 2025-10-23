@@ -7,7 +7,7 @@
 const table = document.querySelector('table');
 const tbody = table.querySelector('tbody');
 const theadThs = table.querySelector('thead').querySelector('tr').children;
-const tbodyTrs = tbody.querySelectorAll('tr');
+let tbodyTrs = tbody.querySelectorAll('tr');
 
 for (const th of theadThs) {
   if (th.nodeType === Node.ELEMENT_NODE) {
@@ -44,6 +44,8 @@ function sortWords(nthChildNumber) {
       tbody.append(person[1]);
     }
   }
+
+  tbodyTrs = tbody.querySelectorAll('tr');
 }
 
 function sortNumbers(nthChildNumber) {
@@ -61,6 +63,8 @@ function sortNumbers(nthChildNumber) {
       tbody.append(person[1]);
     }
   }
+
+  tbodyTrs = tbody.querySelectorAll('tr');
 }
 
 const nameTh = document.querySelector('.name');
