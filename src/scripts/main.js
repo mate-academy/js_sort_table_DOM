@@ -5,49 +5,51 @@ function parseSalary(str) {
   return Number(str.replace(/[^\d.-]/g, ''));
 }
 
-// функция для форматирования числа обратно в вид "$162,700"
-function formatSalary(num) {
-  return `$${num.toLocaleString('en-US')}`;
-}
-
-function sort(table, i) {
+function sort(table, target) {
   const rows = Array.from(table.rows);
-  const cells = rows.map(row => row.cells[i]);
-  const values = rows.map(row => row.cells[i].textContent.trim());
+  const ths = [...thead.querySelectorAll('th')];
+  const indexOfColumn = ths.indexOf(target);
+  let sortedRows = [];
 
-  // проверяем, если это колонка с зарплатой (index = 3)
-  if (i === 3) {
-    const salaries = values.map(parseSalary);
+  table.innerHTML = "";
 
-    // сортировка по числовым значениям
-    const sorted = [...salaries].sort((a, b) => a - b);
+  if (indexOfColumn === 0 || indexOfColumn === 1) {
+    sortedRows = rows.sort((a, b) => {
+      const str1 = a.cells[indexOfColumn].textContent.trim();
+      const str2 = b.cells[indexOfColumn].textContent.trim();
 
-    // обновляем ячейки в отсортированном порядке
-    sorted.forEach((salary, index) => {
-      cells[index].textContent = formatSalary(salary);
+      return str1.localeCompare(str2);
     });
-
-  // если колонка с возрастом — сортируем числа
-  } else if (i === 2) {
-    const ages = values.map(Number);
-    const sorted = [...ages].sort((a, b) => a - b);
-    sorted.forEach((age, index) => cells[index].textContent = age);
-
-  // иначе — сортируем строки (имена, должности)
-  } else {
-    const sorted = [...values].sort((a, b) => a.localeCompare(b));
-    sorted.forEach((val, index) => cells[index].textContent = val);
   }
+  else if (indexOfColumn === 3) {
+    sortedRows = rows.sort((a, b) => {
+      const num1 = parseSalary(a.cells[indexOfColumn].textContent.trim());
+      const num2 = parseSalary(b.cells[indexOfColumn].textContent.trim());
+
+      return num1 - num2;
+    });
+  }
+  else {
+    sortedRows = rows.sort((a, b) => {
+      const num1 = Number(a.cells[indexOfColumn].textContent.trim())
+      const num2 = Number(b.cells[indexOfColumn].textContent.trim());
+
+      return num1 - num2;
+    });
+  }
+
+  sortedRows.forEach(row => table.appendChild(row));
 }
 
 const thead = document.querySelector('thead');
 const tbody = document.querySelector('tbody');
 
 thead.addEventListener('click', (e) => {
-  switch (e.target.textContent.trim()) {
-    case 'Name': sort(tbody, 0); break;
-    case 'Position': sort(tbody, 1); break;
-    case 'Age': sort(tbody, 2); break;
-    case 'Salary': sort(tbody, 3); break;
+  const myTarget = e.target.closest('th');
+
+  if (!myTarget) {
+    return;
   }
+
+  sort(tbody, myTarget);
 });
