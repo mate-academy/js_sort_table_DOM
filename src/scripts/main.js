@@ -4,12 +4,9 @@ const table = document.querySelector('table');
 const tbody = table.querySelector('tbody');
 const headers = table.querySelectorAll('thead th');
 
-const sortState = {};
-
 headers.forEach((th, index) => {
   th.addEventListener('click', () => {
     const rows = Array.from(tbody.querySelectorAll('tr'));
-    const isAsc = (sortState[index] = !sortState[index]);
 
     rows.sort((rowA, rowB) => {
       let cellA = rowA.children[index].textContent.trim();
@@ -26,10 +23,10 @@ headers.forEach((th, index) => {
       }
 
       if (typeof cellA === 'number') {
-        return isAsc ? cellA - cellB : cellB - cellA;
+        return cellA - cellB;
       }
 
-      return isAsc ? cellA.localeCompare(cellB) : cellB.localeCompare(cellA);
+      return cellA.localeCompare(cellB);
     });
 
     tbody.innerHTML = '';
