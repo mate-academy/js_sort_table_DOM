@@ -1,5 +1,3 @@
-'use strict';
-
 const table = document.querySelector('table');
 const tBody = table.querySelector('tbody');
 const tr = [...tBody.querySelectorAll('tr')];
@@ -11,11 +9,14 @@ th.forEach((header, index) => {
       const firstElem = elem1.children[index].textContent.trim();
       const secondElem = elem2.children[index].textContent.trim();
 
-      if (index <= 1) {
+      const firstNum = stringToNumber(firstElem);
+      const secondNum = stringToNumber(secondElem);
+
+      if (Number.isNaN(firstNum) || Number.isNaN(secondNum)) {
         return firstElem.localeCompare(secondElem);
       }
 
-      return stringToNumber(firstElem) - stringToNumber(secondElem);
+      return firstNum - secondNum;
     }).forEach((elem) => {
       tBody.appendChild(elem);
     });
