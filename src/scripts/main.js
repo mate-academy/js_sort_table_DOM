@@ -29,7 +29,6 @@ th.forEach((item, index) => {
 
       return cellA.localeCompare(cellB);
     });
-
     rows.forEach((row) => tbody.append(row));
   });
 });
