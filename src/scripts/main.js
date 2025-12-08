@@ -1,13 +1,5 @@
 'use strict';
 
-function isNumber(value) {
-  return /\d/.test(value);
-}
-
-function validate(value) {
-  return +value.replace(/\D/g, '');
-}
-
 document.addEventListener('DOMContentLoaded', () => {
   const table = document.querySelector('table');
   const tHead = table.tHead;
@@ -24,14 +16,17 @@ document.addEventListener('DOMContentLoaded', () => {
     const thIndex = th.cellIndex;
 
     rows.sort((firstRow, secondRow) => {
-      const firstValue = firstRow.cells[thIndex].textContent;
-      const secondValue = secondRow.cells[thIndex].textContent;
+      const firstText = firstRow.cells[thIndex].textContent;
+      const secondText = secondRow.cells[thIndex].textContent;
 
-      if (isNumber(firstValue) && isNumber(secondValue)) {
-        return validate(firstValue) - validate(secondValue);
+      const firstNum = parseFloat(firstText.replace(/[^0-9.-]/g, ''));
+      const secondNum = parseFloat(secondText.replace(/[^0-9.-]/g, ''));
+
+      if (isNaN(firstNum) && isNaN(secondNum)) {
+        return firstText.localeCompare(secondText);
       }
 
-      return firstValue.localeCompare(secondValue);
+      return firstNum - secondNum;
     });
 
     tBody.append(...rows);
