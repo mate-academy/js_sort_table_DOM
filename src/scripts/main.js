@@ -4,20 +4,12 @@ const table = document.querySelector('table');
 const tableHead = table ? table.querySelector('thead') : null;
 const tableBody = table ? table.querySelector('tbody') : null;
 
-if (!table || !tableHead || !tableBody) {
-}
-
-const dataTypes = {
-  0: 'string',
-  1: 'string',
-  2: 'number',
-  3: 'currency',
-};
-
+// 1. Оголошення функцій перенесено на кореневий рівень
 /**
- * @param {string} value
- * @param {string} type
- * @returns {number|string}
+ * Функція нормалізації значення для коректного сортування.
+ * @param {string} value - Текстове значення комірки.
+ * @param {string} type - Тип даних ('string', 'number', 'currency').
+ * @returns {number|string} - Числове або нормалізоване текстове значення.
  */
 function normalizeValue(value, type) {
   if (type === 'number') {
@@ -32,14 +24,22 @@ function normalizeValue(value, type) {
 }
 
 /**
- * Основна функція сортування таблиці.
- * @param {number} columnIndex
+ * Основна функція сортування таблиці (ASC).
+ * @param {number} columnIndex - Індекс колонки для сортування.
  */
 function sortTable(columnIndex) {
+  const dataTypes = {
+    0: 'string',
+    1: 'string',
+    2: 'number',
+    3: 'currency',
+  };
+
   const dataType = dataTypes[columnIndex];
 
   const rows = Array.from(tableBody.querySelectorAll('tr'));
 
+  // ... (решта логіки sortTable)
   rows.sort((rowA, rowB) => {
     const cellA = rowA.children[columnIndex].textContent;
     const cellB = rowB.children[columnIndex].textContent;
@@ -61,20 +61,21 @@ function sortTable(columnIndex) {
   const fragment = document.createDocumentFragment();
 
   rows.forEach((row) => fragment.appendChild(row));
-
   tableBody.appendChild(fragment);
 }
 
-tableHead.addEventListener('click', (e) => {
-  const header = e.target.closest('th');
+if (table && tableHead && tableBody) {
+  tableHead.addEventListener('click', (e) => {
+    const header = e.target.closest('th');
 
-  if (!header) {
-    return;
-  }
+    if (!header) {
+      return;
+    }
 
-  const headerRow = header.parentNode;
-  const allHeaders = Array.from(headerRow.children);
-  const columnIndex = allHeaders.indexOf(header);
+    const headerRow = header.parentNode;
+    const allHeaders = Array.from(headerRow.children);
+    const columnIndex = allHeaders.indexOf(header);
 
-  sortTable(columnIndex);
-});
+    sortTable(columnIndex);
+  });
+}
