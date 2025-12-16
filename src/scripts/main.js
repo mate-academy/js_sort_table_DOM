@@ -11,8 +11,8 @@ header.addEventListener('click', (e) => {
     const rowTwo = rowB.cells[e.target.cellIndex].innerHTML;
 
     if (rowOne.includes('$')) {
-      const modRowOne = rowOne.replaceAll(',', '.').split('').slice(1).join('');
-      const modRowTwo = rowTwo.replaceAll(',', '.').split('').slice(1).join('');
+      const modRowOne = rowOne.replaceAll(',', '').slice(1);
+      const modRowTwo = rowTwo.replaceAll(',', '').slice(1);
 
       return modRowOne - modRowTwo;
     }
