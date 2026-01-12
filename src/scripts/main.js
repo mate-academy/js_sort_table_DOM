@@ -2,13 +2,18 @@
 
 const tbody = document.querySelector('tbody');
 const headers = document.querySelectorAll('th');
-const rows = Array.from(tbody.querySelectorAll('tr'));
 
 headers.forEach((header) => {
   header.addEventListener('click', (e) => {
+    const rows = Array.from(tbody.querySelectorAll('tr'));
+
     rows.sort((a, b) => {
-      const aText = a.children[e.target.cellIndex].textContent.trim();
-      const bText = b.children[e.target.cellIndex].textContent.trim();
+      const aText = a.children[e.target.cellIndex].textContent
+        .trim()
+        .replace(/[$,]/g, '');
+      const bText = b.children[e.target.cellIndex].textContent
+        .trim()
+        .replace(/[$,]/g, '');
 
       const aNum = Number(aText);
       const bNum = Number(bText);
