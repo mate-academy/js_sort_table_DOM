@@ -24,7 +24,7 @@ thead.addEventListener('click', (e) => {
       ? cellA
       : parseFloat(cleanValue(cellA));
 
-    const valB = isNaN(cleanValue(cellA))
+    const valB = isNaN(cleanValue(cellB))
       ? cellB
       : parseFloat(cleanValue(cellB));
 
