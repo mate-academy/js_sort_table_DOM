@@ -2,8 +2,13 @@
 
 document.addEventListener('DOMContentLoaded', () => {
   const table = document.querySelector('table');
-  const headers = table.querySelectorAll('th');
+
+  if (!table || !table.tBodies || !table.tBodies.length) {
+    return;
+  }
+
   const tbody = table.tBodies[0];
+  const headers = table.querySelectorAll('th');
 
   headers.forEach((header, columnIndex) => {
     header.addEventListener('click', () => {
@@ -12,26 +17,29 @@ document.addEventListener('DOMContentLoaded', () => {
       const dataRows = rows.filter((row) => row.querySelectorAll('td').length);
       const footerRow = rows.find((row) => row.querySelectorAll('th').length);
 
-      dataRows.sort((a, b) => {
-        const aText = a.cells[columnIndex].innerText.trim();
-        const bText = b.cells[columnIndex].innerText.trim();
+      const headerType = header.textContent.trim().toLowerCase();
 
-        if (header.innerText === 'Salary') {
+      dataRows.sort((a, b) => {
+        const aText = a.cells[columnIndex].textContent.trim();
+        const bText = b.cells[columnIndex].textContent.trim();
+
+        if (headerType === 'salary') {
           return (
             Number(aText.replace(/[$,]/g, '')) -
             Number(bText.replace(/[$,]/g, ''))
           );
         }
 
-        if (header.innerText === 'Age') {
+        if (headerType === 'age') {
           return Number(aText) - Number(bText);
         }
 
         return aText.localeCompare(bText);
       });
 
-      // 🔥 KLUCZ: tylko przestawiamy wiersze
-      dataRows.forEach((row) => tbody.insertBefore(row, footerRow));
+      dataRows.forEach((row) => {
+        tbody.insertBefore(row, footerRow || null);
+      });
     });
   });
 });
