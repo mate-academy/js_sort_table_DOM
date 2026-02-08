@@ -3,12 +3,12 @@
 document.addEventListener('DOMContentLoaded', () => {
   const table = document.querySelector('table');
 
-  if (!table || !table.tBodies || !table.tBodies.length) {
+  if (!table || !table.tHead || !table.tBodies.length) {
     return;
   }
 
   const tbody = table.tBodies[0];
-  const headers = table.querySelectorAll('th');
+  const headers = table.tHead.querySelectorAll('th');
 
   headers.forEach((header, columnIndex) => {
     header.addEventListener('click', () => {
@@ -20,8 +20,16 @@ document.addEventListener('DOMContentLoaded', () => {
       const headerType = header.textContent.trim().toLowerCase();
 
       dataRows.sort((a, b) => {
-        const aText = a.cells[columnIndex].textContent.trim();
-        const bText = b.cells[columnIndex].textContent.trim();
+        const aCell = a.cells[columnIndex];
+        const bCell = b.cells[columnIndex];
+
+        // defensive: jeśli struktura się nie zgadza, nie sortujemy
+        if (!aCell || !bCell) {
+          return 0;
+        }
+
+        const aText = aCell.textContent.trim();
+        const bText = bCell.textContent.trim();
 
         if (headerType === 'salary') {
           return (
