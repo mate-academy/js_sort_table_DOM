@@ -2,20 +2,22 @@
 
 // write code here
 const table = document.querySelector('table');
-const tbody = table.querySelector('tbody');
+const tbody = document.querySelector('tbody');
 
 table.addEventListener('click', (e) => {
-  if (e.target.tagName !== 'TH') {
+  const col = e.target.closest('th');
+
+  if (col === null) {
     return;
   }
 
   const rows = [...tbody.rows];
 
-  const ind = e.target.cellIndex;
+  const ind = col.cellIndex;
 
   const sortedRows = rows.sort((a, b) => {
-    const astr = a.cells[ind].textContent.replace(/[^\d]/g, '');
-    const bstr = b.cells[ind].textContent.replace(/[^\d]/g, '');
+    const astr = a.cells[ind].textContent.replace(/[^\d.-]/g, '');
+    const bstr = b.cells[ind].textContent.replace(/[^\d.-]/g, '');
 
     if (astr.length > 0 && bstr.length > 0) {
       return +astr - +bstr;
