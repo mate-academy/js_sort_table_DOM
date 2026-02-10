@@ -5,6 +5,10 @@ const table = document.querySelector('table');
 const tbody = document.querySelector('tbody');
 
 table.addEventListener('click', (e) => {
+  if (!table || !tbody) {
+    return;
+  }
+
   const col = e.target.closest('th');
 
   if (col === null) {
