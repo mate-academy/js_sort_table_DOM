@@ -3,9 +3,7 @@
 const table = document.querySelector('table');
 const thead = table.querySelector('thead');
 
-const toggles = { Name: true, Position: true, Age: true, Salary: true };
-
-const sortColumn = (columnIndex, isNumeric, ascending = true) => {
+const sortColumn = (columnIndex, isNumeric) => {
   const tbody = table.querySelector('tbody');
   const rows = [...tbody.querySelectorAll('tr')];
 
@@ -18,32 +16,31 @@ const sortColumn = (columnIndex, isNumeric, ascending = true) => {
       bVal = Number(bVal.replace(/\$|,/g, ''));
     }
 
-    return ascending ? (aVal > bVal ? 1 : aVal < bVal ? -1 : 0)
-                     : (aVal < bVal ? 1 : aVal > bVal ? -1 : 0);
+    return aVal > bVal ? 1 : aVal < bVal ? -1 : 0;
   });
 
   rows.forEach(row => tbody.appendChild(row));
 };
 
+
 thead.addEventListener('click', (event) => {
-  const header = event.target.textContent.trim();
+  const th = event.target.closest('th');
+  if (!th) return;
+
+  const header = th.textContent.trim();
 
   switch (header) {
     case "Name":
-      sortColumn(0, false, toggles.Name);
-      toggles.Name = !toggles.Name;
+      sortColumn(0, false);
       break;
     case "Position":
-      sortColumn(1, false, toggles.Position);
-      toggles.Position = !toggles.Position;
+      sortColumn(1, false);
       break;
     case "Age":
-      sortColumn(2, true, toggles.Age);
-      toggles.Age = !toggles.Age;
+      sortColumn(2, true);
       break;
     case "Salary":
-      sortColumn(3, true, toggles.Salary);
-      toggles.Salary = !toggles.Salary;
+      sortColumn(3, true);
       break;
   }
 });
