@@ -1,6 +1,6 @@
 'use strict';
 
-document.addEventListener('DOMContentLoaded', sort());
+document.addEventListener('DOMContentLoaded', sort);
 
 function sort() {
   const table = document.querySelector('table');
