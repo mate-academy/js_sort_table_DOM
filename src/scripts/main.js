@@ -24,9 +24,7 @@ tableHeaders.forEach((th) => {
         return numberA - numberB;
       }
 
-      if (valueA !== '' && valueB !== '') {
-        return valueA.localeCompare(valueB);
-      }
+      return valueA.localeCompare(valueB);
     });
 
     tableBody.innerHTML = '';
