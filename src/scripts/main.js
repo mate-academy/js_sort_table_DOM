@@ -6,11 +6,10 @@ const tbody = Array.from(table.tBodies[0].children);
 
 tHead.addEventListener('click', (e) => {
   const target = e.target;
-  const tbodyNow = table.tBodies[0];
 
   if (target.textContent === 'Age') {
+    const tbodyNow = table.tBodies[0];
     const number = target.cellIndex;
-
     const newTbody = tbody.sort((first, second) => {
       const firstFinished = Number(first.children[number].textContent);
       const secondFinished = Number(second.children[number].textContent);
@@ -24,8 +23,8 @@ tHead.addEventListener('click', (e) => {
   }
 
   if (target.textContent === 'Salary') {
+    const tbodyNow = table.tBodies[0];
     const number = target.cellIndex;
-
     const newTbody = tbody.sort((first, second) => {
       const firstFinished = Number(
         first.children[number].textContent.slice(1).split(',').join(''),
@@ -43,6 +42,7 @@ tHead.addEventListener('click', (e) => {
   }
 
   if (target.textContent === 'Position') {
+    const tbodyNow = table.tBodies[0];
     const number = target.cellIndex;
     const newTbody = tbody.sort((first, second) => {
       const firstFinished = first.children[number].textContent;
@@ -57,8 +57,8 @@ tHead.addEventListener('click', (e) => {
   }
 
   if (target.textContent === 'Name') {
+    const tbodyNow = table.tBodies[0];
     const number = target.cellIndex;
-
     const newTbody = tbody.sort((first, second) => {
       const firstFinished = first.children[number].textContent;
       const secondFinished = second.children[number].textContent;
