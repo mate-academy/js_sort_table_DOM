@@ -2,10 +2,10 @@
 
 const table = document.querySelector('table');
 const tHead = table.tHead;
-const tbody = Array.from(table.tBodies[0].children);
 
 tHead.addEventListener('click', (e) => {
   const target = e.target;
+  const tbody = Array.from(table.tBodies[0].children);
 
   if (target.textContent === 'Age') {
     const tbodyNow = table.tBodies[0];
