@@ -12,8 +12,8 @@ headers.forEach((th) => {
     elToSort.sort((a, b) => {
       const textA = a.children[index].textContent.trim();
       const textB = b.children[index].textContent.trim();
-      const numA = Number(textA);
-      const numB = Number(textB);
+      const numA = Number(textA.replace('$', '').replace(',', '').trim());
+      const numB = Number(textB.replace('$', '').replace(',', '').trim());
 
       if (!Number.isNaN(numA) && !Number.isNaN(numB)) {
         return numA - numB;
