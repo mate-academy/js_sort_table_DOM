@@ -1,11 +1,28 @@
 'use strict';
 
-const table = document.querySelector('table');
+function initTableSort() {
+  const table = document.querySelector('table');
 
-const tHead = table.querySelectorAll('th');
+  if (!table) {
+    return;
+  }
 
-function sortTable(columnIndex) {
+  const tHead = table.querySelectorAll('th');
+
+  tHead.forEach((header) => {
+    header.addEventListener('click', () => {
+      sortTable(table, header.cellIndex);
+    });
+  });
+}
+
+function sortTable(table, columnIndex) {
   const tBody = table.tBodies[0];
+
+  if (!tBody) {
+    return;
+  }
+
   const rows = Array.from(tBody.querySelectorAll('tr'));
 
   const sortedRows = rows.sort((a, b) => {
@@ -18,8 +35,4 @@ function sortTable(columnIndex) {
   tBody.append(...sortedRows);
 }
 
-tHead.forEach((header) => {
-  header.addEventListener('click', () => {
-    sortTable(header.cellIndex);
-  });
-});
+initTableSort();
