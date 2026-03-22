@@ -4,7 +4,13 @@ const thead = document.querySelector('thead');
 const tbody = document.querySelector('tbody');
 
 thead.addEventListener('click', (e) => {
-  const index = e.target.cellIndex;
+  const th = e.target.closest('th');
+
+  if (!th) {
+    return;
+  }
+
+  const index = th.cellIndex;
 
   const rowsArray = Array.from(tbody.rows);
 
