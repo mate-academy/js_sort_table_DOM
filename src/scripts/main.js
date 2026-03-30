@@ -1,42 +1,36 @@
 'use strict';
 
 const head = document.querySelectorAll('thead th');
-const list = document.querySelectorAll('tbody tr');
+const tbody = document.querySelector('tbody');
 
 for (let i = 0; i < head.length; i++) {
   head[i].addEventListener('click', () => {
-    for (let k = 0; k < list.length; k++) {
-      for (let j = k; j < list.length;j++) {
-        if (i < 2) {
-          if (list[k].children[i].textContent >list[j].children[i].textContent) {
-            const tempHTML = list[k].innerHTML;
-            list[k].innerHTML = list[j].innerHTML;
-            list[j].innerHTML = tempHTML;
-          }
-        }
+    const rowsArray = Array.from(tbody.querySelectorAll('tr'));
 
-        if (i === 2) {
-          if (Number(list[k].children[i].textContent) > Number(list[j].children[i].textContent)) {
-            const tempHTML = list[k].innerHTML;
-            list[k].innerHTML = list[j].innerHTML;
-            list[j].innerHTML = tempHTML;
-          }
-        }
+    rowsArray.sort((rowA, rowB) => {
+      const textA = rowA.children[i].textContent;
+      const textB = rowB.children[i].textContent;
 
-        if (i === 3) {
-          if (toNumber(list[k].children[i].textContent) > toNumber(list[j].children[i].textContent)) {
-            const tempHTML = list[k].innerHTML;
-            list[k].innerHTML = list[j].innerHTML;
-            list[j].innerHTML = tempHTML;
-          }
-        }
+      if (i < 2) {
+        if (textA > textB) return 1;
+        if (textA < textB) return -1;
+        return 0;
       }
-    }
+
+      if (i === 2) {
+        return Number(textA) - Number(textB);
+      }
+
+      if (i === 3) {
+        return toNumber(textA) - toNumber(textB);
+      }
+    });
+
+    tbody.append(...rowsArray);
   });
 }
 
-function toNumber(num) {
-  num = num.slice(1);
-  num = Number(num.split(',').join(''));
-  return num;
+function toNumber(text) {
+  const cleanText = text.slice(1).split(',').join('');
+  return Number(cleanText);
 }
