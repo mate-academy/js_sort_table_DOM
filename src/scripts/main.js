@@ -22,7 +22,6 @@ function normalizeListObj(row) {
     };
   });
 }
-normalizeListObj(trItemes);
 
 function sortList(list, key) {
   const newList = list.sort((a, b) => {
