@@ -9,6 +9,11 @@ thead.addEventListener('click', (e) => {
    * @type {HTMLTableCellElement}
    */
   const cellHead = e.target.closest('th');
+
+  if (cellHead === null) {
+    return;
+  }
+
   const indexColumn = cellHead.cellIndex;
   const isNumberColumn =
     cellHead.textContent.trim() === 'Age' ||
