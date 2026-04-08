@@ -5,11 +5,10 @@ const tbody = document.querySelector('tbody');
 
 thead.addEventListener('click', (e) => {
   const th = e.target.closest('th');
-  if (!th) return;
-
   const columnIndex = th.cellIndex;
-  console.log('Сортируем по колонке №:', columnIndex);
-  const tableInfo = [...tbody.rows]
+  const tableInfo = [...tbody.rows];
+
+  if (!th) return;
 
   tableInfo.sort((rowA, rowB) => {
     const contentA = rowA.cells[columnIndex].textContent;
@@ -22,7 +21,6 @@ thead.addEventListener('click', (e) => {
     if (columnIndex === 3) {
       const A = contentA.replaceAll('$', '').replaceAll(',', '');
       const B = contentB.replaceAll('$', '').replaceAll(',', '');
-      console.log(contentA, contentB)
       return (+A) - (+B);
     }
 
