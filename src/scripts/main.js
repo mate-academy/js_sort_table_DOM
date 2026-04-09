@@ -5,10 +5,13 @@ const tbody = document.querySelector('tbody');
 
 thead.addEventListener('click', (e) => {
   const th = e.target.closest('th');
+
+  if (!th) return;
+
   const columnIndex = th.cellIndex;
   const tableInfo = [...tbody.rows];
 
-  if (!th) return;
+
 
   tableInfo.sort((rowA, rowB) => {
     const contentA = rowA.cells[columnIndex].textContent;
