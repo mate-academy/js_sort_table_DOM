@@ -5,7 +5,6 @@ const table = document.querySelector('table');
 table.addEventListener('click', (e) => {
   const target = e.target.closest('th');
   const tbody = table.tBodies[0] || table;
-
   let rows = [];
   const columnIndex = target.cellIndex;
 
