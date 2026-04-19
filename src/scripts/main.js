@@ -1,7 +1,7 @@
 'use strict';
 
 // шукаємо всі заголовки таблиці (<th>), щоб повісити на них подію кліку
-const titleColumns = document.querySelectorAll('th');
+const titleColumns = document.querySelectorAll('thead th');
 
 titleColumns.forEach((th) => {
   // дод. слухач події кліку для кожного конкретного заголовка стовпця
