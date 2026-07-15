@@ -7,9 +7,8 @@ const headerCells = headerRow.cells;
 const body = table.querySelector('tbody');
 
 Array.from(headerCells).forEach((element) => {
-  const rows = Array.from(body.rows);
-
   element.addEventListener('click', (e) => {
+    const rows = Array.from(body.rows);
     const cellNumber = element.cellIndex;
 
     const sortedRows = Array.from(rows).sort((a, b) => {
