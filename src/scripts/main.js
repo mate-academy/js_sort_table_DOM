@@ -5,13 +5,14 @@ const header = table.querySelector('thead');
 const headerRow = header.rows[0];
 const headerCells = headerRow.cells;
 const body = table.querySelector('tbody');
-const bodyRows = body.querySelectorAll('tr');
 
 Array.from(headerCells).forEach((element) => {
+  const rows = Array.from(body.rows);
+
   element.addEventListener('click', (e) => {
     const cellNumber = element.cellIndex;
 
-    const sortedRows = Array.from(bodyRows).sort((a, b) => {
+    const sortedRows = Array.from(rows).sort((a, b) => {
       const aText = a.cells[cellNumber].textContent;
       const bText = b.cells[cellNumber].textContent;
       const sortedNumbers =
