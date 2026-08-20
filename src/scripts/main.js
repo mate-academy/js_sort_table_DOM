@@ -2,6 +2,7 @@
 
 const headers = [...document.querySelectorAll('thead th')];
 const trs = [...document.querySelectorAll('tbody tr')];
+const body = document.querySelector('tbody');
 const head = document.querySelector('thead');
 
 const names = headers.map((header) => {
@@ -11,17 +12,19 @@ const names = headers.map((header) => {
 head.addEventListener('click', (e) => {
   const index = names.indexOf(e.target.firstChild.textContent);
 
-  const column = trs.map((tr) => {
-    return tr.children[index].textContent;
+  const sorted = trs.sort((el1, el2) => {
+    const element1 = el1.children[index].textContent;
+    const element2 = el2.children[index].textContent;
+
+    return (
+      toNum(element1) - toNum(element2) || element1.localeCompare(element2)
+    );
   });
 
-  const sorted = column.sort((el1, el2) => {
-    return toNum(el1) - toNum(el2) || el1.localeCompare(el2);
-  });
-
-  trs.forEach((tr, i) => {
-    tr.children[index].textContent = sorted[i];
-  });
+  // trs.forEach((tr, i) => {
+  //   tbody.append(sorted[i]);
+  // });
+  sorted.forEach((s) => body.append(s));
 });
 
 function toNum(el) {
