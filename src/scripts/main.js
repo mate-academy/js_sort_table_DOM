@@ -3,31 +3,24 @@
 const head = document.querySelector('thead');
 const headers = head.querySelectorAll('th');
 
-const table = document.querySelector('tbody');
-const rows = table.querySelectorAll('tr');
+function sortTable(count) {
+  const table = document.querySelector('tbody');
+  const rows = [...table.querySelectorAll('tr')];
 
-function makeColumn(list, count) {
-  const column = [];
+  rows.sort(
+    (a, b) =>
+      a.cells[count].textContent.trim() - b.cells[count].textContent.trim(),
+  );
 
-  list.forEach((row) => {
-    const cells = row.cells;
-
-    column.push(cells[count].textContent);
-  });
-
-  const sortedColumn = column.sort();
-
-  for (let i = 0; i < list.length; i++) {
-    rows[i].cells[count].textContent = sortedColumn[i];
-  }
-
-  return rows;
+  rows.forEach((row) => table.appendChild(row));
 }
 
 headers.forEach((header) => {
   header.addEventListener('click', () => {
     const counter = [...headers].indexOf(header);
 
-    makeColumn(rows, counter);
+    sortTable(counter);
   });
 });
+
+// console.log(Array.from(rows));
