@@ -4,11 +4,11 @@
 
 const tbody = document.querySelector('tbody');
 const th = document.querySelectorAll('th');
-const tr = tbody.querySelectorAll('tr');
 
 th.forEach((item, i) => {
   item.addEventListener('click', () => {
     const text = item.textContent;
+    const tr = tbody.querySelectorAll('tr');
 
     const sortItems = [...tr].sort((tr1, tr2) => {
       const td1 = tr1.querySelectorAll('td');
